@@ -15,7 +15,7 @@
 # 基本站点设置
 locale                   : "zh-CN"
 site_theme               : "default"
-title                    : "个人作品合集"
+title                    : "作品合集"
 email                    : ""
 description              : ""
 baseurl                  : ""

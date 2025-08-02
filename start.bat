@@ -1,0 +1,3 @@
+@echo off
+echo 正在启动学术网站开发服务器...
+bundle exec jekyll serve --drafts --host 127.0.0.1 --port 4000 --force_polling

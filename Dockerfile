@@ -1,15 +1,20 @@
-# 使用 jekyll/builder 镜像作为基础，它包含了运行 Jekyll 所需的 Ruby 和依赖
-FROM jekyll/builder:latest
+# 使用 Jekyll 官方镜像（通过国内镜像源）
+FROM jekyll/jekyll:latest
 
-# 设置工作目录，这是容器内 Jekyll 项目的路径
+# 设置工作目录
 WORKDIR /srv/jekyll
 
+# 设置 gem 源为国内镜像
+RUN gem sources --add https://mirrors.aliyun.com/rubygems/ --remove https://rubygems.org/
+
+# 升级 Bundler 并设置源
+RUN gem install bundler
+RUN bundle config mirror.https://rubygems.org https://mirrors.aliyun.com/rubygems
+
 # 复制 Gemfile 和 Gemfile.lock
-# 这一步旨在利用 Docker 缓存，如果这两个文件没有改变，bundle install 步骤会跳过
 COPY Gemfile Gemfile.lock ./
 
-# 安装 Gemfile 中定义的所有 gem。
-# 这会确保所有的依赖，包括 webrick，都被正确安装。
+# 安装依赖
 RUN bundle install
 
 # 复制整个项目目录到容器的工作目录中
