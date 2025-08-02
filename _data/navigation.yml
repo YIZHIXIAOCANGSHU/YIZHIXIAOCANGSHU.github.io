@@ -1,0 +1,35 @@
+# 以下是在网站标题栏中链接的顺序。
+#
+# 在此处更改顺序将调整顺序，您还可以添加其他链接。
+# 删除链接可防止其在标题中显示，但不会阻止其包含在网站中。
+#
+# 注意，只能选择一个CV选项，第一个是Markdown格式页面，而第二个是使用JSON生成的。
+
+main:
+  # - title: "Publications"  # 如果不需要出版物页面，可以注释掉此行
+  #   url: /publications/
+
+  # - title: "Talks"  # 演讲页面，已注释掉
+  #   url: /talks/    
+
+  # - title: "Teaching"  # 教学页面，已注释掉
+  #   url: /teaching/    
+    
+  - title: "个人作品"
+    url: /portfolio/
+        
+  - title: "课程作业"
+    url: /year-archive/
+    
+  - title: "简历"
+    url: /cv/
+    
+  # - title: "CV"
+  #   url: /cv-json/
+    
+  - title: "指南"
+    url: /markdown/
+    
+  # 示例：添加新导航项的格式
+  # - title: "新页面名称"
+  #   url: /new-page-url/

@@ -1,0 +1,79 @@
+---
+---
+
+// 首先导入vendor库
+@import "vendor/breakpoint/breakpoint";
+@import "vendor/susy/susy";
+
+// 然后导入主题和变量定义
+@import "theme/default";
+@import "theme/dark";
+@import "themes";
+
+// 然后导入mixin，再导入utilities
+@import "include/mixins";
+@import "include/utilities";
+
+// 最后导入布局相关文件
+@import "layout/reset";
+@import "layout/base";
+@import "layout/tables";
+@import "layout/buttons";
+@import "layout/forms";
+@import "layout/masthead";
+@import "layout/navigation";
+@import "layout/notices";
+@import "layout/page";
+@import "layout/archive";
+@import "layout/sidebar";
+@import "layout/footer";
+
+@import "syntax";
+
+/* 添加教育经历部分的样式 */
+.author__education {
+  margin-top: 1em;
+}
+
+.education-item {
+  margin-bottom: 0.8em;
+  padding: 0.5em;
+  border-left: 2px solid #000;
+}
+
+.education-item:last-child {
+  margin-bottom: 0;
+}
+
+.education-degree {
+  font-weight: bold;
+  margin: 0;
+}
+
+.education-institution {
+  font-style: italic;
+  margin: 0.2em 0;
+}
+
+.education-major {
+  margin: 0.2em 0;
+  font-size: 0.9em;
+}
+
+@media (max-width: 800px) {
+  .education-item {
+    padding: 0.3em;
+  }
+  
+  .education-degree {
+    font-size: 0.9em;
+  }
+  
+  .education-institution {
+    font-size: 0.85em;
+  }
+  
+  .education-major {
+    font-size: 0.8em;
+  }
+}

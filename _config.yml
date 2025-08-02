@@ -1,0 +1,464 @@
+# 欢迎来到 Jekyll!
+#
+# 此配置文件用于设置影响整个站点的配置项，这些值
+# 您只需要设置一次，之后很少需要编辑。
+# 出于技术原因，当您使用
+# `jekyll serve -l -H localhost`时，此文件不会自动重新加载。如果您更改此文件，请重新启动
+# 服务器进程。
+
+# ========================================
+# 基本站点配置
+# ========================================
+# 这部分配置定义了网站的基本信息，包括标题、描述、语言等
+# 这些设置会影响整个网站的显示和SEO优化
+# ========================================
+# 基本站点设置
+locale                   : "zh-CN"
+site_theme               : "default"
+title                    : "个人作品合集"
+email                    : ""
+description              : ""
+baseurl                  : ""
+url                      : ""
+repository               : "academicpages/academicpages.github.io"
+
+# ========================================
+# 作者信息配置
+# ========================================
+# 这部分配置定义了网站作者的个人信息、学术链接和社交媒体账号
+# 信息会显示在网站侧边栏和个人资料页面中
+# ========================================
+# 站点作者 - 以下控制侧边栏中显示的作者内容。
+#               如果字段为空，则不会显示图标和链接，否则将显示。
+#               可以通过编辑 /_includes/author-profile.html 进行额外的自定义
+author:
+  # 个人信息
+  avatar           : "shushu.jpg"
+  name             : "Luwen He"
+  pronouns         : "He" # 例如: "she/her"  
+  bio              : "一只可怜的鼠鼠"
+  location         : "重庆/南京"
+  employer         : # 例如: "某某大学"
+  uri              : # 你的个人主页完整URL，例如：https://www.your-website.com
+  email            : "2752722697@qq.com"
+  
+  # 教育经历
+  # 在这里添加你的教育背景信息
+  education:
+    - degree: "本科"
+      institution: "CQU"
+      major: "机器人工程"
+      year: "2027"
+
+  # 学术网站
+  academia         : # URL
+  arxiv            : # URL - 使用正确的个人资料链接更新
+  googlescholar    : 
+  inspire-hep      : # URL
+  impactstory      : # URL
+  orcid            : 
+  semantic         : # URL
+  pubmed           : 
+  researchgate     : # URL
+  scopus           : # URL
+
+  # 代码仓库和软件开发
+  bitbucket        : # 用户名 - 使用您在该网站上的用户名更新
+  codepen          : # 用户名
+  dribbble         : # 用户名
+  github           : # 用户名 - 使用您的GitHub用户名更新
+  kaggle           : # 用户名  
+  stackoverflow    : # 用户编号或用户编号和名称（即使用"1"或"1/jeff-atwood"）    
+
+  # 社交媒体
+  # 这些是常见的社交媒体和网络平台，用于展示个人或专业形象
+  # 填写用户名或完整URL后，会在个人资料页面显示相应图标和链接
+  artstation       : # 用户名 - ArtStation是艺术家作品集平台
+  bluesky          : # Bluesky是去中心化社交网络平台
+  facebook         : # 用户名 - Facebook社交网络
+  flickr           : # 用户名 - Flickr照片分享平台
+  foursquare       : # 用户名 - Foursquare基于位置的社交网络服务
+  goodreads        : # 用户名 - Goodreads书籍社交网络
+  google_plus      : # 用户名 - Google+社交网络（已停止服务）
+  keybase          : # 用户名 - Keybase加密通信和身份验证平台
+  instagram        : # 用户名 - Instagram图片和视频分享平台
+  lastfm           : # 用户名 - Last.fm音乐推荐和统计平台
+  linkedin         : # 用户名 - LinkedIn职业社交网络
+  mastodon         : # URL - Mastodon去中心化微博客平台
+  medium           : # URL - Medium博客发布平台
+  pinterest        : # 用户名 - Pinterest图片分享和发现平台
+  soundcloud       : # 用户名 - SoundCloud音频分享平台
+  steam            : # 用户名 - Steam游戏分发和社区平台
+  telegram         : # URL - Telegram即时通讯平台
+  tumblr           : # 用户名 - Tumblr微博客平台
+  twitter          : # X / Twitter的用户名 - Twitter微博客平台
+  vine             : # 用户名 - Vine短视频分享平台（已停止服务）
+  weibo            : # 用户名 - 微博中国社交媒体平台
+  wikipedia        : # 用户名 - 维基百科在线百科全书
+  xing             : # 用户名 - Xing德语职业社交网络
+  youtube          : # 用户名 - YouTube视频分享平台
+  zhihu            : # 用户名 - 知乎中文问答社区
+  
+  # 中国社交媒体和通讯工具
+  # 注意：这些平台在默认主题中可能没有图标，需要额外配置
+  wechat           : # 微信号 - 你的微信账号
+  qq               : # QQ号 - 你的QQ账号
+  bilibili         : "https://space.bilibili.com/509745475" # Bilibili空间链接 - B站个人空间
+  csdn             : # CSDN博客链接 - CSDN博客地址
+  jianshu          : # 简书链接 - 简书个人主页
+
+# ========================================
+# 出版物分类配置
+# ========================================
+# 定义网站中出版物的分类及其显示标题
+# 用于组织和展示不同类型的学术出版物
+# ========================================
+# 出版物分类 - 以下为出版物分类列表及其标题
+# 注意：如果不需要展示出版物，可以注释掉以下配置
+publication_category:
+  books:
+    title: 'Books'
+  manuscripts:
+    title: 'Journal Articles'    
+  conferences:
+    title: 'Conference Papers'
+
+# ========================================
+# 网站功能配置
+# ========================================
+# 配置网站的各种功能，如评论系统、面包屑导航、阅读时间估算等
+# 控制网站的交互性和用户体验
+# ========================================
+# 站点设置
+teaser                   :  # 备用预告图片的文件名，放置在 /images/ 中，例如 "500x300.png"
+breadcrumbs              : false # true, false (默认)
+words_per_minute         : 160
+future                   : true
+read_more                : "disabled" # 如果启用，则在摘录中添加"阅读更多"链接
+talkmap_link             : false      # 更改为true以在演讲页面添加talkmap链接
+comments:
+  provider               : # false (默认), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  disqus:
+    shortname            :
+  discourse:
+    server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963，例如：meta.discourse.org
+  facebook:
+    appid                :
+    num_posts            : # 5 (默认)
+    colorscheme          : # "light" (默认), "dark"
+staticman:
+  allowedFields          : ['name', 'email', 'url', 'message']
+  branch                 : "gh-pages" # "master", "gh-pages"
+  commitMessage          : "New comment."
+  filename               : comment-{@timestamp}
+  format                 : "yml"
+  moderation             : true
+  path                   : "_data/comments/{options.slug}"
+  requiredFields         : ['name', 'email', 'message']
+  transforms:
+    email                : "md5"
+  generatedFields:
+    date:
+      type               : "date"
+      options:
+        format           : "iso8601" # "iso8601" (默认), "timestamp-seconds", "timestamp-milliseconds"
+atom_feed:
+  hide                   : false     # 更改为true以隐藏页脚中的RSS源
+  path                   : # 空白(默认)使用feed.xml
+
+
+# ========================================
+# SEO和社交媒体优化配置
+# ========================================
+# 配置搜索引擎验证、社交媒体分享和结构化数据
+# 提高网站在搜索引擎和社交媒体平台上的可见性
+# ========================================
+# SEO相关
+google_site_verification :
+bing_site_verification   :
+alexa_site_verification  :
+yandex_site_verification :
+
+
+# 社交分享
+twitter:
+  username               : &twitter
+facebook:
+  username               :
+  app_id                 :
+  publisher              :
+og_image                 :  # 社交媒体默认站点图片
+og_description           :  # 社交媒体默认站点图片描述
+# 用于指定社交资料
+# - https://developers.google.com/structured-data/customize/social-profiles
+social:
+  type                   : # Person or Organization (默认为Person)
+  name                   : # 如果用户或组织名称与站点名称不同
+  links: # 社交媒体资料链接数组
+
+
+# ========================================
+# 网站分析配置
+# ========================================
+# 配置网站分析工具，用于跟踪访问量和用户行为
+# 帮助了解网站使用情况和优化内容
+# ========================================
+# 分析工具
+analytics:
+  provider               :  "false" # false (默认), "google", "google-universal", "google-analytics-4", "custom"
+  google:
+    tracking_id          :
+
+
+# ========================================
+# 文件处理配置
+# ========================================
+# 配置Jekyll如何处理网站中的文件，包括包含和排除规则
+# 控制哪些文件会被处理和生成到最终网站中
+# ========================================
+# 读取文件
+include:
+  - .htaccess
+  - _pages
+  - files
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - .asset-cache
+  - .bundle
+  - .github
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/_main.js
+  - assets/js/plugins
+  - assets/js/vendor
+  - CHANGELOG
+  - Capfile
+  - config
+  - Dockerfile
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - local
+  - log
+  - node_modules
+  - package.json*
+  - Rakefile
+  - README
+  - tmp
+  - vendor
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+
+# ========================================
+# 内容处理配置
+# ========================================
+# 配置内容处理方式，包括Markdown解析器和高亮器设置
+# 影响文章内容如何被解析和渲染
+# ========================================
+# 转换
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+
+# Markdown处理
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+
+# ========================================
+# 内容集合配置
+# ========================================
+# 定义网站的内容集合，如教学、出版物、作品集和演讲
+# 每个集合可以有自己的布局和URL结构
+# ========================================
+# 这些设置控制模板使用的集合类型
+collections:
+  teaching:
+    output: true
+    permalink: /:collection/:path/
+  # publications:  # 如果不需要出版物功能，可以注释掉以下几行
+  #   output: true
+  #   permalink: /:collection/:path/
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+  talks:
+    output: true
+    permalink: /:collection/:path/
+
+
+# ========================================
+# 默认布局配置
+# ========================================
+# 为不同类型的内容设置默认布局和属性
+# 确保各类内容具有一致的显示样式和功能
+# ========================================
+# 这些设置控制页面和集合如何包含在站点中
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+  # _teaching
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
+  # _publications  # 如果不需要出版物功能，可以注释掉以下几行
+  # - scope:
+  #     path: ""
+  #     type: publications
+  #   values:
+  #     layout: single
+  #     author_profile: true
+  #     share: true
+  #     comments: true
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comment: true
+  # _talks
+  - scope:
+      path: ""
+      type: talks
+    values:
+      layout: talk
+      author_profile: true
+      share: true
+
+
+# ========================================
+# 样式处理配置
+# ========================================
+# 配置Sass/SCSS样式表的处理方式
+# 影响网站的外观和主题样式
+# ========================================
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed # http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
+
+
+# ========================================
+# URL和时区配置
+# ========================================
+# 配置网站的URL结构和时区设置
+# 影响文章和页面的访问路径及时间显示
+# ========================================
+# 输出
+permalink: /:categories/:title/
+# paginate: 5 # 显示的文章数量
+# paginate_path: /page:num/
+timezone: Etc/UTC # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+
+# ========================================
+# 插件配置
+# ========================================
+# 配置网站使用的Jekyll插件
+# 扩展网站功能，如分页、站点地图、重定向等
+# ========================================
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jemoji
+
+# 模拟GitHub Pages与--safe
+whitelist:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jemoji
+
+
+# ========================================
+# 内容归档配置
+# ========================================
+# 配置分类和标签归档页面的生成方式
+# 用于组织和浏览网站内容
+# ========================================
+# 归档
+#  类型
+#  - GitHub Pages兼容的归档页面，使用Liquid构建 ~> type: liquid (默认)
+#  - Jekyll Archives插件归档页面 ~> type: jekyll-archives
+#  路径(示例)
+#  - 使用Liquid方法时归档页面应存在于路径中，否则您可能
+#    会遇到链接断开的问题(特别是启用面包屑导航时)
+#  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
+#  - <base_path/categories/my-awesome-category/index.html ~> path: /categories/
+#  - <base_path/my-awesome-category/index.html ~> path: /
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+# https://github.com/jekyll/jekyll-archives
+# jekyll-archives:
+#   enabled:
+#     - categories
+#     - tags
+#   layouts:
+#     category: archive-taxonomy
+#     tag: archive-taxonomy
+#   permalinks:
+#     category: /categories/:name/
+#     tag: /tags/:name/
+
+
+# ========================================
+# HTML优化配置
+# ========================================
+# 配置HTML压缩选项，减小页面大小提高加载速度
+# ========================================
+# HTML压缩
+# - http://jch.penibelst.de/
+compress_html:
+  clippings: all
+  ignore:
+    envs: development

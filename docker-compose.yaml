@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  jekyll:
+    build:
+      context: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/srv/jekyll:delegated # 在这里添加 :delegated
+    # command: ["jekyll", "serve", "--drafts", "--host", "0.0.0.0", "--force_polling"]
