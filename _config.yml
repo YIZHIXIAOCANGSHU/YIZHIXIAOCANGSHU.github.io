@@ -388,7 +388,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # 显示的文章数量
 # paginate_path: /page:num/
-timezone: Etc/UTC # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Shanghai # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # ========================================
