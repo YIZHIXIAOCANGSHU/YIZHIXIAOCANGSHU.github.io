@@ -1,7 +1,6 @@
 ---
-title: "作品集项目1"
-excerpt: "作品集项目1的简短描述"
-date: 2025-06-14
+title: "作品集项目3"
+excerpt: "作品集项目3的简短描述"
 collection: portfolio
 header:
   teaser: /images/500x300.png

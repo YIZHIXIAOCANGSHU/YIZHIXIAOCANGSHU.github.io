@@ -1,145 +1,145 @@
 ---
-title: "Archive Layout with Content"
+title: "带内容的归档布局"
 layout: archive
 permalink: /archive-layout-with-content/
 ---
 
-A variety of common markup showing how the theme styles them.
+各种常见的标记展示主题样式。
 
-# Header one
+# 一级标题
 
-## Header two
+## 二级标题
 
-### Header three
+### 三级标题
 
-#### Header four
+#### 四级标题
 
-##### Header five
+##### 五级标题
 
-###### Header six
+###### 六级标题
 
-## Blockquotes
+## 引用
 
-Single line blockquote:
+单行引用：
 
-> Quotes are cool.
+> 引用很酷。
 
-## Tables
+## 表格
 
-| Entry            | Item   |                                                              |
+| 条目             | 项目   |                                                              |
 | --------         | ------ | ------------------------------------------------------------ |
-| [John Doe](#)    | 2016   | Description of the item in the list                          |
-| [Jane Doe](#)    | 2019   | Description of the item in the list                          |
-| [Doe Doe](#)     | 2022   | Description of the item in the list                          |
+| [张三](#)        | 2016   | 列表中项目的描述                                             |
+| [李四](#)        | 2019   | 列表中项目的描述                                             |
+| [王五](#)        | 2022   | 列表中项目的描述                                             |
 
-| Header1 | Header2 | Header3 |
+| 表头1 | 表头2 | 表头3 |
 |:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
+| 单元格1   | 单元格2   | 单元格3   |
+| 单元格4   | 单元格5   | 单元格6   |
 |-----------------------------|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
+| 单元格1   | 单元格2   | 单元格3   |
+| 单元格4   | 单元格5   | 单元格6   |
 |=============================|
-| Foot1   | Foot2   | Foot3   |
+| 表尾1   | 表尾2   | 表尾3   |
 
-## Definition Lists
+## 定义列表
 
-Definition List Title
-:   Definition list division.
+定义列表标题
+:   定义列表分区。
 
-Startup
-:   A startup company or startup is a company or temporary organization designed to search for a repeatable and scalable business model.
+初创公司
+:   初创公司或初创企业是为寻找可重复和可扩展的商业模式而设计的公司或临时组织。
 
-#dowork
-:   Coined by Rob Dyrdek and his personal body guard Christopher "Big Black" Boykins, "Do Work" works as a self motivator, to motivating your friends.
+#努力工作
+:   由Rob Dyrdek和他的私人保镖Christopher "Big Black" Boykins创造，"Do Work"作为自我激励器，激励你的朋友。
 
-Do It Live
-:   I'll let Bill O'Reilly [explain](https://www.youtube.com/watch?v=O_HyZ5aW76c "We'll Do It Live") this one.
+现场直播
+:   我会让Bill O'Reilly来[解释](https://www.youtube.com/watch?v=O_HyZ5aW76c "We'll Do It Live")这个。
 
-## Unordered Lists (Nested)
+## 无序列表（嵌套）
 
-  * List item one 
-      * List item one 
-          * List item one
-          * List item two
-          * List item three
-          * List item four
-      * List item two
-      * List item three
-      * List item four
-  * List item two
-  * List item three
-  * List item four
+  * 列表项一 
+      * 列表项一 
+          * 列表项一
+          * 列表项二
+          * 列表项三
+          * 列表项四
+      * 列表项二
+      * 列表项三
+      * 列表项四
+  * 列表项二
+  * 列表项三
+  * 列表项四
 
-## Ordered List (Nested)
+## 有序列表（嵌套）
 
-  1. List item one 
-      1. List item one 
-          1. List item one
-          2. List item two
-          3. List item three
-          4. List item four
-      2. List item two
-      3. List item three
-      4. List item four
-  2. List item two
-  3. List item three
-  4. List item four
+  1. 列表项一 
+      1. 列表项一 
+          1. 列表项一
+          2. 列表项二
+          3. 列表项三
+          4. 列表项四
+      2. 列表项二
+      3. 列表项三
+      4. 列表项四
+  2. 列表项二
+  3. 列表项三
+  4. 列表项四
 
-## Buttons
+## 按钮
 
-Make any link standout more when applying the `.btn` class.
+通过应用`.btn`类使任何链接更加突出。
 
-## Notices
+## 通知
 
-**Watch out!** You can also add notices by appending `{: .notice}` to a paragraph.
+**小心！** 您也可以通过在段落末尾添加`{: .notice}`来添加通知。
 {: .notice}
 
-## HTML Tags
+## HTML标签
 
-### Address Tag
+### 地址标签
 
 <address>
-  1 Infinite Loop<br /> Cupertino, CA 95014<br /> United States
+  1 Infinite Loop<br /> Cupertino, CA 95014<br /> 美国
 </address>
 
-### Anchor Tag (aka. Link)
+### 锚标签（即链接）
 
-This is an example of a [link](http://github.com "GitHub").
+这是一个[链接](http://github.com "GitHub")的例子。
 
-### Abbreviation Tag
+### 缩写标签
 
-The abbreviation CSS stands for "Cascading Style Sheets".
+CSS代表"Cascading Style Sheets"。
 
-*[CSS]: Cascading Style Sheets
+*[CSS]: 层叠样式表
 
-### Cite Tag
+### 引用标签
 
-"Code is poetry." ---<cite>Automattic</cite>
+"代码就是诗歌。" ---<cite>Automattic</cite>
 
-### Code Tag
+### 代码标签
 
-You will learn later on in these tests that `word-wrap: break-word;` will be your best friend.
+在这些测试的后面你会学到`word-wrap: break-word;`将成为你最好的朋友。
 
-### Strike Tag
+### 删除线标签
 
-This tag will let you <strike>strikeout text</strike>.
+这个标签可以让你<strike>删除文本</strike>。
 
-### Emphasize Tag
+### 强调标签
 
-The emphasize tag should _italicize_ text.
+强调标签应该将文本设为_斜体_。
 
-### Insert Tag
+### 插入标签
 
-This tag should denote <ins>inserted</ins> text.
+这个标签应该表示<ins>插入的</ins>文本。
 
-### Keyboard Tag
+### 键盘标签
 
-This scarcely known tag emulates <kbd>keyboard text</kbd>, which is usually styled like the `<code>` tag.
+这个鲜为人知的标签模拟<kbd>键盘文本</kbd>，通常样式类似于`<code>`标签。
 
-### Preformatted Tag
+### 预格式化标签
 
-This tag styles large blocks of code.
+这个标签用于大型代码块。
 
 <pre>
 .post-title {
@@ -151,25 +151,25 @@ This tag styles large blocks of code.
 }
 </pre>
 
-### Quote Tag
+### 引用标签
 
-<q>Developers, developers, developers&#8230;</q> &#8211;Steve Ballmer
+<q>开发者，开发者，开发者&#8230;</q> &#8211;Steve Ballmer
 
-### Strong Tag
+### 粗体标签
 
-This tag shows **bold text**.
+这个标签显示**粗体文本**。
 
-### Subscript Tag
+### 下标标签
 
-Getting our science styling on with H<sub>2</sub>O, which should push the "2" down.
+通过H<sub>2</sub>O进行科学样式设计，应该将"2"向下推。
 
-### Superscript Tag
+### 上标标签
 
-Still sticking with science and Isaac Newton's E = MC<sup>2</sup>, which should lift the 2 up.
+仍然坚持科学和艾萨克·牛顿的E = MC<sup>2</sup>，应该将2向上提。
 
-### Variable Tag
+### 变量标签
 
-This allows you to denote <var>variables</var>.
+这允许你表示<var>变量</var>。
 
 {% include base_path %}
 {% for post in site.pages %}

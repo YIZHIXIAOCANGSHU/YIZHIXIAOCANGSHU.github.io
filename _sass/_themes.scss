@@ -10,8 +10,8 @@
 $doc-font-size              : 16;
 
 /* Paragraph indention */
-$paragraph-indent           : false; // true, false (default)
-$indent-var                 : 1.3em;
+$paragraph-indent           : true; // true, false (default)
+$indent-var                 : 2em;
 
 /* System typefaces */
 $serif                      : Georgia, Times, serif;
