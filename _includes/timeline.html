@@ -1,0 +1,6 @@
+<div class="modern-timeline">
+  {% assign all_items = include.items | sort: 'date' | reverse %}
+  {% for item in all_items %}
+    {% include timeline-item.html item=item %}
+  {% endfor %}
+</div>

@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" />
+<style>
+.timeline-container {
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !important;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.timeline-container .vis-timeline {
+  border: none;
+}
+
+.timeline-container .vis-item {
+  border-color: #007acc;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timeline-container .vis-item.vis-selected {
+  border-color: #005ca9;
+  background-color: #e1e1e1;
+}
+
+.timeline-container .vis-time-axis .vis-text {
+  color: #666;
+}
+
+.timeline-container .timeline-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666;
+}
+</style>
+
+<div id="timeline-{{ include.id }}" class="timeline-container" style="height: {{ include.height | default: '400px' }};">
+  <div class="timeline-loading">加载时间轴中...</div>
+</div>
+
+<script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if vis library is loaded
+  if (typeof vis === 'undefined') {
+    console.error('Vis.js library is not loaded');
+    document.getElementById('timeline-{{ include.id }}').innerHTML = '<div class="timeline-loading">时间轴库加载失败</div>';
+    return;
+  }
+
+  // DOM element where the Timeline will be attached
+  var container = document.getElementById('timeline-{{ include.id }}');
+  
+  // Hide loading message
+  var loadingElement = container.querySelector('.timeline-loading');
+  if (loadingElement) {
+    loadingElement.style.display = 'none';
+  }
+
+  // Portfolio items
+  var portfolioItems = [
+    {% for item in site.portfolio %}
+    {
+      id: 'portfolio-{{ item.title | slugify }}-{{ forloop.index }}',
+      content: '{{ item.title | escape_once }}',
+      start: '{{ item.date | date: '%Y-%m-%d' }}',
+      group: '作品集',
+      description: '{{ item.excerpt | markdownify | strip_html | escape_once | truncate: 100 }}'
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  // Blog post items
+  var postItems = [
+    {% for item in site.posts %}
+    {
+      id: 'post-{{ item.title | slugify }}-{{ forloop.index }}',
+      content: '{{ item.title | escape_once }}',
+      start: '{{ item.date | date: '%Y-%m-%d' }}',
+      group: '课程作业',
+      description: '{{ item.excerpt | markdownify | strip_html | escape_once | truncate: 100 }}'
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  // Combine all items
+  var allItems = portfolioItems.concat(postItems);
+  
+  // Debug: log the items to console
+  console.log('Timeline items:', allItems);
+  
+  // Check if we have any items
+  if (allItems.length === 0) {
+    container.innerHTML = '<div class="timeline-loading">暂无时间轴数据</div>';
+    return;
+  }
+  
+  // Create a DataSet 
+  var items = new vis.DataSet(allItems);
+
+  // Configuration for the Timeline
+  var options = {
+    width: '100%',
+    height: '{{ include.height | default: "400px" }}',
+    locale: 'zh',
+    zoomable: true,
+    moveable: true,
+    selectable: true,
+    editable: false,
+    groupEditable: false,
+    orientation: 'top',
+    showCurrentTime: false,
+    stack: false,
+    tooltip: {
+      followMouse: true,
+      overflowMethod: 'cap'
+    },
+    template: function (item, element, data) {
+      return '<div style="padding: 5px;"><strong>' + item.content + '</strong><br><small>' + (item.description || '') + '</small></div>';
+    }
+  };
+
+  // Create a Timeline
+  try {
+    var timeline = new vis.Timeline(container, items, options);
+  } catch (e) {
+    console.error('Error creating timeline:', e);
+    container.innerHTML = '<div class="timeline-loading">时间轴创建失败: ' + e.message + '</div>';
+  }
+});
+</script>

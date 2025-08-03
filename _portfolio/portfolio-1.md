@@ -3,6 +3,7 @@ title: "作品集项目1"
 excerpt: "作品集项目1的简短描述"
 date: 2025-06-14
 collection: portfolio
+permalink: /portfolio/portfolio-1/
 header:
   teaser: /images/500x300.png
 ---

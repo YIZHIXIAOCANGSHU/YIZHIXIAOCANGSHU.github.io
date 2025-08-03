@@ -1,0 +1,253 @@
+/* 时间轴样式 */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: #ddd;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background-color: white;
+  border: 4px solid #007acc;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+.timeline-item:nth-child(odd)::after {
+  left: -10px;
+}
+
+.timeline-item:nth-child(even)::after {
+  right: -10px;
+}
+
+.timeline-content {
+  padding: 20px;
+  background-color: #f1f1f1;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.timeline-item:nth-child(odd) .timeline-content::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  right: -15px;
+  border: 8px solid transparent;
+  border-left-color: #f1f1f1;
+}
+
+.timeline-item:nth-child(even) .timeline-content::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -15px;
+  border: 8px solid transparent;
+  border-right-color: #f1f1f1;
+}
+
+.timeline-content h3 {
+  margin-top: 0;
+  color: #007acc;
+}
+
+.timeline-content .date {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 31px;
+  }
+  
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+    left: 0 !important;
+  }
+  
+  .timeline-item::after {
+    left: 21px;
+    right: auto;
+  }
+  
+  .timeline-item:nth-child(odd) .timeline-content::after,
+  .timeline-item:nth-child(even) .timeline-content::after {
+    left: 21px;
+    border-right-color: #f1f1f1;
+    border-left: none;
+  }
+}
+
+/* 现代化时间轴样式 - 基于开源库风格 */
+.modern-timeline {
+  position: relative;
+  padding: 40px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+}
+
+.modern-timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #007acc, #00c6ff);
+  border-radius: 2px;
+}
+
+.modern-timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+
+.modern-timeline-item:nth-child(odd) {
+  left: 0;
+  padding-right: 0;
+}
+
+.modern-timeline-item:nth-child(even) {
+  left: 50%;
+  padding-left: 0;
+}
+
+.modern-timeline-item:before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 4px solid #007acc;
+  border-radius: 50%;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.modern-timeline-item:nth-child(odd):before {
+  right: -12px;
+}
+
+.modern-timeline-item:nth-child(even):before {
+  left: -12px;
+}
+
+.modern-timeline-content {
+  position: relative;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.modern-timeline-content:hover {
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+.modern-timeline-content h3 {
+  margin-top: 0;
+  color: #007acc;
+  font-size: 1.3em;
+}
+
+.modern-timeline-content h3 a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+.modern-timeline-content h3 a:hover {
+  text-decoration: underline;
+}
+
+.modern-timeline-content .date {
+  display: inline-block;
+  background: #007acc;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  margin-bottom: 15px;
+}
+
+.modern-timeline-content p {
+  line-height: 1.6;
+  color: #666;
+}
+
+.modern-timeline-content p a {
+  color: #007acc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.modern-timeline-content p a:hover {
+  text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+  .modern-timeline:before {
+    left: 31px;
+  }
+  
+  .modern-timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 0;
+    left: 0 !important;
+    margin-bottom: 50px;
+  }
+  
+  .modern-timeline-item:before {
+    left: 19px;
+  }
+  
+  .modern-timeline-item:nth-child(even) {
+    padding-left: 70px;
+  }
+}

@@ -1,9 +1,11 @@
 ---
 title: "作品集项目3"
 excerpt: "作品集项目3的简短描述"
+date: 2025-08-20
 collection: portfolio
+permalink: /portfolio/portfolio-3/
 header:
   teaser: /images/500x300.png
 ---
 
-这是您的作品集中的一个项目。它可以包含图像或精美文本。如果将文件命名为.md，它将被解析为markdown格式。如果将文件命名为.html，它将被解析为HTML格式。
+这是您的作品集中的第三个项目。您可以在这里详细描述项目内容。
