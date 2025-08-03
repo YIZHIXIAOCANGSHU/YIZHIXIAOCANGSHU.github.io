@@ -36,3 +36,4 @@ redirect_from:
 {% endfor %}
 
 {% include horizontal-timeline.html items=all_items %}
+

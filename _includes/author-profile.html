@@ -18,6 +18,7 @@
     <h3 class="author__name">{{ author.name }}</h3>
     {% if author.pronouns %}<p class="author__pronouns">{{ author.pronouns }}</p>{% endif %}
     {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
+    
   </div>
 
   <div class="author__urls-wrapper">
@@ -27,14 +28,11 @@
       {% if author.location %}
         <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>{{ author.location }}</li>
       {% endif %}
-      
-      <!-- 教育经历 -->
       {% if author.education %}
         {% for edu in author.education %}
-          <li class="author__desktop"><i class="fas fa-fw fa-graduation-cap icon-pad-right" aria-hidden="true"></i>{{ edu.degree }} {{ edu.major }}, {{ edu.institution }} ({{ edu.year }})</li>
+        <li class="author__desktop"><i class="fas fa-fw fa-graduation-cap icon-pad-right" aria-hidden="true"></i>{{ edu.degree }} · {{ edu.major }} · {{ edu.institution }} ({{ edu.year }})</li>
         {% endfor %}
       {% endif %}
-      
       {% if author.employer %}
         <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>{{ author.employer }}</li>
       {% endif %}
@@ -100,15 +98,6 @@
       {% if author.stackoverflow %}
         <li><a href="https://www.stackoverflow.com/users/{{ author.stackoverflow }}"><i class="fab fa-fw fa-stack-overflow icon-pad-right" aria-hidden="true"></i>Stackoverflow</a></li>
       {% endif %}      
-      {% if author.lastfm %}
-        <li><a href="https://last.fm/user/{{ author.lastfm }}"><i class="fab fa-fw fa-lastfm icon-pad-right" aria-hidden="true"></i>Last.fm</a></li>
-      {% endif %}      
-      {% if author.dblp %}
-        <li><a href="{{ author.dblp }}"><i class="ai ai-dblp ai-fw icon-pad-right" aria-hidden="true"></i>DBLP</a></li>
-      {% endif %}      
-      {% if author.wikidata %}
-        <li><a href="https://www.wikidata.org/wiki/{{ author.wikidata }}"><i class="ai ai-wikidata ai-fw icon-pad-right" aria-hidden="true"></i>Wikidata</a></li>
-      {% endif %} 
 
       <!-- Font Awesome icons / Social media -->
       {% if author.artstation %}

@@ -29,7 +29,6 @@
 @import "layout/footer";
 
 @import "syntax";
-@import "collapse";
 
 /* 添加教育经历部分的样式 */
 .author__education {
@@ -78,3 +77,5 @@
     font-size: 0.8em;
   }
 }
+
+@import "collapse";

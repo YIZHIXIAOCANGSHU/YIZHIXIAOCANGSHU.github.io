@@ -26,4 +26,5 @@ EXPOSE 4000
 # 定义容器启动时默认执行的命令
 # --force_polling 参数可以帮助在 Windows/macOS 上通过卷挂载实现文件监听，解决自动渲染问题
 # --drafts 参数保留了您原始命令的需求
-CMD ["jekyll", "serve", "--drafts", "--host", "0.0.0.0", "--force_polling"]
+# --incremental 参数启用增量构建，加快本地开发时的重新构建速度
+CMD ["jekyll", "serve", "--drafts", "--host", "0.0.0.0", "--force_polling", "--incremental"]
