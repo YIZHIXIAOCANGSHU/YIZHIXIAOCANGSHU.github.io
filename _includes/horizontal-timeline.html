@@ -1,0 +1,6 @@
+<div class="horizontal-timeline">
+  {% assign all_items = include.items | sort: 'date' %}
+  {% for item in all_items %}
+    {% include horizontal-timeline-item.html item=item %}
+  {% endfor %}
+</div>

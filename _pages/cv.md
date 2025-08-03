@@ -29,8 +29,8 @@ redirect_from:
 ## 技能
 *
 
-<!-- 综合时间轴：显示个人作品和课程作业 -->
-<h2>综合时间轴</h2>
+<!-- 横向时间轴：显示个人作品和课程作业 -->
+<h2>横向时间轴</h2>
 {% assign all_items = "" | split: "" %}
 {% for item in site.portfolio %}
   {% assign all_items = all_items | push: item %}
@@ -39,4 +39,4 @@ redirect_from:
   {% assign all_items = all_items | push: item %}
 {% endfor %}
 
-{% include timeline.html items=all_items %}
+{% include horizontal-timeline.html items=all_items %}

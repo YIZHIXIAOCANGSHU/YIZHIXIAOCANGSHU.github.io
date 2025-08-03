@@ -1,0 +1,35 @@
+{% if item.header.teaser %}
+  {% capture teaser %}{{ item.header.teaser }}{% endcapture %}
+{% else %}
+  {% assign teaser = site.teaser %}
+{% endif %}
+
+{% if item.id %}
+  {% assign title = item.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = item.title %}
+{% endif %}
+
+<div class="horizontal-timeline-item">
+  <div class="horizontal-timeline-content">
+    <h3>
+      {% if item.url %}
+        <a href="{{ item.url | prepend: site.baseurl }}">{{ title }}</a>
+      {% else %}
+        {{ title }}
+      {% endif %}
+    </h3>
+    
+    {% if item.date %}
+      <div class="date">{{ item.date | date: "%Y年%-m月%-d日" }}</div>
+    {% endif %}
+    
+    {% if item.excerpt %}
+      <p>{{ item.excerpt | markdownify | strip_html | truncate: 100 }}</p>
+    {% endif %}
+    
+    {% if item.url %}
+      <p class="read-more"><a href="{{ item.url | prepend: site.baseurl }}">查看详情 &raquo;</a></p>
+    {% endif %}
+  </div>
+</div>
