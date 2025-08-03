@@ -40,8 +40,7 @@ redirect_from:
 ------
 对于站点内容，每种类型的内容都有一个Markdown文件，存储在目录中，如_publications、_talks、_posts、_teaching或_pages。例如，每次演讲都是_talks目录中的一个Markdown文件。在每个Markdown文件的顶部是关于演讲的YAML结构化数据，主题将解析这些数据来做很多很酷的事情。关于演讲的相同结构化数据用于生成[Talks页面](https://academicpages.github.io/talks)上的演讲列表，每个[单独页面](https://academicpages.github.io/talks/2012-03-01-talk-1)用于特定演讲，[CV页面](https://academicpages.github.io/cv)的演讲部分，以及[您发表演讲地点的地图](https://academicpages.github.io/talkmap.html)（如果您运行此[python文件](https://github.com/academicpages/academicpages.github.io/blob/master/talkmap.py)或[Jupyter notebook](https://github.com/academicpages/academicpages.github.io/blob/master/talkmap.ipynb)，它基于_talks目录的内容创建地图的HTML）。
 
-<embed src="/files/心电测试报告-贺禄文-20234232.pdf" type="application/pdf" width="100%" height="600px" />
-<iframe src="/files/心电测试报告-贺禄文-20234232.pdf" width="100%" height="600px"></iframe>
+
 **Markdown生成器**
 
 仓库包含[一组Jupyter notebooks](https://github.com/academicpages/academicpages.github.io/tree/master/markdown_generator)，将包含有关演讲或演示文稿的结构化数据的CSV转换为将正确格式化的单个Markdown文件，以适应Academic Pages模板。该目录中的示例CSV是我用来创建自己在stuartgeiger.com的个人网站的。我的通常工作流程是保持一个我的出版物和演讲的电子表格，然后运行这些笔记本中的代码生成Markdown文件，然后提交并推送到GitHub仓库。

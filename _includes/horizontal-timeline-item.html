@@ -28,8 +28,6 @@
       <p>{{ item.excerpt | markdownify | strip_html | truncate: 100 }}</p>
     {% endif %}
     
-    {% if item.url %}
-      <p class="read-more"><a href="{{ item.url | prepend: site.baseurl }}">查看详情 &raquo;</a></p>
-    {% endif %}
+
   </div>
 </div>

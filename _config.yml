@@ -45,10 +45,11 @@ author:
   # 教育经历
   # 在这里添加你的教育背景信息
   education:
-    - degree: "本科"
+    - degree: "学士"
       institution: "CQU"
       major: "机器人工程"
       year: "2027"
+
 
   # 学术网站
   academia         : # URL
