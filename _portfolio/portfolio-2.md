@@ -1,9 +1,9 @@
 ---
-title: "Robomaster"
+title: "智能车"
 excerpt: "作品集项目1的简短描述"
 date: 2025-06-14
 collection: portfolio
-permalink: /portfolio/portfolio-1/
+permalink: /portfolio/portfolio-2/
 header:
   teaser: /images/500x300.png
 ---

@@ -7,10 +7,55 @@ redirect_from:
   - /about.html
 ---
 
-这是我个人的一个作品合集。仅供HR对我过往做过的东西进行一个介绍。
+
+
 这是由[Academic Pages模板](https://github.com/academicpages/academicpages.github.io)驱动的网站的首页，并托管在GitHub pages上。[GitHub pages](https://pages.github.com)是一项免费服务，网站从存储在GitHub仓库中的代码和数据构建和托管，当仓库有新提交时会自动更新。此模板是从Michael Rose创建的[Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/)派生而来，然后扩展以支持学术内容：出版物、演讲、教学、作品集、博客文章和动态生成的简历。顺便说一下，这些功能也使它成为任何需要展示专业模板的人的绝佳选择！
 
-您可以立即派生[此模板](https://github.com/academicpages/academicpages.github.io)，修改配置和Markdown文件，添加您自己的PDF和其他内容，并免费拥有自己的网站，无广告！
+## 当前网站显示部分分析
+
+根据对整个项目的分析，目前网站显示的部分主要包括：
+
+### 导航栏显示的页面
+
+网站顶部导航栏显示以下链接（在 [_data/navigation.yml](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_data/navigation.yml) 中配置）：
+
+1. **个人作品** - 链接到 [/portfolio/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/portfolio.html)
+2. **课程作业** - 链接到 [/year-archive/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/year-archive.html)
+3. **简历** - 链接到 [/cv/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/cv.html)
+4. **指南** - 链接到 [/markdown/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/markdown.md)
+
+### 各页面内容
+
+#### 主页 ([_pages/about.md](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/about.md))
+- 设置为网站根页面 (`permalink: /`)
+- 包含个人作品合集网站的介绍
+- 添加了网站概览部分，介绍网站主要内容和技术特点
+
+#### 个人作品页面 ([_pages/portfolio.html](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/portfolio.html))
+- 显示在 [/portfolio/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/portfolio.html)
+- 使用 `archive` 布局
+- 通过循环显示 [_portfolio](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_portfolio) 目录中的作品项
+- 包含3个作品项：
+  - portfolio-1.md (Robomaster)
+  - portfolio-2.md (点足机器人)
+  - portfolio-3.md (智能车比赛)
+
+#### 课程作业页面 ([_pages/year-archive.html](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/year-archive.html))
+- 显示在 [/year-archive/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/year-archive.html)
+- 使用 `archive` 布局
+- 按年份归档显示博客文章
+- 包含7篇博客文章，如"QEA2 心电检测系统"等
+
+#### 简历页面 ([_pages/cv.md](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/cv.html))
+- 显示在 [/cv/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/cv.html)
+- 包含联系方式、教育背景、项目与比赛经历
+- 在页面底部添加了横向时间轴，显示个人作品和课程作业
+
+#### 指南页面 ([_pages/markdown.md](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/markdown.md))
+- 显示在 [/markdown/](file:///c:/Users/27527/Desktop/academicpages.github.io-master/_pages/markdown.md)
+- 提供使用指南和关键文件/目录位置说明
+
+
 
 数据驱动的个人网站
 ======
