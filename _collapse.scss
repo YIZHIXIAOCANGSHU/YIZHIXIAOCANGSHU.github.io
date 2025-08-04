@@ -1,0 +1,56 @@
+
+/* 横向时间轴样式 */
+.horizontal-timeline {
+  position: relative;
+  padding: 100px 0 50px;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 0 auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #007acc #f1f1f1;
+}
+
+.horizontal-timeline::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-timeline::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.horizontal-timeline::-webkit-scrollbar-thumb {
+  background: #007acc;
+  border-radius: 4px;
+}
+
+// 修改: 确保线条覆盖所有节点
+.horizontal-timeline:before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #007acc, #00c6ff);
+  border-radius: 2px;
+  z-index: 0; /* 确保线条在底层 */
+  // 增加宽度以确保覆盖所有节点
+  width: calc(100% + 40px); // 考虑到左右各20px的margin
+  margin-left: -20px;
+}
+
+.horizontal-timeline-item {
+  display: inline-block;
+  position: relative;
+  width: 320px;
+  vertical-align: top;
+  margin: 0 20px;
+  box-sizing: border-box;
+  white-space: normal;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  z-index: 1; /* 确保项目在线条之上 */
+}

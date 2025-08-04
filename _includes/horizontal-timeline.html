@@ -1,6 +1,66 @@
-<div class="horizontal-timeline">
+<div class="horizontal-timeline" data-timeline="horizontal">
   {% assign all_items = include.items | sort: 'date' %}
   {% for item in all_items %}
     {% include horizontal-timeline-item.html item=item %}
   {% endfor %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeline = document.querySelector('[data-timeline="horizontal"]');
+    if (timeline) {
+      // 创建一个实际的线条元素来替代CSS伪元素
+      const timelineLine = document.createElement('div');
+      timelineLine.className = 'horizontal-timeline-line';
+      timeline.appendChild(timelineLine);
+      
+      const updateTimelineWidth = () => {
+        // 获取所有时间轴项目的总宽度
+        const items = timeline.querySelectorAll('.horizontal-timeline-item');
+        if (items.length > 0) {
+          const firstItem = items[0];
+          const lastItem = items[items.length - 1];
+          
+          // 计算第一个和最后一个项目的边界位置
+          const firstPosition = firstItem.offsetLeft;
+          const lastPosition = lastItem.offsetLeft + lastItem.offsetWidth;
+          
+          // 设置线条宽度和位置，延伸到容器边缘
+          timelineLine.style.width = (lastPosition - firstPosition) + 'px';
+          timelineLine.style.left = firstPosition + 'px';
+        }
+      };
+      
+      // 初始更新
+      setTimeout(updateTimelineWidth, 100); // 稍微延迟以确保渲染完成
+      
+      // 监听窗口大小变化
+      window.addEventListener('resize', updateTimelineWidth);
+      
+      // 使用 ResizeObserver 监听时间轴大小变化（如果支持）
+      if (window.ResizeObserver) {
+        const resizeObserver = new ResizeObserver(updateTimelineWidth);
+        resizeObserver.observe(timeline);
+      }
+      
+      // 监听滚动事件来更新线条位置（如果需要）
+      timeline.addEventListener('scroll', updateTimelineWidth);
+    }
+  });
+</script>
+
+<style>
+  .horizontal-timeline-line {
+    position: absolute;
+    top: 50px;
+    height: 4px;
+    background: linear-gradient(to right, #007acc, #00c6ff);
+    border-radius: 2px;
+    z-index: 0;
+    transform: translateY(-50%);
+  }
+  
+  .horizontal-timeline:before {
+    display: none;
+  }
+</style>
