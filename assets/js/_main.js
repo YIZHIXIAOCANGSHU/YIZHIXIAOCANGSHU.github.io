@@ -48,6 +48,27 @@ var toggleTheme = () => {
 };
 
 /* ==========================================================================
+   PDF Viewer integration
+   ========================================================================== */
+
+// 动态加载PDF.js库（如果页面需要）
+function loadPDFJS() {
+  // 检查页面是否包含PDF容器
+  const pdfContainers = document.querySelectorAll('[data-pdf-url]');
+  if (pdfContainers.length > 0) {
+    // 检查是否已经加载了PDF.js
+    if (typeof pdfjsLib === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js';
+      script.onload = function() {
+        console.log('PDF.js library loaded');
+      };
+      document.head.appendChild(script);
+    }
+  }
+}
+
+/* ==========================================================================
    Plotly integration script so that Markdown codeblocks will be rendered
    ========================================================================== */
 
@@ -98,6 +119,9 @@ $(document).ready(function () {
             setTheme(e.matches ? "dark" : "light");
           }
         });
+
+  // Load PDF.js if needed
+  loadPDFJS();
 
   // Enable the theme toggle
   $('#theme-toggle').on('click', toggleTheme);
