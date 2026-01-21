@@ -2,21 +2,23 @@
    Various functions that we want to use within the template
    ========================================================================== */
 
-// Determine the expected state of the theme toggle, which can be "dark", "light", or
+// Determine the expected state of the theme toggle, which can be "dark", "light", "geek" or
 // "system". Default is "system".
 let determineThemeSetting = () => {
   let themeSetting = localStorage.getItem("theme");
-  return (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") ? "system" : themeSetting;
+  return (themeSetting === "dark" || themeSetting === "light" || themeSetting === "geek") 
+    ? themeSetting 
+    : "system";
 };
 
-// Determine the computed theme, which can be "dark" or "light". If the theme setting is
-// "system", the computed theme is determined based on the user's system preference.
+// Determine the computed theme. If the theme setting is "system", 
+// the computed theme is determined based on the user's system preference.
 let determineComputedTheme = () => {
   let themeSetting = determineThemeSetting();
-  if (themeSetting != "system") {
+  if (themeSetting !== "system") {
     return themeSetting;
   }
-  return (userPref && userPref("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+  return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
 };
 
 // detect OS/browser preference
@@ -24,27 +26,25 @@ const browserPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 
 
 // Set the theme on page load or when explicitly called
 let setTheme = (theme) => {
-  const use_theme =
-    theme ||
-    localStorage.getItem("theme") ||
-    $("html").attr("data-theme") ||
-    browserPref;
-
+  const use_theme = theme || localStorage.getItem("theme") || browserPref;
+  
+  // 移除所有主题属性
+  $("html").removeAttr("data-theme");
+  
   if (use_theme === "dark") {
     $("html").attr("data-theme", "dark");
-    $("#theme-icon").removeClass("fa-sun").addClass("fa-moon");
-  } else if (use_theme === "light") {
-    $("html").removeAttr("data-theme");
-    $("#theme-icon").removeClass("fa-moon").addClass("fa-sun");
+    $("#theme-icon").removeClass("fa-sun fa-terminal").addClass("fa-moon");
+  } else if (use_theme === "geek") {
+    $("html").attr("data-theme", "geek");
+    $("#theme-icon").removeClass("fa-sun fa-moon").addClass("fa-terminal");
+  } else {
+    // light theme - 不设置 data-theme 属性，使用默认样式
+    $("#theme-icon").removeClass("fa-moon fa-terminal").addClass("fa-sun");
   }
-};
-
-// Toggle the theme manually
-var toggleTheme = () => {
-  const current_theme = $("html").attr("data-theme");
-  const new_theme = current_theme === "dark" ? "light" : "dark";
-  localStorage.setItem("theme", new_theme);
-  setTheme(new_theme);
+  
+  // 更新下拉菜单中的选中状态
+  $(".theme-dropdown li").removeClass("active");
+  $(`.theme-dropdown li[data-theme="${use_theme}"]`).addClass("active");
 };
 
 /* ==========================================================================
@@ -111,8 +111,10 @@ $(document).ready(function () {
   const scssLarge = 925;          // pixels, from /_sass/_themes.scss
   const scssMastheadHeight = 70;  // pixels, from the current theme (e.g., /_sass/theme/_default.scss)
 
-  // If the user hasn't chosen a theme, follow the OS preference
+  // 初始化主题
   setTheme();
+  
+  // 监听系统主题变化
   window.matchMedia('(prefers-color-scheme: dark)')
         .addEventListener("change", (e) => {
           if (!localStorage.getItem("theme")) {
@@ -123,8 +125,25 @@ $(document).ready(function () {
   // Load PDF.js if needed
   loadPDFJS();
 
-  // Enable the theme toggle
-  $('#theme-toggle').on('click', toggleTheme);
+  // 主题选择器下拉菜单交互
+  $(".theme-toggle-btn").on("click", function(e) {
+    e.stopPropagation();
+    $(".theme-dropdown").toggleClass("show");
+  });
+  
+  // 选择主题
+  $(".theme-dropdown li").on("click", function(e) {
+    e.stopPropagation();
+    const newTheme = $(this).data("theme");
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
+    $(".theme-dropdown").removeClass("show");
+  });
+  
+  // 点击其他地方关闭下拉菜单
+  $(document).on("click", function() {
+    $(".theme-dropdown").removeClass("show");
+  });
 
   // Enable the sticky footer
   var bumpIt = function () {

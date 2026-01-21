@@ -14,7 +14,7 @@
 # ========================================
 # 基本站点设置
 locale                   : "zh-CN"
-site_theme               : "default"
+site_theme               : "geek"
 title                    : "作品合集"
 email                    : ""
 description              : ""
@@ -285,18 +285,21 @@ kramdown:
 # ========================================
 # 内容集合配置
 # ========================================
-# 定义网站的内容集合，如教学、出版物、作品集和演讲
+# 定义网站的内容集合，如个人作品、课程作业、实验室工作等
 # 每个集合可以有自己的布局和URL结构
 # ========================================
 # 这些设置控制模板使用的集合类型
 collections:
-  teaching:
+  projects:
     output: true
     permalink: /:collection/:path/
-  # publications:  # 如果不需要出版物功能，可以注释掉以下几行
-  #   output: true
-  #   permalink: /:collection/:path/
-  portfolio:
+  coursework:
+    output: true
+    permalink: /:collection/:path/
+  labwork:
+    output: true
+    permalink: /:collection/:path/
+  teaching:
     output: true
     permalink: /:collection/:path/
   talks:
@@ -312,17 +315,6 @@ collections:
 # ========================================
 # 这些设置控制页面和集合如何包含在站点中
 defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
   # _pages
   - scope:
       path: ""
@@ -330,6 +322,35 @@ defaults:
     values:
       layout: single
       author_profile: true
+  # _projects (个人作品)
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
+  # _coursework (课程作业)
+  - scope:
+      path: ""
+      type: coursework
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+  # _labwork (实验室工作)
+  - scope:
+      path: ""
+      type: labwork
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
   # _teaching
   - scope:
       path: ""
@@ -339,24 +360,6 @@ defaults:
       author_profile: true
       share: true
       comments: true
-  # _publications  # 如果不需要出版物功能，可以注释掉以下几行
-  # - scope:
-  #     path: ""
-  #     type: publications
-  #   values:
-  #     layout: single
-  #     author_profile: true
-  #     share: true
-  #     comments: true
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
   # _talks
   - scope:
       path: ""

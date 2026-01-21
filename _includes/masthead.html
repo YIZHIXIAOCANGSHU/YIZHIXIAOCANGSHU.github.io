@@ -15,12 +15,20 @@
             {% endif %}
             <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
-          <li id="theme-toggle" class="masthead__menu-item persist tail">
-            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
-          </li>
         </ul>
         <ul class="hidden-links hidden"></ul>
       </nav>
+      <!-- 主题选择下拉菜单 - 放在 greedy-nav 外面 -->
+      <div class="theme-selector">
+        <button class="theme-toggle-btn" aria-label="切换主题">
+          <i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true"></i>
+        </button>
+        <ul class="theme-dropdown">
+          <li data-theme="light"><i class="fa-solid fa-sun"></i> 白天</li>
+          <li data-theme="dark"><i class="fa-solid fa-moon"></i> 夜晚</li>
+          <li data-theme="geek"><i class="fa-solid fa-terminal"></i> 极客</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

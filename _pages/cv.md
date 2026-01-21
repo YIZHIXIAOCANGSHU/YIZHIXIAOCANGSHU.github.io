@@ -25,15 +25,17 @@ redirect_from:
 ## 技能
 * 机器人结构设计
 
-<!-- 综合时间轴：显示个人作品和课程作业 -->
+<!-- 综合时间轴：显示个人作品、课程作业和实验室工作 -->
 <h2>时间轴</h2>
 {% assign all_items = "" | split: "" %}
-{% for item in site.portfolio %}
+{% for item in site.projects %}
   {% assign all_items = all_items | push: item %}
 {% endfor %}
-{% for item in site.posts %}
+{% for item in site.coursework %}
+  {% assign all_items = all_items | push: item %}
+{% endfor %}
+{% for item in site.labwork %}
   {% assign all_items = all_items | push: item %}
 {% endfor %}
 
 {% include horizontal-timeline.html items=all_items %}
-

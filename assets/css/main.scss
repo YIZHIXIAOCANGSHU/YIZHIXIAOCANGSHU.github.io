@@ -8,6 +8,7 @@
 // 然后导入主题和变量定义
 @import "theme/default";
 @import "theme/dark";
+@import "theme/geek";
 @import "themes";
 
 // 然后导入mixin，再导入utilities
@@ -29,6 +30,7 @@
 @import "layout/footer";
 
 @import "syntax";
+@import "geek-styles";
 
 /* 添加教育经历部分的样式 */
 .author__education {

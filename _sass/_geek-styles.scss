@@ -1,0 +1,561 @@
+/* ==========================================================================
+   GEEK THEME ENHANCEMENTS
+   极客/赛博朋克风格增强样式
+   ========================================================================== */
+
+/* 极客主题专用样式 */
+html[data-theme="geek"] {
+  /* Override fonts - 使用等宽字体 */
+  body {
+    font-family: 'JetBrains Mono', 'Fira Code', Monaco, Consolas, monospace;
+    background: 
+      /* Scanline effect 扫描线效果 */
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 159, 0.03) 2px,
+        rgba(0, 255, 159, 0.03) 4px
+      ),
+      /* Grid pattern 网格图案 */
+      linear-gradient(90deg, rgba(0, 255, 159, 0.02) 1px, transparent 1px),
+      linear-gradient(rgba(0, 255, 159, 0.02) 1px, transparent 1px),
+      /* Base gradient 基础渐变 */
+      linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%);
+    background-size: 100% 100%, 50px 50px, 50px 50px, 100% 100%;
+    background-attachment: fixed;
+  }
+
+  /* Glowing headers 发光标题 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', 'JetBrains Mono', monospace;
+    color: var(--geek-glow-color);
+    text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+    position: relative;
+    
+    &::before {
+      content: '>';
+      margin-right: 0.5em;
+      color: var(--geek-accent);
+      opacity: 0.7;
+    }
+  }
+
+  /* Page title special styling */
+  .page__title {
+    font-size: 2em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    
+    &::after {
+      content: '_';
+      animation: blink 1s infinite;
+      color: var(--geek-glow-color);
+    }
+  }
+
+  /* Terminal-style code blocks 终端风格代码块 */
+  pre {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    border-radius: 4px;
+    padding: 1.5em;
+    box-shadow: 
+      0 0 20px rgba(0, 255, 159, 0.1),
+      inset 0 0 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+      
+    &::before {
+      content: '┌─ terminal ─────────────────────────────────────';
+      display: block;
+      margin-bottom: 1em;
+      color: var(--geek-accent);
+      opacity: 0.5;
+      font-size: 0.8em;
+    }
+  }
+
+  code {
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid rgba(0, 255, 159, 0.15);
+    color: var(--geek-glow-color);
+  }
+
+  /* Glowing links 发光链接 */
+  a {
+    position: relative;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      text-shadow: 0 0 8px var(--geek-glow-color);
+    }
+  }
+
+  /* Neon border cards 霓虹边框卡片 */
+  .archive__item {
+    background: rgba(18, 18, 26, 0.8);
+    border: 1px solid rgba(0, 255, 159, 0.15);
+    border-radius: 4px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      background: linear-gradient(45deg, var(--geek-glow-color), var(--geek-accent), var(--geek-highlight));
+      border-radius: 4px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 255, 159, 0.2);
+      
+      &::before {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  /* Archive item teaser */
+  .archive__item-teaser {
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    filter: saturate(0.8);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: saturate(1.2);
+      box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+    }
+  }
+
+  /* Page content area */
+  .page__content {
+    background: rgba(18, 18, 26, 0.6);
+    border: 1px solid rgba(0, 255, 159, 0.1);
+    border-radius: 4px;
+    padding: 2em;
+    backdrop-filter: blur(5px);
+  }
+
+  /* Author sidebar */
+  .sidebar {
+    background: rgba(18, 18, 26, 0.9);
+    border-right: 1px solid rgba(0, 255, 159, 0.1);
+  }
+
+  .author__content {
+    background: transparent;
+  }
+
+  .author__name {
+    font-family: 'Orbitron', monospace;
+    color: var(--geek-glow-color);
+    text-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+    letter-spacing: 1px;
+  }
+
+  .author__bio {
+    color: var(--geek-accent);
+    font-style: normal;
+  }
+
+  /* Masthead / Navigation 导航栏 */
+  .masthead {
+    background: linear-gradient(180deg, rgba(10, 10, 15, 0.98) 0%, rgba(10, 10, 15, 0.9) 100%);
+    border-bottom: 1px solid rgba(0, 255, 159, 0.2);
+    backdrop-filter: blur(20px);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--geek-glow-color), transparent);
+      opacity: 0.5;
+    }
+  }
+
+  .masthead__inner-wrap {
+    position: relative;
+  }
+
+  .site-title {
+    font-family: 'Orbitron', monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    
+    &:hover {
+      text-shadow: 0 0 15px var(--geek-glow-color);
+      animation: glitch 0.3s ease;
+    }
+  }
+
+  /* Navigation links */
+  .greedy-nav {
+    background: transparent;
+    
+    a {
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85em;
+      
+      &::before {
+        content: '[';
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      
+      &::after {
+        content: ']';
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      
+      &:hover {
+        &::before, &::after {
+          opacity: 1;
+          color: var(--geek-glow-color);
+        }
+      }
+    }
+
+    .visible-links a:before {
+      background: var(--geek-glow-color);
+    }
+  }
+
+  /* Buttons with cyber style 赛博风格按钮 */
+  .btn,
+  button,
+  input[type="submit"] {
+    background: transparent !important;
+    border: 2px solid var(--geek-glow-color) !important;
+    color: var(--geek-glow-color) !important;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 159, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    &:hover {
+      background: rgba(0, 255, 159, 0.1) !important;
+      box-shadow: 0 0 20px rgba(0, 255, 159, 0.4);
+      
+      &::before {
+        left: 100%;
+      }
+    }
+  }
+
+  /* Sidebar author profile 侧边栏头像 */
+  .author__avatar {
+    img {
+      border: 2px solid var(--geek-glow-color) !important;
+      box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+      filter: saturate(0.8);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        filter: saturate(1.2);
+        box-shadow: 0 0 25px rgba(0, 255, 159, 0.5);
+      }
+    }
+  }
+
+  /* Author URLs / Social links */
+  .author__urls-wrapper {
+    button {
+      border-color: var(--geek-accent) !important;
+      color: var(--geek-accent) !important;
+    }
+  }
+
+  .author__urls {
+    background: rgba(18, 18, 26, 0.95);
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    
+    &::before {
+      border-color: transparent transparent rgba(0, 255, 159, 0.2) transparent;
+    }
+
+    a {
+      &:hover {
+        color: var(--geek-glow-color);
+        text-shadow: 0 0 5px rgba(0, 255, 159, 0.5);
+      }
+    }
+  }
+
+  /* Footer 页脚 */
+  .page__footer {
+    border-top: 1px solid rgba(0, 255, 159, 0.2);
+    position: relative;
+    
+    &::before {
+      content: '/* END OF TRANSMISSION */';
+      display: block;
+      text-align: center;
+      color: var(--geek-accent);
+      opacity: 0.3;
+      font-size: 0.8em;
+      font-family: 'JetBrains Mono', monospace;
+      margin: 1em 0;
+      letter-spacing: 2px;
+    }
+  }
+
+  .page__footer-follow,
+  .page__footer-copyright {
+    color: var(--geek-text-secondary);
+    
+    a {
+      color: var(--geek-accent);
+    }
+  }
+
+  /* Education items */
+  .education-item {
+    border-left: 2px solid var(--geek-glow-color);
+    background: rgba(0, 255, 159, 0.05);
+    
+    &:hover {
+      background: rgba(0, 255, 159, 0.1);
+    }
+  }
+
+  /* Tables */
+  table {
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    
+    th {
+      background: rgba(0, 255, 159, 0.1);
+      color: var(--geek-glow-color);
+    }
+    
+    td {
+      border-color: rgba(0, 255, 159, 0.1);
+    }
+    
+    tr:hover {
+      background: rgba(0, 255, 159, 0.05);
+    }
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left-color: var(--geek-glow-color);
+    background: rgba(0, 255, 159, 0.05);
+    padding: 1em;
+    
+    &::before {
+      content: '>';
+      color: var(--geek-glow-color);
+      margin-right: 0.5em;
+    }
+  }
+
+  /* Horizontal rule */
+  hr {
+    border-top-color: rgba(0, 255, 159, 0.3);
+    background: linear-gradient(90deg, transparent, var(--geek-glow-color), transparent);
+    height: 1px;
+    border: none;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: var(--geek-glow-color);
+    color: #0a0a0f;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--geek-glow-color);
+    border-radius: 4px;
+    
+    &:hover {
+      background: var(--geek-accent);
+    }
+  }
+
+  /* Pagination */
+  .pagination {
+    a, span {
+      border-color: rgba(0, 255, 159, 0.2);
+      
+      &:hover {
+        background: rgba(0, 255, 159, 0.1);
+        border-color: var(--geek-glow-color);
+      }
+    }
+    
+    .current {
+      background: var(--geek-glow-color);
+      color: #0a0a0f;
+    }
+  }
+
+  /* Notice boxes */
+  .notice,
+  .notice--primary,
+  .notice--info,
+  .notice--warning,
+  .notice--success,
+  .notice--danger {
+    background: rgba(18, 18, 26, 0.9);
+    border-left: 4px solid var(--geek-glow-color);
+    
+    a {
+      color: var(--geek-accent);
+    }
+  }
+
+  .notice--info {
+    border-left-color: var(--geek-accent);
+  }
+
+  .notice--warning {
+    border-left-color: #ffa502;
+  }
+
+  .notice--danger {
+    border-left-color: #ff4757;
+  }
+
+  /* TOC */
+  .toc {
+    background: rgba(18, 18, 26, 0.9);
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    
+    .nav__title {
+      background: rgba(0, 255, 159, 0.1);
+      color: var(--geek-glow-color);
+    }
+
+    a {
+      &:hover {
+        color: var(--geek-glow-color);
+      }
+    }
+  }
+
+  /* Forms */
+  input, textarea, select {
+    background: rgba(18, 18, 26, 0.9);
+    border: 1px solid rgba(0, 255, 159, 0.2);
+    color: var(--geek-text-primary);
+    
+    &:focus {
+      border-color: var(--geek-glow-color);
+      box-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+    }
+  }
+}
+
+/* ==========================================================================
+   ANIMATIONS 动画效果
+   ========================================================================== */
+
+/* Blinking cursor animation 闪烁光标 */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Glitch effect 故障效果 */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* Glow pulse animation 发光脉冲 */
+@keyframes glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(0, 255, 159, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(0, 255, 159, 0.6);
+  }
+}
+
+/* Scan line animation 扫描线动画 */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Typing effect 打字效果 */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Fade in animation 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply fade in to main content */
+html[data-theme="geek"] {
+  .page__content,
+  .archive__item {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .archive__item:nth-child(1) { animation-delay: 0.1s; }
+  .archive__item:nth-child(2) { animation-delay: 0.2s; }
+  .archive__item:nth-child(3) { animation-delay: 0.3s; }
+  .archive__item:nth-child(4) { animation-delay: 0.4s; }
+  .archive__item:nth-child(5) { animation-delay: 0.5s; }
+}
+

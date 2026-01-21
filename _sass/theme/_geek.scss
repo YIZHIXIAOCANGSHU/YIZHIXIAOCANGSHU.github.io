@@ -1,0 +1,61 @@
+/* ==========================================================================
+   GEEK / CYBERPUNK THEME
+   ========================================================================== */
+
+/* Cyberpunk / Terminal color palette */
+$geek-bg-primary          : #0a0a0f;
+$geek-bg-secondary        : #12121a;
+$geek-bg-tertiary         : #1a1a24;
+$geek-terminal-green      : #00ff9f;
+$geek-neon-cyan           : #00f0ff;
+$geek-neon-purple         : #bf00ff;
+$geek-neon-pink           : #ff00a0;
+$geek-text-primary        : #e0e0e0;
+$geek-text-secondary      : #888899;
+$geek-code-bg             : #0d1117;
+$geek-border              : #2a2a3a;
+$geek-glow-green          : 0 0 10px rgba(0, 255, 159, 0.5), 0 0 20px rgba(0, 255, 159, 0.3);
+$geek-glow-cyan           : 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
+
+/* Color codes used for the site */
+$danger-color             : #ff4757;
+$info-color               : #00f0ff;
+$notice-color             : #888899;
+$success-color            : #00ff9f;
+$warning-color            : #ffa502;
+
+/* Other basic settings */
+$border-radius            : 2px;
+$box-shadow               : 0 0 15px rgba(0, 255, 159, 0.1);
+$global-transition        : all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$masthead-height          : 70px;
+$navicon-width            : 28px;
+$navicon-height           : 4px;
+$sidebar-link-max-width   : 250px;
+$sidebar-screen-min-width : 1024px;
+
+/* Geek theme CSS variables */
+html[data-theme="geek"] {
+    --global-base-color                 : #{$geek-bg-primary};
+    --global-bg-color                   : #{$geek-bg-primary};
+    --global-footer-bg-color            : #{$geek-bg-secondary};
+    --global-border-color               : #{$geek-border};
+    --global-dark-border-color          : #{$geek-border};
+    --global-code-background-color      : #{$geek-code-bg};
+    --global-code-text-color            : #{$geek-terminal-green};
+    --global-fig-caption-color          : #{$geek-text-secondary};
+    --global-link-color                 : #{$geek-neon-cyan};
+    --global-link-color-hover           : #{$geek-terminal-green};
+    --global-link-color-visited         : #{$geek-neon-purple};
+    --global-masthead-link-color        : #{$geek-text-primary};
+    --global-masthead-link-color-hover  : #{$geek-terminal-green};
+    --global-text-color                 : #{$geek-text-primary};
+    --global-text-color-light           : #{$geek-text-secondary};
+    --global-thead-color                : #{$geek-bg-tertiary};
+    
+    /* Custom geek variables */
+    --geek-glow-color                   : #{$geek-terminal-green};
+    --geek-accent                       : #{$geek-neon-cyan};
+    --geek-highlight                    : #{$geek-neon-pink};
+}
+

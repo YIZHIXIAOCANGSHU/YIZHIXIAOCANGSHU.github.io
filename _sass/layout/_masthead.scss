@@ -65,3 +65,118 @@
     font-weight: 700;
   }
 }
+
+/* ==========================================================================
+   THEME SELECTOR DROPDOWN
+   ========================================================================== */
+
+/* 主题选择器容器 - 放在 masthead__menu 中，与 greedy-nav 平级 */
+.masthead__menu {
+  display: flex;
+  align-items: center;
+  
+  .greedy-nav {
+    flex: 1;
+  }
+}
+
+.theme-selector {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+/* 主题切换按钮样式 */
+.theme-toggle-btn {
+  position: relative;
+  padding: 0.5em 0.8em;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  background: transparent;
+  color: var(--global-masthead-link-color);
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  
+  &:hover {
+    color: var(--global-link-color);
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  i {
+    display: inline-block;
+    font-size: 1em;
+  }
+}
+
+.theme-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 120px;
+  background: var(--global-bg-color);
+  border: 1px solid var(--global-border-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  margin-top: 0.5em;
+  padding: 0.5em 0;
+  
+  &.show {
+    display: block;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.6em 1em;
+    cursor: pointer;
+    color: var(--global-text-color);
+    font-size: 0.9em;
+    transition: background 0.2s ease;
+    list-style: none;
+    
+    &:hover {
+      background: var(--global-border-color);
+    }
+    
+    &.active {
+      color: var(--global-link-color);
+      font-weight: 600;
+      
+      &::after {
+        content: "✓";
+        margin-left: auto;
+      }
+    }
+    
+    i {
+      width: 1.2em;
+      text-align: center;
+    }
+  }
+}
+
+/* 深色主题下的下拉菜单样式 */
+html[data-theme="dark"] .theme-dropdown {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 极客主题下的特殊样式 */
+html[data-theme="geek"] .theme-dropdown {
+  background: rgba(18, 18, 26, 0.95);
+  border-color: rgba(0, 255, 159, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 255, 159, 0.2);
+  
+  li:hover {
+    background: rgba(0, 255, 159, 0.1);
+  }
+}
