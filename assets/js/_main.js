@@ -30,7 +30,7 @@ let setTheme = (theme) => {
   
   // 移除所有主题属性
   $("html").removeAttr("data-theme");
-  
+
   if (use_theme === "dark") {
     $("html").attr("data-theme", "dark");
     $("#theme-icon").removeClass("fa-sun fa-terminal").addClass("fa-moon");
