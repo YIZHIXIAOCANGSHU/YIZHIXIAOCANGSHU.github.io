@@ -1,0 +1,251 @@
+{% comment %}
+  Timeline Scripts Component
+  
+  Loads GSAP and ScrollTrigger libraries from CDN and initializes
+  scroll-triggered animations for the horizontal timeline.
+  
+  Features:
+    - GSAP and ScrollTrigger CDN loading
+    - Animation initialization with stagger effects
+    - Reduced motion preference support
+    - Fallback to CSS animations if GSAP fails to load
+  
+  Requirements: 2.1, 2.2, 6.4, 6.5
+{% endcomment %}
+
+<!-- Load GSAP Core Library from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" 
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"></script>
+
+<!-- Load ScrollTrigger Plugin from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" 
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"></script>
+
+<script>
+/**
+ * Timeline Animation Configuration
+ * Based on design.md specifications
+ */
+const timelineAnimationConfig = {
+  // Item entrance animation
+  itemEntrance: {
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out",
+    stagger: 0.15
+  },
+  
+  // Node animation (scale effect)
+  nodeAnimation: {
+    scale: 0,
+    duration: 0.5,
+    ease: "back.out(1.7)"
+  },
+  
+  // Connector line animation
+  lineAnimation: {
+    scaleX: 0,
+    transformOrigin: "left center",
+    duration: 1.2,
+    ease: "power2.inOut"
+  },
+  
+  // ScrollTrigger configuration
+  scrollTrigger: {
+    trigger: ".horizontal-timeline",
+    start: "top 80%",
+    toggleActions: "play none none reverse"
+  }
+};
+
+/**
+ * Check if user prefers reduced motion
+ * @returns {boolean} True if reduced motion is preferred
+ */
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
+ * Apply CSS fallback when GSAP is not available
+ * Adds 'no-gsap' class to trigger CSS animations
+ */
+function applyFallback() {
+  const timeline = document.querySelector('.horizontal-timeline');
+  if (timeline) {
+    timeline.classList.add('no-gsap');
+    
+    // Remove gsap-init class to show items with CSS animations
+    const items = timeline.querySelectorAll('.horizontal-timeline-item.gsap-init');
+    items.forEach(function(item) {
+      item.classList.remove('gsap-init');
+    });
+  }
+  console.warn('GSAP not loaded, using CSS fallback animations');
+}
+
+/**
+ * Initialize timeline animations with GSAP
+ * Requirements: 2.2, 3.1, 3.2, 4.2
+ */
+function initTimelineAnimations() {
+  // Check for GSAP availability - fallback if not loaded
+  // Requirements: 6.4, 6.5
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    applyFallback();
+    return;
+  }
+  
+  // Check for reduced motion preference
+  // Requirements: 3.5
+  if (prefersReducedMotion()) {
+    // Show items without animation
+    const items = document.querySelectorAll('.horizontal-timeline-item.gsap-init');
+    items.forEach(function(item) {
+      item.classList.remove('gsap-init');
+      item.style.opacity = '1';
+      item.style.transform = 'none';
+    });
+    console.info('Reduced motion preference detected, animations disabled');
+    return;
+  }
+  
+  // Register ScrollTrigger plugin
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Get timeline elements
+  const timeline = document.querySelector('.horizontal-timeline');
+  const timelineItems = document.querySelectorAll('.horizontal-timeline-item');
+  const timelineLine = document.querySelector('.horizontal-timeline-line');
+  
+  if (!timeline || timelineItems.length === 0) {
+    console.warn('Timeline elements not found');
+    return;
+  }
+  
+  // Create main animation timeline
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: timelineAnimationConfig.scrollTrigger.trigger,
+      start: timelineAnimationConfig.scrollTrigger.start,
+      toggleActions: timelineAnimationConfig.scrollTrigger.toggleActions,
+      // markers: true // Uncomment for debugging
+    }
+  });
+  
+  // Animate connector line from left to right
+  // Requirements: 4.2
+  if (timelineLine) {
+    gsap.set(timelineLine, {
+      scaleX: timelineAnimationConfig.lineAnimation.scaleX,
+      transformOrigin: timelineAnimationConfig.lineAnimation.transformOrigin
+    });
+    
+    tl.to(timelineLine, {
+      scaleX: 1,
+      duration: timelineAnimationConfig.lineAnimation.duration,
+      ease: timelineAnimationConfig.lineAnimation.ease
+    });
+  }
+  
+  // Animate timeline items with stagger effect
+  // Requirements: 2.4, 3.1
+  timelineItems.forEach(function(item) {
+    // Set initial state
+    gsap.set(item, {
+      y: timelineAnimationConfig.itemEntrance.y,
+      opacity: timelineAnimationConfig.itemEntrance.opacity
+    });
+  });
+  
+  tl.to(timelineItems, {
+    y: 0,
+    opacity: 1,
+    duration: timelineAnimationConfig.itemEntrance.duration,
+    ease: timelineAnimationConfig.itemEntrance.ease,
+    stagger: timelineAnimationConfig.itemEntrance.stagger,
+    onComplete: function() {
+      // Remove gsap-init class after animation completes
+      timelineItems.forEach(function(item) {
+        item.classList.remove('gsap-init');
+        item.classList.add('gsap-animated');
+      });
+    }
+  }, "-=0.8"); // Overlap with line animation
+  
+  // Animate node points with scale effect
+  // Requirements: 3.2
+  // Note: Nodes are ::before pseudo-elements, so we animate via CSS class
+  // GSAP can't directly animate pseudo-elements, so we use a workaround
+  // by animating a custom property or using the item's animation timing
+  
+  // Alternative: Create actual node elements if more control is needed
+  // For now, the CSS handles node animation via the .gsap-init class removal
+  
+  console.info('Timeline animations initialized successfully');
+}
+
+/**
+ * Initialize when DOM is ready
+ */
+document.addEventListener('DOMContentLoaded', initTimelineAnimations);
+
+/**
+ * Initialize timeline tabs for category filtering
+ */
+function initTimelineTabs() {
+  const tabs = document.querySelectorAll('.timeline-tab');
+  const items = document.querySelectorAll('.horizontal-timeline-item');
+  
+  if (tabs.length === 0) return;
+  
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      // Update active tab state
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+      });
+      tab.classList.add('active');
+      
+      const filter = tab.dataset.filter;
+      
+      // Filter items by category
+      items.forEach(function(item) {
+        const category = item.dataset.category;
+        if (filter === 'all' || category === filter) {
+          item.classList.remove('hidden');
+          item.style.display = '';
+        } else {
+          item.classList.add('hidden');
+          item.style.display = 'none';
+        }
+      });
+      
+      // Refresh ScrollTrigger after filtering
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    });
+  });
+}
+
+// Initialize tabs when DOM is ready
+document.addEventListener('DOMContentLoaded', initTimelineTabs);
+
+/**
+ * Re-initialize on page visibility change (for SPA navigation)
+ */
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    // Refresh ScrollTrigger on visibility change
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
+    }
+  }
+});
+</script>

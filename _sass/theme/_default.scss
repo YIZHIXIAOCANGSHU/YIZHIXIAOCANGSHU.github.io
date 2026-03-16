@@ -44,4 +44,17 @@ $sidebar-screen-min-width   : 1024px;
     --global-text-color                 : #{$dark-gray};
     --global-text-color-light           : #{$light-gray};
     --global-thead-color                : #{$lighter-gray};
+
+    /* Timeline Component Variables (Light Theme) */
+    --timeline-accent-color             : #52adc8;
+    --timeline-accent-secondary         : #2f7f93;
+    --timeline-card-bg                  : #fff;
+    --timeline-card-shadow              : 0 4px 12px rgba(0, 0, 0, 0.1);
+    --timeline-text-color               : #{$dark-gray};
+    --timeline-date-bg                  : #52adc8;
+    --timeline-date-color               : #fff;
+    --timeline-line-gradient            : linear-gradient(90deg, #52adc8, #2f7f93);
+    --timeline-node-border              : #52adc8;
+    --timeline-node-bg                  : #fff;
+    --timeline-glow                     : 0 0 8px rgba(82, 173, 200, 0.3);
 }

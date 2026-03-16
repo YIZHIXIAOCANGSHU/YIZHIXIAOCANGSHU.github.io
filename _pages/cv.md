@@ -38,4 +38,4 @@ redirect_from:
   {% assign all_items = all_items | push: item %}
 {% endfor %}
 
-{% include horizontal-timeline.html items=all_items %}
+{% include horizontal-timeline.html items=all_items max_items=6 show_tabs=true more_link="/timeline/" %}

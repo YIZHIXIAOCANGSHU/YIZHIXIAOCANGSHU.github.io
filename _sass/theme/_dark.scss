@@ -51,4 +51,17 @@ html[data-theme="dark"] {
     --global-text-color                 : #{$text};
     --global-text-color-light           : #{$light-gray};
     --global-thead-color                : #{$background-lighter};
+
+    /* Timeline Component Variables (Dark Theme) */
+    --timeline-accent-color             : #{$link};
+    --timeline-accent-secondary         : #{$link-light};
+    --timeline-card-bg                  : #{mix(#fff, $background, 10%)};
+    --timeline-card-shadow              : 0 4px 16px rgba(0, 0, 0, 0.4);
+    --timeline-text-color               : #{$text};
+    --timeline-date-bg                  : #{$link};
+    --timeline-date-color               : #{$text};
+    --timeline-line-gradient            : linear-gradient(90deg, #{$link}, #{$link-light});
+    --timeline-node-border              : #{$link};
+    --timeline-node-bg                  : #{$background};
+    --timeline-glow                     : 0 0 12px rgba(14, 161, 197, 0.5);
 }

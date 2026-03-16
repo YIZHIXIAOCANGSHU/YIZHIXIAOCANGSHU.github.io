@@ -1,3 +1,16 @@
+{% comment %}
+  Timeline Item Component
+  
+  Renders a single timeline item with animation support.
+  The node point is created via CSS ::before pseudo-element.
+  
+  Parameters:
+    - item: Single timeline item object with title, date, excerpt, url, header.teaser
+    - index: Item index (used for animation delay/staggering)
+  
+  Requirements: 3.1, 3.2
+{% endcomment %}
+
 {% if item.header.teaser %}
   {% capture teaser %}{{ item.header.teaser }}{% endcapture %}
 {% else %}
@@ -10,8 +23,20 @@
   {% assign title = item.title %}
 {% endif %}
 
-<div class="horizontal-timeline-item">
+{% comment %} Determine item category for filtering {% endcomment %}
+{% if item.collection == 'projects' %}
+  {% assign category = 'projects' %}
+{% elsif item.collection == 'coursework' %}
+  {% assign category = 'coursework' %}
+{% elsif item.collection == 'labwork' %}
+  {% assign category = 'labwork' %}
+{% else %}
+  {% assign category = 'other' %}
+{% endif %}
+
+<div class="horizontal-timeline-item gsap-init" data-index="{{ include.index }}" data-category="{{ category }}">
   <div class="horizontal-timeline-content">
+    {% comment %} Card Title {% endcomment %}
     <h3>
       {% if item.url %}
         <a href="{{ item.url | prepend: site.baseurl }}">{{ title }}</a>
@@ -20,14 +45,21 @@
       {% endif %}
     </h3>
     
+    {% comment %} Date Label {% endcomment %}
     {% if item.date %}
       <div class="date">{{ item.date | date: "%Y年%-m月%-d日" }}</div>
     {% endif %}
     
+    {% comment %} Description/Excerpt {% endcomment %}
     {% if item.excerpt %}
       <p>{{ item.excerpt | markdownify | strip_html | truncate: 100 }}</p>
     {% endif %}
     
-
+    {% comment %} Read More Link {% endcomment %}
+    {% if item.url %}
+      <div class="read-more">
+        <a href="{{ item.url | prepend: site.baseurl }}">阅读更多</a>
+      </div>
+    {% endif %}
   </div>
 </div>

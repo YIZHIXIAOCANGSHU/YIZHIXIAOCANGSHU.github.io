@@ -4,7 +4,7 @@
 # 删除链接可防止其在标题中显示，但不会阻止其包含在网站中。
 
 main:
-  - title: "个人作品"
+  - title: "比赛经历"
     url: /projects/
 
   - title: "课程作业"
@@ -15,6 +15,3 @@ main:
     
   - title: "简历"
     url: /cv/
-    
-  - title: "指南"
-    url: /markdown/

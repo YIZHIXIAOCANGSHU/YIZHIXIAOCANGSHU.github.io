@@ -1,0 +1,21 @@
+---
+layout: archive
+title: "完整时间轴"
+permalink: /timeline/
+author_profile: true
+---
+
+<p>这里展示了我所有的项目、课程作业和实验室工作的完整时间线。</p>
+
+{% assign all_items = "" | split: "" %}
+{% for item in site.projects %}
+  {% assign all_items = all_items | push: item %}
+{% endfor %}
+{% for item in site.coursework %}
+  {% assign all_items = all_items | push: item %}
+{% endfor %}
+{% for item in site.labwork %}
+  {% assign all_items = all_items | push: item %}
+{% endfor %}
+
+{% include horizontal-timeline.html items=all_items show_tabs=true %}

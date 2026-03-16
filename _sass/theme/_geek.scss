@@ -57,5 +57,18 @@ html[data-theme="geek"] {
     --geek-glow-color                   : #{$geek-terminal-green};
     --geek-accent                       : #{$geek-neon-cyan};
     --geek-highlight                    : #{$geek-neon-pink};
+
+    /* Timeline Component Variables (Geek/Cyberpunk Theme) */
+    --timeline-accent-color             : #{$geek-neon-cyan};
+    --timeline-accent-secondary         : #{$geek-terminal-green};
+    --timeline-card-bg                  : #{$geek-bg-secondary};
+    --timeline-card-shadow              : 0 4px 20px rgba(0, 240, 255, 0.2), 0 0 30px rgba(0, 255, 159, 0.1);
+    --timeline-text-color               : #{$geek-text-primary};
+    --timeline-date-bg                  : #{$geek-neon-cyan};
+    --timeline-date-color               : #{$geek-bg-primary};
+    --timeline-line-gradient            : linear-gradient(90deg, #{$geek-neon-cyan}, #{$geek-terminal-green}, #{$geek-neon-purple});
+    --timeline-node-border              : #{$geek-neon-cyan};
+    --timeline-node-bg                  : #{$geek-bg-primary};
+    --timeline-glow                     : #{$geek-glow-cyan};
 }
 
