@@ -4,45 +4,51 @@
   {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.author %}
 {% endif %}
 
-<div itemscope itemtype="http://schema.org/Person">
+<div class="author-profile-card" itemscope itemtype="https://schema.org/Person">
+  <div class="author-profile-card__intro">
+    <div class="author__avatar">
+      {% if author.avatar contains "://" %}
+        <img src="{{ author.avatar }}" class="author__avatar-image" alt="{{ author.name }}" fetchpriority="high" itemprop="image" />
+      {% else %}
+        <img src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" class="author__avatar-image" alt="{{ author.name }}" fetchpriority="high" itemprop="image" />
+      {% endif %}
+    </div>
 
-  <div class="author__avatar">
-    {% if author.avatar contains "://" %}
-    	<img src="{{ author.avatar }}" alt="{{ author.name }}"  fetchpriority="high" />
-    {% else %}
-    	<img src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" class="author__avatar" alt="{{ author.name }}"  fetchpriority="high" />
-    {% endif %}
-  </div>
-
-  <div class="author__content">
-    <h3 class="author__name">{{ author.name }}</h3>
-    {% if author.pronouns %}<p class="author__pronouns">{{ author.pronouns }}</p>{% endif %}
-    {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
-    
+    <div class="author__content">
+      <h3 class="author__name" itemprop="name">{{ author.name }}</h3>
+      {% if author.pronouns %}<p class="author__pronouns">{{ author.pronouns }}</p>{% endif %}
+      {% if author.bio %}<p class="author__bio" itemprop="description">{{ author.bio }}</p>{% endif %}
+    </div>
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse author__urls-toggle">查看资料</button>
     <ul class="author__urls social-icons">
       <!-- Font Awesome icons / Biographic information  -->
       {% if author.location %}
-        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>{{ author.location }}</li>
+        <li class="author__desktop author__meta-item"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i><span>{{ author.location }}</span></li>
       {% endif %}
       {% if author.education %}
         {% for edu in author.education %}
-        <li class="author__desktop"><i class="fas fa-fw fa-graduation-cap icon-pad-right" aria-hidden="true"></i>{{ edu.degree }} · {{ edu.major }} · {{ edu.institution }} ({{ edu.year }})</li>
+        <li class="author__desktop author__meta-item author__meta-item--education">
+          <i class="fas fa-fw fa-graduation-cap icon-pad-right" aria-hidden="true"></i>
+          <span class="author__meta-copy">
+            <strong class="author__meta-main">{{ edu.degree }} · {{ edu.major }}</strong>
+            <span class="author__meta-sub">{{ edu.institution }}{% if edu.year %} · {{ edu.year }}{% endif %}</span>
+          </span>
+        </li>
         {% endfor %}
       {% endif %}
       {% if author.employer %}
-        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>{{ author.employer }}</li>
+        <li class="author__desktop author__meta-item"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i><span>{{ author.employer }}</span></li>
       {% endif %}
       {% if author.uri %}
         <li><a href="{{ author.uri }}"><i class="fas fa-fw fa-link icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].website_label | default: "Website" }}</a></li>
       {% endif %}
       {% if author.email %}
         <li>
-          <a href="javascript:void(0);" onclick="navigator.clipboard.writeText('{{ author.email }}').then(() => {alert('邮箱地址已复制到剪贴板: {{ author.email }}');})">
-            <i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>{{ author.email }}
+          <a href="javascript:void(0);" class="author__contact-link" onclick="navigator.clipboard.writeText('{{ author.email }}').then(() => {alert('邮箱地址已复制到剪贴板: {{ author.email }}');})">
+            <i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i><span>{{ author.email }}</span>
           </a>
         </li>
       {% endif %}
