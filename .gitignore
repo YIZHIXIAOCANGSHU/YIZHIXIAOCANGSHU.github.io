@@ -1,4 +1,4 @@
-# Ignore the contents of the _site directory and other cache directories
+﻿# Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
 
@@ -18,3 +18,7 @@ package-lock.json
 
 # Ignore folders related to IDEs
 .vscode/
+
+# Ignore local temporary reference repos
+.tmp-typst-ref2/
+

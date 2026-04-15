@@ -1,619 +1,616 @@
 /* ==========================================================================
-   TIMELINE COMPONENT STYLES
-   ========================================================================== 
-   
-   This file contains all styles for the horizontal timeline component.
-   All colors use CSS variables for theme support (light, dark, geek).
-   The connector line is implemented using pure CSS (no JavaScript calculations).
-   
-   Requirements: 1.1, 1.5, 4.1
+   Timeline Component
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   Timeline Container
-   -------------------------------------------------------------------------- */
-.horizontal-timeline {
-  /* ========================================
-     Line Variables Group
-     线相关的CSS变量，控制连接线的位置和尺寸
-     ======================================== */
-  --timeline-line-top: 50px;           /* 线距离容器顶部的距离 */
-  --timeline-line-height: 4px;         /* 线的高度 */
-  
-  /* ========================================
-     Node Variables Group
-     节点相关的CSS变量，控制节点的尺寸和边框
-     ======================================== */
-  --timeline-node-size: 24px;          /* 节点直径 */
-  --timeline-node-border-width: 4px;   /* 节点边框宽度 */
-  
-  /* ========================================
-     Derived Position (自动计算)
-     节点偏移量 = 线top - 节点半径
-     此变量用于计算节点相对于卡片的top值
-     依赖: --timeline-line-top, --timeline-node-size
-     ======================================== */
-  --timeline-node-offset: calc(var(--timeline-line-top) - var(--timeline-node-size) / 2);
-  
-  position: relative;
-  padding: 100px 0 50px;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin: 0 auto;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
-  
-  /* Custom scrollbar using CSS variables */
-  scrollbar-width: thin;
-  scrollbar-color: var(--timeline-accent-color) var(--timeline-card-bg);
-  
-  &::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: var(--timeline-card-bg);
-    border-radius: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: var(--timeline-accent-color);
-    border-radius: 4px;
-    
-    &:hover {
-      background: var(--timeline-accent-secondary);
-    }
-  }
+.timeline-shell {
+  margin: 2rem 0 1.5rem;
 }
 
-/* --------------------------------------------------------------------------
-   Timeline Connector Line (Pure CSS - No JavaScript Calculations)
-   --------------------------------------------------------------------------
-   The connector line uses percentage-based width and flexbox positioning.
-   This ensures the line spans correctly without JavaScript calculations.
-   Requirements: 4.1
-   -------------------------------------------------------------------------- */
+.timeline-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-summary {
+  max-width: 42rem;
+}
+
+.timeline-eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--timeline-accent-color);
+}
+
+.timeline-title {
+  margin: 0;
+  color: var(--headings-color);
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.timeline-subtitle {
+  margin: 0.45rem 0 0;
+  color: var(--timeline-text-color);
+  line-height: 1.6;
+}
+
+.timeline-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.timeline-stat {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 999px;
+  background: var(--timeline-card-bg);
+  color: var(--timeline-text-color);
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.timeline-scroll-hint {
+  margin: 0 0 0.95rem;
+  color: var(--timeline-text-color);
+  font-size: 0.92rem;
+  opacity: 0.78;
+}
+
+.horizontal-timeline {
+  --timeline-card-width: 320px;
+  --timeline-gap: 28px;
+  --timeline-node-size: 22px;
+  --timeline-node-border-width: 4px;
+  --timeline-rail-padding: 24px;
+  --timeline-line-top: 38px;
+  --timeline-card-radius: 18px;
+
+  position: relative;
+  overflow-x: auto;
+  margin: 0 -0.35rem;
+  padding: 0.4rem 0 1rem;
+  scroll-padding-inline: var(--timeline-rail-padding);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--timeline-accent-color) var(--timeline-card-bg);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+
+.horizontal-timeline::-webkit-scrollbar {
+  height: 10px;
+}
+
+.horizontal-timeline::-webkit-scrollbar-track {
+  background: var(--timeline-card-bg);
+  border-radius: 999px;
+}
+
+.horizontal-timeline::-webkit-scrollbar-thumb {
+  background: var(--timeline-accent-color);
+  border-radius: 999px;
+}
+
+.horizontal-timeline::-webkit-scrollbar-thumb:hover {
+  background: var(--timeline-accent-secondary);
+}
+
+.horizontal-timeline-rail {
+  position: relative;
+  display: inline-block;
+  min-width: 100%;
+  width: max-content;
+  padding: 0 var(--timeline-rail-padding) 0.8rem;
+}
+
 .horizontal-timeline-line {
   position: absolute;
   top: var(--timeline-line-top);
-  left: 0;
-  /* Use percentage width - spans full container width */
-  width: 100%;
-  height: var(--timeline-line-height);
+  left: calc(var(--timeline-rail-padding) + (var(--timeline-card-width) / 2));
+  right: calc(var(--timeline-rail-padding) + (var(--timeline-card-width) / 2));
+  height: 4px;
+  border-radius: 999px;
   background: var(--timeline-line-gradient);
-  border-radius: 2px;
-  z-index: 0;
-  transform: translateY(-50%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), var(--timeline-glow);
   transform-origin: left center;
-  
-  /* For animation - initial state can be set via GSAP */
-  &.animate-ready {
-    transform: translateY(-50%) scaleX(0);
-  }
-  
-  &.animated {
-    transform: translateY(-50%) scaleX(1);
-    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-}
-
-/* Alternative: Inner track for animated progress effect */
-.horizontal-timeline-track {
-  position: absolute;
-  top: var(--timeline-line-top);
-  left: 0;
-  width: 100%;
-  height: var(--timeline-line-height);
-  background: var(--global-border-color);
-  border-radius: 2px;
   z-index: 0;
-  transform: translateY(-50%);
-  overflow: hidden;
-  
-  .horizontal-timeline-progress {
-    height: 100%;
-    width: 0%;
-    background: var(--timeline-line-gradient);
-    border-radius: 2px;
-    transition: width 0.3s ease-out;
-  }
 }
 
-/* --------------------------------------------------------------------------
-   Timeline Items Container (Flexbox Layout)
-   -------------------------------------------------------------------------- */
 .horizontal-timeline-items {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 40px;
-  padding: 0 40px;
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--timeline-gap);
 }
 
-/* --------------------------------------------------------------------------
-   Timeline Item
-   -------------------------------------------------------------------------- */
 .horizontal-timeline-item {
-  display: inline-block;
+  --timeline-item-accent: var(--timeline-accent-color);
+
   position: relative;
-  width: 320px;
-  vertical-align: top;
-  margin: 0 20px;
+  flex: 0 0 var(--timeline-card-width);
+  width: var(--timeline-card-width);
+  padding-top: 76px;
   box-sizing: border-box;
   white-space: normal;
-  z-index: 1;
-  
-  /* Initial state for GSAP animation */
+
   &.gsap-init {
     opacity: 0;
     transform: translateY(50px);
   }
-  
-  /* Animated state */
+
   &.gsap-animated {
     opacity: 1;
     transform: translateY(0);
   }
-}
 
-/* --------------------------------------------------------------------------
-   Timeline Node (Circle on the line)
-   --------------------------------------------------------------------------
-   Node animation uses CSS transitions since GSAP cannot animate pseudo-elements.
-   The animation is triggered by removing the .gsap-init class from the parent.
-   Uses cubic-bezier for elastic/bounce effect similar to GSAP's back.out(1.7).
-   Requirements: 3.2
-   -------------------------------------------------------------------------- */
-.horizontal-timeline-item::before {
-  content: '';
-  position: absolute;
-  /* 节点top = 6px - 线top - 节点半径，确保节点中心与线对齐
-     依赖: --timeline-line-top, --timeline-node-size */
-  top: calc(6px - var(--timeline-line-top) - var(--timeline-node-size) / 2);
-  left: 50%;
-  /* Explicit scale(1) for animated end state */
-  transform: translateX(-50%) scale(1);
-  width: var(--timeline-node-size);
-  height: var(--timeline-node-size);
-  background: var(--timeline-node-bg);
-  border: var(--timeline-node-border-width) solid var(--timeline-node-border);
-  border-radius: 50%;
-  z-index: 2;
-  box-shadow: var(--timeline-card-shadow);
-  /* Elastic/bounce easing similar to GSAP's back.out(1.7)
-     cubic-bezier(0.34, 1.56, 0.64, 1) creates an overshoot effect */
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease,
-              background 0.3s ease,
-              border-color 0.3s ease;
-  
-  /* Initial state for GSAP animation - node starts at scale(0) */
-  .gsap-init & {
+  &[data-category="projects"] {
+    --timeline-item-accent: var(--timeline-accent-color);
+  }
+
+  &[data-category="coursework"] {
+    --timeline-item-accent: #d77b1f;
+  }
+
+  &[data-category="labwork"] {
+    --timeline-item-accent: #2e9d73;
+  }
+
+  &[data-category="other"] {
+    --timeline-item-accent: var(--timeline-accent-secondary);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--timeline-line-top) - (var(--timeline-node-size) / 2));
+    left: 50%;
+    width: var(--timeline-node-size);
+    height: var(--timeline-node-size);
+    border: var(--timeline-node-border-width) solid var(--timeline-node-border);
+    border-radius: 50%;
+    background: var(--timeline-node-bg);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.14), var(--timeline-card-shadow);
+    transform: translateX(-50%) scale(1);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    z-index: 2;
+  }
+
+  &.gsap-init::before {
     transform: translateX(-50%) scale(0);
   }
+
+  &:hover::before,
+  &:focus-within::before {
+    transform: translateX(-50%) scale(1.08);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.16), var(--timeline-glow);
+  }
+
+  &.is-active::before {
+    background: var(--timeline-item-accent);
+    border-color: var(--timeline-item-accent);
+    transform: translateX(-50%) scale(1.12);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.18), var(--timeline-glow);
+  }
+
+  &.hidden {
+    display: none !important;
+  }
 }
 
-/* Node hover effect - scale up slightly from base scale(1) */
-.horizontal-timeline-item:hover::before {
-  box-shadow: var(--timeline-glow);
-  transform: translateX(-50%) scale(1.1);
-}
-
-/* Active node state */
-.horizontal-timeline-item.is-active::before {
-  background: var(--timeline-accent-color);
-  border-color: var(--timeline-accent-secondary);
-  box-shadow: var(--timeline-glow);
-  transform: translateX(-50%) scale(1.1);
-}
-
-/* --------------------------------------------------------------------------
-   Timeline Card
-   -------------------------------------------------------------------------- */
 .horizontal-timeline-content {
-  position: relative;
-  background: var(--timeline-card-bg);
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: var(--timeline-card-shadow);
-  transition: all 0.3s ease;
-  min-height: 260px;
-  word-wrap: break-word;
-  word-break: break-word;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  min-height: 100%;
+  padding: 1.2rem;
   border: 1px solid var(--global-border-color);
+  border-top: 3px solid var(--timeline-item-accent);
+  border-radius: var(--timeline-card-radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)), var(--timeline-card-bg);
+  box-shadow: var(--timeline-card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-/* Card hover effect */
-.horizontal-timeline-content:hover {
+.horizontal-timeline-item:hover .horizontal-timeline-content,
+.horizontal-timeline-item:focus-within .horizontal-timeline-content,
+.horizontal-timeline-item.is-active .horizontal-timeline-content {
+  transform: translateY(-6px);
   box-shadow: var(--timeline-card-shadow), var(--timeline-glow);
-  transform: translateY(-5px);
 }
 
-/* --------------------------------------------------------------------------
-   Card Title
-   -------------------------------------------------------------------------- */
-.horizontal-timeline-content h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: var(--timeline-accent-color);
-  font-size: 1.25em;
-  word-wrap: break-word;
-  flex: 0 0 auto;
-  line-height: 1.3;
-  
-  a {
-    color: var(--timeline-accent-color);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    
-    &:hover {
-      color: var(--timeline-accent-secondary);
-      text-decoration: underline;
-    }
-  }
+.timeline-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   Date Label
-   -------------------------------------------------------------------------- */
+.timeline-category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--timeline-card-bg);
+  color: var(--timeline-item-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .horizontal-timeline-content .date {
-  display: inline-block;
-  background: var(--timeline-date-bg);
-  color: var(--timeline-date-color);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85em;
-  margin-bottom: 15px;
-  word-wrap: break-word;
-  flex: 0 0 auto;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-/* Date label hover effect */
-.horizontal-timeline-item:hover .date {
-  background: var(--timeline-accent-secondary);
-}
-
-/* --------------------------------------------------------------------------
-   Card Description
-   -------------------------------------------------------------------------- */
-.horizontal-timeline-content p {
-  line-height: 1.6;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
   color: var(--timeline-text-color);
-  word-wrap: break-word;
-  flex: 1 1 auto;
-  margin-bottom: 15px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.timeline-cover {
+  display: block;
+  position: relative;
   overflow: hidden;
-  
+  min-height: 148px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--timeline-item-accent), var(--timeline-accent-secondary));
+  text-decoration: none;
+}
+
+.timeline-cover img {
+  display: block;
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.horizontal-timeline-item:hover .timeline-cover img,
+.horizontal-timeline-item:focus-within .timeline-cover img {
+  transform: scale(1.04);
+}
+
+.timeline-cover.is-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  color: #fff;
+}
+
+.timeline-cover-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.timeline-cover strong {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.horizontal-timeline-content h3 {
+  margin: 0;
+  color: var(--headings-color);
+  font-size: 1.22rem;
+  line-height: 1.35;
+
   a {
-    color: var(--timeline-accent-color);
+    color: inherit;
     text-decoration: none;
-    font-weight: 600;
     transition: color 0.2s ease;
-    
-    &:hover {
-      color: var(--timeline-accent-secondary);
-      text-decoration: underline;
-    }
+  }
+
+  a:hover {
+    color: var(--timeline-item-accent);
   }
 }
 
-/* --------------------------------------------------------------------------
-   Read More Link
-   -------------------------------------------------------------------------- */
-.horizontal-timeline-content .read-more {
-  flex: 0 0 auto;
-  margin-top: auto;
-  text-align: right;
-  
-  a {
-    color: var(--timeline-accent-color);
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    
-    &:hover {
-      color: var(--timeline-accent-secondary);
-    }
-    
-    &::after {
-      content: ' →';
-      transition: transform 0.2s ease;
-      display: inline-block;
-    }
-    
-    &:hover::after {
-      transform: translateX(4px);
-    }
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Empty Timeline State
-   -------------------------------------------------------------------------- */
-.timeline-empty {
-  text-align: center;
-  padding: 40px;
+.horizontal-timeline-content p {
+  margin: 0;
   color: var(--timeline-text-color);
-  font-style: italic;
+  line-height: 1.7;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
-/* --------------------------------------------------------------------------
-   CSS Fallback Animations (when GSAP is not available)
-   -------------------------------------------------------------------------- */
-@keyframes timeline-fadeInUp {
+.timeline-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  min-height: 2rem;
+}
+
+.timeline-tags span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.34rem 0.62rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--timeline-text-color);
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.timeline-tags--empty {
+  visibility: hidden;
+}
+
+.horizontal-timeline-content .read-more {
+  flex-shrink: 0;
+  color: var(--timeline-item-accent);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.horizontal-timeline-content .read-more:hover {
+  color: var(--timeline-accent-secondary);
+  transform: translateX(2px);
+}
+
+.timeline-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.timeline-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--timeline-accent-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--timeline-accent-color);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.timeline-tab span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55rem;
+  height: 1.55rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 0.78rem;
+}
+
+.timeline-tab:hover {
+  background: var(--timeline-accent-color);
+  color: var(--timeline-card-bg);
+  box-shadow: var(--timeline-glow);
+  transform: translateY(-1px);
+}
+
+.timeline-tab.active {
+  background: var(--timeline-accent-color);
+  color: var(--timeline-card-bg);
+  box-shadow: var(--timeline-glow);
+}
+
+.timeline-tab.active span {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.timeline-more {
+  margin-top: 1.2rem;
+}
+
+.timeline-more a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid var(--timeline-accent-color);
+  border-radius: 999px;
+  color: var(--timeline-accent-color);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-more a:hover {
+  background: var(--timeline-accent-color);
+  color: var(--timeline-card-bg);
+  box-shadow: var(--timeline-glow);
+}
+
+.timeline-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--timeline-text-color);
+}
+
+@keyframes timeline-fade-in-up {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Elastic/bounce scale animation for nodes - similar to GSAP's back.out(1.7) */
-@keyframes timeline-scaleIn {
+@keyframes timeline-scale-in {
   0% {
     transform: translateX(-50%) scale(0);
   }
-  70% {
-    transform: translateX(-50%) scale(1.1);
+
+  72% {
+    transform: translateX(-50%) scale(1.08);
   }
-  85% {
-    transform: translateX(-50%) scale(0.95);
-  }
+
   100% {
     transform: translateX(-50%) scale(1);
   }
 }
 
-@keyframes timeline-lineGrow {
+@keyframes timeline-line-grow {
   from {
-    transform: translateY(-50%) scaleX(0);
+    transform: scaleX(0);
   }
+
   to {
-    transform: translateY(-50%) scaleX(1);
+    transform: scaleX(1);
   }
 }
 
-/* Apply CSS animations when GSAP is not loaded */
-.no-gsap {
-  .horizontal-timeline-item {
-    animation: timeline-fadeInUp 0.6s ease-out;
-    animation-fill-mode: both;
-    
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.1}s;
-      }
-    }
-    
-    &::before {
-      animation: timeline-scaleIn 0.5s ease-out;
-      animation-fill-mode: both;
-      animation-delay: 0.3s;
-    }
-  }
-  
-  .horizontal-timeline-line {
-    animation: timeline-lineGrow 1.2s ease-out;
-    animation-fill-mode: both;
-  }
+.no-gsap .horizontal-timeline-item {
+  animation: timeline-fade-in-up 0.6s ease-out both;
 }
 
-/* --------------------------------------------------------------------------
-   Reduced Motion Support
-   --------------------------------------------------------------------------
-   Requirements: 3.5
-   -------------------------------------------------------------------------- */
+.no-gsap .horizontal-timeline-item::before {
+  animation: timeline-scale-in 0.5s ease-out both;
+}
+
+.no-gsap .horizontal-timeline-line {
+  animation: timeline-line-grow 1s ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .horizontal-timeline-item {
+  .horizontal-timeline-item,
+  .horizontal-timeline-item::before,
+  .horizontal-timeline-line,
+  .horizontal-timeline-content,
+  .timeline-cover img,
+  .timeline-tab,
+  .timeline-more a,
+  .horizontal-timeline-content .read-more {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    
-    &::before {
-      animation: none !important;
-      transform: translateX(-50%) !important;
-    }
-  }
-  
-  .horizontal-timeline-line {
-    animation: none !important;
-    transform: translateY(-50%) !important;
-  }
-  
-  .horizontal-timeline-content {
     transition: none !important;
-    
-    &:hover {
-      transform: none !important;
-    }
   }
 }
 
-/* --------------------------------------------------------------------------
-   Responsive Design
-   --------------------------------------------------------------------------
-   Requirements: 5.1, 5.2, 5.3
-   -------------------------------------------------------------------------- */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
+  .timeline-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .timeline-stats {
+    justify-content: flex-start;
+  }
+
   .horizontal-timeline {
-    /* 更新CSS变量以适应768px断点
-       节点和线的位置会根据这些变量自动计算 */
-    --timeline-line-top: 40px;
+    --timeline-card-width: 292px;
+    --timeline-gap: 22px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .horizontal-timeline {
+    --timeline-card-width: min(82vw, 276px);
+    --timeline-gap: 18px;
+    --timeline-rail-padding: 18px;
+    --timeline-line-top: 34px;
     --timeline-node-size: 20px;
-    padding: 80px 0 30px;
+
+    -webkit-mask-image: none;
+    mask-image: none;
   }
-  
-  /* 注意: .horizontal-timeline-line 和 .horizontal-timeline-track 的 top 值
-     现在通过 var(--timeline-line-top) 自动继承，无需重复定义 */
-  
-  /* 注意: .horizontal-timeline-item::before 的 top, width, height
-     现在通过CSS变量自动计算，无需重复定义 */
-  
-  .horizontal-timeline-items {
-    gap: 20px;
-    padding: 0 20px;
-  }
-  
+
   .horizontal-timeline-item {
-    width: 260px;
-    margin: 0 10px;
-    white-space: normal;
+    padding-top: 68px;
   }
-  
+
   .horizontal-timeline-content {
-    min-height: 230px;
-    padding: 20px;
-    
-    h3 {
-      font-size: 1.15em;
-    }
-    
-    .date {
-      font-size: 0.8em;
-      padding: 4px 12px;
-    }
+    padding: 1rem;
+  }
+
+  .timeline-cover,
+  .timeline-cover img {
+    min-height: 136px;
+    height: 136px;
+  }
+
+  .timeline-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .horizontal-timeline-content .read-more {
+    margin-top: 0.2rem;
   }
 }
 
-/* Small mobile devices */
 @media screen and (max-width: 480px) {
+  .timeline-title {
+    font-size: 1.35rem;
+  }
+
+  .timeline-subtitle,
+  .timeline-scroll-hint {
+    font-size: 0.88rem;
+  }
+
   .horizontal-timeline {
-    /* 更新CSS变量以适应480px断点
-       节点和线的位置会根据这些变量自动计算 */
-    --timeline-line-top: 35px;
+    --timeline-card-width: min(86vw, 250px);
     --timeline-node-size: 18px;
     --timeline-node-border-width: 3px;
-    padding: 70px 0 20px;
   }
-  
-  /* 注意: .horizontal-timeline-item::before 的样式
-     现在通过CSS变量自动计算，无需重复定义 */
-  
-  .horizontal-timeline-items {
-    gap: 15px;
-    padding: 0 15px;
+
+  .timeline-cover,
+  .timeline-cover img {
+    min-height: 124px;
+    height: 124px;
   }
-  
-  .horizontal-timeline-item {
-    width: 220px;
-    margin: 0 8px;
-  }
-  
-  .horizontal-timeline-content {
-    min-height: 200px;
-    padding: 15px;
-    
-    h3 {
-      font-size: 1.1em;
-    }
-    
-    .date {
-      font-size: 0.75em;
-      padding: 3px 10px;
-    }
-    
-    p {
-      font-size: 0.9em;
-    }
+
+  .timeline-cover strong {
+    font-size: 1.9rem;
   }
 }
 
-/* --------------------------------------------------------------------------
-   Touch Scrolling Optimization
-   -------------------------------------------------------------------------- */
 @media (hover: none) and (pointer: coarse) {
   .horizontal-timeline {
-    /* Smooth momentum scrolling on touch devices */
-    -webkit-overflow-scrolling: touch;
     scroll-snap-type: x proximity;
   }
-  
+
   .horizontal-timeline-item {
-    scroll-snap-align: center;
+    scroll-snap-align: start;
   }
-  
-  /* Disable hover effects on touch devices */
-  .horizontal-timeline-content:hover {
+
+  .horizontal-timeline-item:hover .horizontal-timeline-content {
     transform: none;
   }
-  
+
   .horizontal-timeline-item:hover::before {
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(1);
   }
-}
-
-/* --------------------------------------------------------------------------
-   Timeline Tabs (Category Filter)
-   -------------------------------------------------------------------------- */
-.timeline-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.timeline-tab {
-  padding: 8px 20px;
-  border: 2px solid var(--timeline-accent-color);
-  background: transparent;
-  color: var(--timeline-accent-color);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  font-size: 0.9em;
-  
-  &:hover {
-    background: var(--timeline-accent-color);
-    color: var(--timeline-card-bg);
-    box-shadow: var(--timeline-glow);
-  }
-  
-  &.active {
-    background: var(--timeline-accent-color);
-    color: var(--timeline-card-bg);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   View More Link
-   -------------------------------------------------------------------------- */
-.timeline-more {
-  text-align: center;
-  margin-top: 30px;
-  padding: 15px;
-  
-  a {
-    display: inline-block;
-    padding: 12px 30px;
-    color: var(--timeline-accent-color);
-    font-weight: 600;
-    text-decoration: none;
-    border: 2px solid var(--timeline-accent-color);
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      background: var(--timeline-accent-color);
-      color: var(--timeline-card-bg);
-      box-shadow: var(--timeline-glow);
-    }
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Hidden Items (for tab filtering)
-   -------------------------------------------------------------------------- */
-.horizontal-timeline-item.hidden {
-  display: none !important;
 }

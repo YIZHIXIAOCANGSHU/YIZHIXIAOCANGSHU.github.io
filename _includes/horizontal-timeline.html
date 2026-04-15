@@ -1,60 +1,100 @@
 {% comment %}
   Horizontal Timeline Component
-  
-  Renders a horizontal scrolling timeline with GSAP animations.
-  The connector line is implemented using pure CSS (no JavaScript calculations).
-  
+
   Parameters:
-    - items: Array of timeline items, each containing title, date, excerpt, url, etc.
-    - max_items: Maximum number of items to display (optional, default: 999)
-    - show_tabs: Whether to show category filter tabs (optional, default: false)
-    - more_link: URL for "view more" link (optional)
-  
-  Usage:
-    {% include horizontal-timeline.html items=all_items max_items=6 show_tabs=true more_link="/projects/" %}
-  
-  Requirements: 4.1, 2.1
+    - items: Array of timeline items.
+    - max_items: Maximum number of items to display (optional, default: 999).
+    - show_tabs: Whether to show category filter tabs (optional, default: false).
+    - more_link: URL for "view more" link (optional).
 {% endcomment %}
 
-{% assign max_items = include.max_items | default: 999 %}
+{% assign max_items = include.max_items | default: 999 | plus: 0 %}
 {% assign show_tabs = include.show_tabs | default: false %}
-{% assign all_items = include.items | sort: 'date' | reverse %}
+{% assign all_items = include.items | sort: "date" | reverse %}
+{% assign display_items = all_items | slice: 0, max_items %}
+{% assign total_items = all_items.size %}
+{% assign visible_count = display_items.size %}
+{% assign newest_item = all_items.first %}
+{% assign oldest_item = all_items.last %}
+{% assign project_count = display_items | where: "collection", "projects" | size %}
+{% assign coursework_count = display_items | where: "collection", "coursework" | size %}
+{% assign labwork_count = display_items | where: "collection", "labwork" | size %}
 
-{% if all_items.size == 0 %}
+{% if total_items == 0 %}
   <p class="timeline-empty">暂无时间轴数据</p>
 {% else %}
+  <section class="timeline-shell" data-timeline-shell>
+    <div class="timeline-toolbar">
+      <div class="timeline-summary">
+        <p class="timeline-eyebrow">Timeline</p>
+        <h3 class="timeline-title">最近 {{ visible_count }} 条经历</h3>
+        <p class="timeline-subtitle">
+          按时间倒序展示项目、课程作业与实验室记录
+          {% if oldest_item.date and newest_item.date %}
+            · {{ oldest_item.date | date: "%Y" }} - {{ newest_item.date | date: "%Y" }}
+          {% endif %}
+        </p>
+      </div>
 
-  {% if show_tabs %}
-  <!-- Category filter tabs -->
-  <div class="timeline-tabs">
-    <button class="timeline-tab active" data-filter="all">全部</button>
-    <button class="timeline-tab" data-filter="projects">比赛项目</button>
-    <button class="timeline-tab" data-filter="coursework">课程作业</button>
-    <button class="timeline-tab" data-filter="labwork">实验室</button>
-  </div>
-  {% endif %}
+      <div class="timeline-stats" aria-label="时间轴统计">
+        <span class="timeline-stat">共 {{ total_items }} 条</span>
+        {% if total_items > visible_count %}
+          <span class="timeline-stat">当前展示 {{ visible_count }} 条</span>
+        {% endif %}
+        <span class="timeline-stat">支持横向滚动</span>
+      </div>
+    </div>
 
-  <div class="horizontal-timeline" data-timeline="horizontal">
-    <!-- Pure CSS connector line - no JavaScript calculations needed -->
-    <!-- Width is 100% via CSS, positioned with flexbox/percentage -->
-    <div class="horizontal-timeline-line"></div>
-    
-    <!-- Timeline items (limited by max_items) -->
-    {% assign count = 0 %}
-    {% for item in all_items %}
-      {% if count < max_items %}
-        {% include horizontal-timeline-item.html item=item index=forloop.index %}
-        {% assign count = count | plus: 1 %}
-      {% endif %}
-    {% endfor %}
-  </div>
-  
-  {% if include.more_link and all_items.size > max_items %}
-  <div class="timeline-more">
-    <a href="{{ include.more_link | relative_url }}">查看全部 {{ all_items.size }} 个项目 →</a>
-  </div>
-  {% endif %}
-  
-  <!-- Load GSAP scripts and initialize animations -->
+    {% if show_tabs %}
+      <div class="timeline-tabs" role="tablist" aria-label="时间轴分类筛选">
+        <button type="button" class="timeline-tab active" data-filter="all" aria-pressed="true">
+          全部
+          <span>{{ visible_count }}</span>
+        </button>
+
+        {% if project_count > 0 %}
+          <button type="button" class="timeline-tab" data-filter="projects" aria-pressed="false">
+            比赛项目
+            <span>{{ project_count }}</span>
+          </button>
+        {% endif %}
+
+        {% if coursework_count > 0 %}
+          <button type="button" class="timeline-tab" data-filter="coursework" aria-pressed="false">
+            课程作业
+            <span>{{ coursework_count }}</span>
+          </button>
+        {% endif %}
+
+        {% if labwork_count > 0 %}
+          <button type="button" class="timeline-tab" data-filter="labwork" aria-pressed="false">
+            实验室
+            <span>{{ labwork_count }}</span>
+          </button>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <p class="timeline-scroll-hint">左右滑动查看更多，点击卡片可以进入详情页。</p>
+
+    <div class="horizontal-timeline" data-timeline="horizontal">
+      <div class="horizontal-timeline-rail">
+        <div class="horizontal-timeline-line"></div>
+
+        <div class="horizontal-timeline-items">
+          {% for item in display_items %}
+            {% include horizontal-timeline-item.html item=item index=forloop.index %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if include.more_link and total_items > visible_count %}
+      <div class="timeline-more">
+        <a href="{{ include.more_link | relative_url }}">查看完整时间轴（{{ total_items }} 条）</a>
+      </div>
+    {% endif %}
+  </section>
+
   {% include timeline-scripts.html %}
 {% endif %}

@@ -1,0 +1,200 @@
+{% include base_path %}
+{% assign resume = include.resume %}
+{% assign featured_projects = site.projects | sort: "date" | reverse %}
+
+<div class="resume-page">
+  <section class="resume-hero">
+    <div class="resume-hero-copy">
+      <h1>{{ site.author.name }}</h1>
+      <p class="resume-role">{{ resume.hero.role }}</p>
+      <p class="resume-summary">{{ resume.hero.summary }}</p>
+
+      <div class="resume-tag-row">
+        {% for tag in resume.hero.tags %}
+        <span class="resume-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="resume-action-row">
+        {% for action in resume.hero.actions %}
+        <a class="resume-action" href="{{ base_path }}{{ action.url }}">{{ action.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <aside class="resume-profile-card">
+      <img class="resume-avatar" src="{{ base_path }}/images/{{ site.author.avatar }}" alt="{{ site.author.name }}">
+      <div class="resume-contact-list">
+        <a href="mailto:2752722697@qq.com"><i class="fas fa-envelope"></i><span>2752722697@qq.com</span></a>
+        <a href="tel:13776417332"><i class="fas fa-phone"></i><span>13776417332</span></a>
+        <div><i class="fas fa-location-dot"></i><span>{{ site.author.location }}</span></div>
+        <a href="https://github.com/YIZHIXIAOCANGSHU" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>GitHub</span></a>
+        <a href="{{ site.author.bilibili }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-circle-play"></i><span>Bilibili</span></a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">01</span>
+      <div>
+        <h2>教育背景</h2>
+      </div>
+    </div>
+
+    <div class="resume-card resume-education-card">
+      <div>
+        <h3>{{ resume.education.school }}</h3>
+        <p class="resume-meta">{{ resume.education.meta }}</p>
+      </div>
+      <p>{{ resume.education.description }}</p>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">02</span>
+      <div>
+        <h2>核心优势</h2>
+      </div>
+    </div>
+
+    <div class="resume-grid resume-grid--three">
+      {% for item in resume.strengths %}
+      <article class="resume-card">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">03</span>
+      <div>
+        <h2>重点项目经历</h2>
+      </div>
+    </div>
+
+    <div class="resume-stack">
+      {% for project in resume.projects %}
+      <article class="resume-card resume-experience-card">
+        <div class="resume-item-head">
+          <div>
+            <h3>{{ project.title }}</h3>
+            <p class="resume-meta">{{ project.subtitle }}</p>
+          </div>
+          <span class="resume-period">{{ project.period }}</span>
+        </div>
+        <p>{{ project.description }}</p>
+        {% if project.highlights %}
+        <ul class="resume-bullet-list">
+          {% for highlight in project.highlights %}
+          <li>{{ highlight }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <a class="resume-inline-link" href="{{ base_path }}{{ project.url }}">查看项目详情</a>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="resume-subtle-panel">
+      <span class="resume-subtle-label">其他项目</span>
+      <div class="resume-link-cloud">
+        {% for project in featured_projects %}
+        <a href="{{ base_path }}{{ project.url }}">{{ project.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">04</span>
+      <div>
+        <h2>实验室与课程实践</h2>
+      </div>
+    </div>
+
+    <div class="resume-grid resume-grid--two">
+      {% for item in resume.labwork %}
+      <article class="resume-card">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <div class="resume-chip-row">
+          {% for tag in item.tags %}
+          <span class="resume-chip">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        <a class="resume-inline-link" href="{{ base_path }}{{ item.url }}">查看实验室记录</a>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="resume-card resume-coursework-card">
+      <div class="resume-item-head">
+        <div>
+          <h3>课程实践</h3>
+        </div>
+        <a class="resume-inline-link" href="{{ base_path }}/coursework/">查看全部课程作业</a>
+      </div>
+      <p>{{ resume.coursework.description }}</p>
+      <div class="resume-link-cloud">
+        {% for title in resume.coursework.items %}
+          {% assign course = site.coursework | where: "title", title | first %}
+          {% if course %}
+        <a href="{{ base_path }}{{ course.url }}">{{ course.title }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">05</span>
+      <div>
+        <h2>专业标签</h2>
+      </div>
+    </div>
+
+    <div class="resume-grid resume-grid--three">
+      {% for skill in resume.skills %}
+      <article class="resume-card">
+        <h3>{{ skill.title }}</h3>
+        <div class="resume-chip-row">
+          {% for tag in skill.tags %}
+          <span class="resume-chip">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <div class="resume-section-head">
+      <span class="resume-section-index">06</span>
+      <div>
+        <h2>时间轴</h2>
+      </div>
+    </div>
+
+    {% assign all_items = "" | split: "" %}
+    {% for item in site.projects %}
+      {% assign all_items = all_items | push: item %}
+    {% endfor %}
+    {% for item in site.coursework %}
+      {% assign all_items = all_items | push: item %}
+    {% endfor %}
+    {% for item in site.labwork %}
+      {% assign all_items = all_items | push: item %}
+    {% endfor %}
+
+    <div class="resume-card resume-timeline-card">
+      {% include horizontal-timeline.html items=all_items max_items=8 show_tabs=true more_link="/timeline/" %}
+    </div>
+  </section>
+</div>
