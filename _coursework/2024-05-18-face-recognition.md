@@ -1,11 +1,12 @@
 ---
-title: '人脸识别系统'
+title: "人脸识别系统"
+excerpt: "基于计算机视觉的人脸检测与识别课程项目。"
 date: 2024-05-18
 collection: coursework
 permalink: /coursework/face-recognition/
 tags:
-  - 计算机视觉
-  - 机器学习
+  - "计算机视觉"
+  - "机器学习"
 ---
 
 这是一篇关于人脸识别系统的项目文档。

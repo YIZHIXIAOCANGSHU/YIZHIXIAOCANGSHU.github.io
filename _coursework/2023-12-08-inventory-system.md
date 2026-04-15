@@ -1,11 +1,12 @@
 ---
-title: '进出货系统'
+title: "进出货系统"
+excerpt: "实现仓库进出货管理与库存查询的课程项目。"
 date: 2023-12-08
 collection: coursework
 permalink: /coursework/inventory-system/
 tags:
-  - 软件开发
-  - 数据库
+  - "软件开发"
+  - "数据库"
 ---
 
 这是一篇关于进出货系统的项目文档。

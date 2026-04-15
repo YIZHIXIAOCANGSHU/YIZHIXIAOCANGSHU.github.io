@@ -1,12 +1,13 @@
 ---
-title: '斯特林发动机制作'
+title: "斯特林发动机制作"
+excerpt: "围绕斯特林发动机设计、仿真与制作过程的课程项目。"
 date: 2025-06-14
 collection: coursework
 permalink: /coursework/stirling-engine/
 tags:
-  - 机械设计
-  - 热力学
-  - 仿真
+  - "机械设计"
+  - "热力学"
+  - "仿真"
 ---
 
 介绍斯特林发动机的设计与实现过程。项目旨在利用斯特林发动机将热能转化为机械能，并进一步产生电能。

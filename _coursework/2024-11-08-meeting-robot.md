@@ -1,11 +1,12 @@
 ---
-title: '会议记录机器人'
+title: "会议记录机器人"
+excerpt: "面向自动化会议记录的语音识别与转录课程项目。"
 date: 2024-11-08
 collection: coursework
 permalink: /coursework/meeting-robot/
 tags:
-  - 机器人
-  - 语音识别
+  - "机器人"
+  - "语音识别"
 ---
 
 这是一篇关于会议记录机器人的项目文档。

@@ -1,12 +1,13 @@
 ---
-title: 'QEA2 心电检测系统'
+title: "QEA2 心电检测系统"
+excerpt: "基于 STM32F407 与 ADS1296 的心电采集、处理与显示系统。"
 date: 2025-06-14
 collection: coursework
 permalink: /coursework/ecg-system/
 tags:
-  - 嵌入式
-  - 信号处理
-  - STM32
+  - "嵌入式"
+  - "信号处理"
+  - "STM32"
 ---
 
 这个是一个心电的检测系统，基于STM32F407开发板、ADS1296采集芯片、LCD显示模块、蜂鸣器等。

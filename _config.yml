@@ -329,8 +329,11 @@ defaults:
     values:
       layout: single
       author_profile: true
+      read_time: true
       share: true
       comments: true
+      header:
+        teaser: 500x300.png
   # _coursework (课程作业)
   - scope:
       path: ""
@@ -341,6 +344,8 @@ defaults:
       read_time: true
       comments: true
       share: true
+      header:
+        teaser: 500x300.png
   # _labwork (实验室工作)
   - scope:
       path: ""
@@ -351,6 +356,8 @@ defaults:
       read_time: true
       comments: true
       share: true
+      header:
+        teaser: 500x300.png
   # _teaching
   - scope:
       path: ""

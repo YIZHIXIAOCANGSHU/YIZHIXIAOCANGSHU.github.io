@@ -1,11 +1,12 @@
 ---
-title: '船舶制造'
+title: "船舶制造"
+excerpt: "围绕船舶设计与制造工艺学习的课程项目。"
 date: 2024-05-12
 collection: coursework
 permalink: /coursework/ship-manufacturing/
 tags:
-  - 制造工艺
-  - 船舶
+  - "制造工艺"
+  - "船舶"
 ---
 
 这是一篇关于船舶制造的项目文档。
