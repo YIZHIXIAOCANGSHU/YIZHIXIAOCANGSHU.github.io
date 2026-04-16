@@ -1,9 +1,4 @@
-# 以下是在网站标题栏中链接的顺序。
-#
-# 在此处更改顺序将调整顺序，您还可以添加其他链接。
-# 删除链接可防止其在标题中显示，但不会阻止其包含在网站中。
-
-main:
+﻿main:
   - title: "比赛经历"
     url: /projects/
 
@@ -12,6 +7,12 @@ main:
 
   - title: "实验室工作"
     url: /labwork/
-    
+
+  - title: "实习"
+    url: /internship/
+
+  - title: "自主探索"
+    url: /exploration/
+
   - title: "简历"
     url: /cv/

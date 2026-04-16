@@ -1,14 +1,34 @@
-{% assign cfg = include.config %}
+﻿{% assign cfg = include.config %}
 {% assign posts = site[cfg.collection] | sort: "date" | reverse %}
+{% assign total_posts = posts | size %}
+{% assign latest_post = posts | first %}
+{% assign earliest_post = posts | last %}
+{% assign page_title = page.title | default: cfg.title %}
+{% capture date_span %}
+  {% if total_posts > 0 %}
+    {% assign start_year = earliest_post.date | date: "%Y" %}
+    {% assign end_year = latest_post.date | date: "%Y" %}
+    {% if start_year == end_year %}
+      {{ end_year }}
+    {% else %}
+      {{ start_year }}-{{ end_year }}
+    {% endif %}
+  {% else %}
+    暂无内容
+  {% endif %}
+{% endcapture %}
+{% assign date_span = date_span | strip %}
+{% capture theme_style %}{% include subpage-theme-style.html config=cfg %}{% endcapture %}
+{% assign theme_style = theme_style | strip %}
 
-<div class="subpage-page subpage-page--{{ cfg.theme | default: 'default' }}">
-  <section class="subpage-hero subpage-hero--{{ cfg.theme | default: 'default' }}">
+<div class="subpage-page"{% if theme_style != "" %} style="{{ theme_style }}"{% endif %}>
+  <section class="subpage-hero">
     <div class="subpage-hero-main">
       <p class="subpage-kicker">{{ cfg.kicker }}</p>
       {% if page.layout == "subpage-hub" %}
-        <h1>{{ page.title }}</h1>
+        <h1>{{ page_title }}</h1>
       {% else %}
-        <h2 class="subpage-hero-title">{{ page.title }}</h2>
+        <h2 class="subpage-hero-title">{{ page_title }}</h2>
       {% endif %}
       <p class="subpage-summary">{{ cfg.summary }}</p>
 
@@ -36,8 +56,24 @@
       {% if cfg.metrics %}
         <div class="subpage-stat-grid">
           {% for metric in cfg.metrics %}
+            {% capture metric_value %}
+              {% case metric.kind %}
+                {% when "count" %}
+                  {{ total_posts }}
+                {% when "range" %}
+                  {{ date_span }}
+                {% when "latest" %}
+                  {% if latest_post %}
+                    {{ latest_post.date | date: "%Y.%m.%d" }}
+                  {% else %}
+                    暂无更新
+                  {% endif %}
+                {% else %}
+                  {{ metric.value }}
+              {% endcase %}
+            {% endcapture %}
             <div class="subpage-stat-card">
-              <strong>{{ metric.value }}</strong>
+              <strong>{{ metric_value | strip }}</strong>
               <span>{{ metric.label }}</span>
             </div>
           {% endfor %}
@@ -74,33 +110,74 @@
         <p class="subpage-kicker">{{ cfg.list_kicker | default: "Content Archive" }}</p>
         <h2>{{ cfg.list_title | default: "内容卡片" }}</h2>
       </div>
-      <p class="subpage-section-note">{{ cfg.list_note | default: "所有条目都已统一为相同的章节结构，便于浏览与持续维护。" }}</p>
+      <p class="subpage-section-note">
+        {{ cfg.list_note | default: "所有条目都已统一为相同的章节结构，便于浏览与持续维护。" }}
+        {% if latest_post %}
+          当前共 {{ total_posts }} 条，最近更新于 {{ latest_post.date | date: "%Y.%m.%d" }}。
+        {% endif %}
+      </p>
     </div>
 
-    <div class="subpage-entry-grid">
-      {% for post in posts %}
-        <article class="subpage-entry-card">
-          <div class="subpage-entry-meta">
-            {% if post.date %}
-              <span>{{ post.date | date: "%Y.%m.%d" }}</span>
-            {% endif %}
-            <span>{{ post.tags | size }} 个标签</span>
-          </div>
-
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          <p>{{ post.excerpt }}</p>
-
-          {% if post.tags %}
-            <div class="subpage-tag-row">
-              {% for tag in post.tags limit: 4 %}
-                <span class="subpage-tag">{{ tag }}</span>
-              {% endfor %}
-            </div>
+    {% if latest_post %}
+      <article class="subpage-highlight-card">
+        <div>
+          <p class="subpage-kicker">Latest Update</p>
+          <h3><a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></h3>
+          <p>{{ latest_post.excerpt }}</p>
+        </div>
+        <div class="subpage-highlight-card__meta">
+          {% if latest_post.date %}
+            <span>{{ latest_post.date | date: "%Y.%m.%d" }}</span>
           {% endif %}
+          {% if latest_post.tags %}
+            <span>{{ latest_post.tags | size }} 个标签</span>
+          {% endif %}
+        </div>
+      </article>
+    {% endif %}
 
-          <a class="subpage-entry-link" href="{{ post.url | relative_url }}">{{ cfg.entry_label | default: "查看详情" }}</a>
-        </article>
-      {% endfor %}
-    </div>
+    {% if total_posts > 0 %}
+      <div class="subpage-entry-grid">
+        {% for post in posts %}
+          {% assign primary_tag = post.tags | first %}
+          <article class="subpage-entry-card{% if forloop.first %} subpage-entry-card--recent{% endif %}">
+            <div class="subpage-entry-meta">
+              {% if post.date %}
+                <span>{{ post.date | date: "%Y.%m.%d" }}</span>
+              {% endif %}
+              {% if post.tags %}
+                <span>{{ post.tags | size }} 个标签</span>
+              {% endif %}
+              {% if forloop.first %}
+                <span class="subpage-entry-badge">最近更新</span>
+              {% endif %}
+            </div>
+
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            <p class="subpage-entry-summary">{{ post.excerpt }}</p>
+
+            {% if post.tags %}
+              <div class="subpage-tag-row">
+                {% for tag in post.tags limit: 4 %}
+                  <span class="subpage-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="subpage-entry-footer">
+              {% if primary_tag %}
+                <span class="subpage-entry-topic">{{ primary_tag }}</span>
+              {% endif %}
+              <a class="subpage-entry-link" href="{{ post.url | relative_url }}">{{ cfg.entry_label | default: "查看详情" }}</a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <article class="subpage-entry-card subpage-entry-card--empty">
+        <h3>内容正在整理中</h3>
+        <p class="subpage-entry-summary">当前页面暂时还没有可展示的条目，后续补充后这里会自动更新。</p>
+      </article>
+    {% endif %}
   </section>
 </div>

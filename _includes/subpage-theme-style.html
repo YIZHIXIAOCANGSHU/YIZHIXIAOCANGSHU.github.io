@@ -1,0 +1,15 @@
+﻿{% assign palette = include.config.palette %}
+{% if palette %}
+  {% if palette.accent_light %}--subpage-accent-light: {{ palette.accent_light }};{% endif %}
+  {% if palette.accent_soft_light %}--subpage-accent-soft-light: {{ palette.accent_soft_light }};{% endif %}
+  {% if palette.action_bg_light %}--subpage-action-bg-light: {{ palette.action_bg_light }};{% endif %}
+  {% if palette.card_glow_light %}--subpage-card-glow-light: {{ palette.card_glow_light }};{% endif %}
+  {% if palette.page_bg_light %}--subpage-page-bg-light: {{ palette.page_bg_light }};{% endif %}
+  {% if palette.hero_bg_light %}--subpage-hero-bg-light: {{ palette.hero_bg_light }};{% endif %}
+  {% if palette.accent_dark %}--subpage-accent-dark: {{ palette.accent_dark }};{% endif %}
+  {% if palette.accent_soft_dark %}--subpage-accent-soft-dark: {{ palette.accent_soft_dark }};{% endif %}
+  {% if palette.action_bg_dark %}--subpage-action-bg-dark: {{ palette.action_bg_dark }};{% endif %}
+  {% if palette.card_glow_dark %}--subpage-card-glow-dark: {{ palette.card_glow_dark }};{% endif %}
+  {% if palette.page_bg_dark %}--subpage-page-bg-dark: {{ palette.page_bg_dark }};{% endif %}
+  {% if palette.hero_bg_dark %}--subpage-hero-bg-dark: {{ palette.hero_bg_dark }};{% endif %}
+{% endif %}

@@ -1,10 +1,10 @@
-body.subpage-layout,
+﻿body.subpage-layout,
 .subpage-page {
   --subpage-ink: #152235;
   --subpage-heading: #101a2c;
   --subpage-muted: #57667a;
-  --subpage-accent: #0f766e;
-  --subpage-accent-soft: rgba(15, 118, 110, 0.12);
+  --subpage-accent: var(--subpage-accent-light, #0f766e);
+  --subpage-accent-soft: var(--subpage-accent-soft-light, rgba(15, 118, 110, 0.12));
   --subpage-panel: rgba(255, 255, 255, 0.9);
   --subpage-panel-strong: #ffffff;
   --subpage-line: rgba(18, 34, 53, 0.1);
@@ -13,16 +13,15 @@ body.subpage-layout,
   --subpage-shadow-soft: 0 18px 42px rgba(10, 18, 32, 0.05);
   --subpage-tag-bg: rgba(255, 255, 255, 0.9);
   --subpage-tag-ink: #28435e;
-  --subpage-action-bg: linear-gradient(135deg, #132238, #1f3554);
+  --subpage-action-bg: var(--subpage-action-bg-light, linear-gradient(135deg, #132238, #1f3554));
   --subpage-action-ink: #ffffff;
   --subpage-action-line: transparent;
   --subpage-action-shadow: 0 12px 24px rgba(19, 34, 56, 0.16);
   --subpage-action-shadow-hover: 0 16px 30px rgba(19, 34, 56, 0.22);
-  --subpage-card-glow: radial-gradient(circle, rgba(15, 118, 110, 0.12), transparent 70%);
-  background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 28%),
-    radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 22%),
-    linear-gradient(180deg, #f7f8fb 0%, #eef2f7 100%);
+  --subpage-card-glow: var(--subpage-card-glow-light, radial-gradient(circle, rgba(15, 118, 110, 0.12), transparent 70%));
+  --subpage-page-bg: var(--subpage-page-bg-light, radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 28%), radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 22%), linear-gradient(180deg, #f7f8fb 0%, #eef2f7 100%));
+  --subpage-hero-bg: var(--subpage-hero-bg-light, linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(242, 249, 248, 0.94)));
+  background: var(--subpage-page-bg);
   background-attachment: fixed;
   color: var(--subpage-ink);
 }
@@ -32,8 +31,8 @@ html[data-theme="dark"] .subpage-page {
   --subpage-ink: #e8eef8;
   --subpage-heading: #f6f8fc;
   --subpage-muted: #afbdd1;
-  --subpage-accent: #67d6c4;
-  --subpage-accent-soft: rgba(103, 214, 196, 0.14);
+  --subpage-accent: var(--subpage-accent-dark, #67d6c4);
+  --subpage-accent-soft: var(--subpage-accent-soft-dark, rgba(103, 214, 196, 0.14));
   --subpage-panel: rgba(18, 25, 35, 0.82);
   --subpage-panel-strong: rgba(14, 20, 29, 0.95);
   --subpage-line: rgba(148, 163, 184, 0.16);
@@ -42,16 +41,15 @@ html[data-theme="dark"] .subpage-page {
   --subpage-shadow-soft: 0 16px 34px rgba(0, 0, 0, 0.24);
   --subpage-tag-bg: rgba(18, 29, 40, 0.92);
   --subpage-tag-ink: #dde9f8;
-  --subpage-action-bg: linear-gradient(135deg, #1b8d82, #125f58);
+  --subpage-action-bg: var(--subpage-action-bg-dark, linear-gradient(135deg, #1b8d82, #125f58));
   --subpage-action-ink: #f7fffd;
   --subpage-action-line: rgba(103, 214, 196, 0.18);
   --subpage-action-shadow: 0 14px 30px rgba(3, 10, 17, 0.34);
   --subpage-action-shadow-hover: 0 18px 34px rgba(3, 10, 17, 0.42);
-  --subpage-card-glow: radial-gradient(circle, rgba(103, 214, 196, 0.12), transparent 70%);
-  background:
-    radial-gradient(circle at top left, rgba(103, 214, 196, 0.14), transparent 28%),
-    radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 22%),
-    linear-gradient(180deg, #111827 0%, #0b1220 100%);
+  --subpage-card-glow: var(--subpage-card-glow-dark, radial-gradient(circle, rgba(103, 214, 196, 0.12), transparent 70%));
+  --subpage-page-bg: var(--subpage-page-bg-dark, radial-gradient(circle at top left, rgba(103, 214, 196, 0.14), transparent 28%), radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 22%), linear-gradient(180deg, #111827 0%, #0b1220 100%));
+  --subpage-hero-bg: var(--subpage-hero-bg-dark, var(--subpage-panel-strong));
+  background: var(--subpage-page-bg);
   color-scheme: dark;
 }
 
@@ -60,8 +58,8 @@ html[data-theme="geek"] .subpage-page {
   --subpage-ink: #dffef7;
   --subpage-heading: #00ff9f;
   --subpage-muted: #8fb8ad;
-  --subpage-accent: #00f0ff;
-  --subpage-accent-soft: rgba(0, 255, 159, 0.12);
+  --subpage-accent: var(--subpage-accent-dark, #00f0ff);
+  --subpage-accent-soft: var(--subpage-accent-soft-dark, rgba(0, 255, 159, 0.12));
   --subpage-panel: rgba(10, 14, 20, 0.84);
   --subpage-panel-strong: rgba(9, 13, 18, 0.95);
   --subpage-line: rgba(0, 255, 159, 0.14);
@@ -70,78 +68,18 @@ html[data-theme="geek"] .subpage-page {
   --subpage-shadow-soft: 0 16px 34px rgba(0, 0, 0, 0.26), 0 0 18px rgba(0, 240, 255, 0.06);
   --subpage-tag-bg: rgba(0, 240, 255, 0.08);
   --subpage-tag-ink: #a2f9ff;
-  --subpage-action-bg: linear-gradient(135deg, rgba(0, 240, 255, 0.14), rgba(0, 255, 159, 0.14));
+  --subpage-action-bg: var(--subpage-action-bg-dark, linear-gradient(135deg, rgba(0, 240, 255, 0.14), rgba(0, 255, 159, 0.14)));
   --subpage-action-ink: #dffef7;
   --subpage-action-line: rgba(0, 240, 255, 0.24);
   --subpage-action-shadow: 0 14px 30px rgba(0, 0, 0, 0.3), 0 0 18px rgba(0, 255, 159, 0.08);
   --subpage-action-shadow-hover: 0 18px 34px rgba(0, 0, 0, 0.36), 0 0 24px rgba(0, 255, 159, 0.14);
-  --subpage-card-glow: radial-gradient(circle, rgba(0, 255, 159, 0.12), transparent 70%);
-  background:
-    radial-gradient(circle at top left, rgba(0, 255, 159, 0.16), transparent 28%),
-    radial-gradient(circle at top right, rgba(0, 240, 255, 0.14), transparent 24%),
-    linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px),
-    linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px),
-    linear-gradient(135deg, #05070b 0%, #0a0f15 45%, #05070b 100%);
+  --subpage-card-glow: var(--subpage-card-glow-dark, radial-gradient(circle, rgba(0, 255, 159, 0.12), transparent 70%));
+  --subpage-page-bg: var(--subpage-page-bg-dark, radial-gradient(circle at top left, rgba(0, 255, 159, 0.16), transparent 28%), radial-gradient(circle at top right, rgba(0, 240, 255, 0.14), transparent 24%), linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px), linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px), linear-gradient(135deg, #05070b 0%, #0a0f15 45%, #05070b 100%));
+  --subpage-hero-bg: var(--subpage-hero-bg-dark, var(--subpage-panel-strong));
+  background: var(--subpage-page-bg);
   background-size: auto, auto, 40px 40px, 40px 40px, auto;
   color-scheme: dark;
 }
-
-.subpage-page--projects {
-  --subpage-accent: #c2410c;
-  --subpage-action-bg: linear-gradient(135deg, #1f2937, #c2410c);
-  --subpage-card-glow: radial-gradient(circle, rgba(249, 115, 22, 0.14), transparent 70%);
-  background:
-    radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(239, 68, 68, 0.1), transparent 20%),
-    linear-gradient(180deg, #fffaf5 0%, #f6efe8 100%);
-}
-
-.subpage-page--coursework {
-  --subpage-accent: #2563eb;
-  --subpage-action-bg: linear-gradient(135deg, #1e3a8a, #2563eb);
-  --subpage-card-glow: radial-gradient(circle, rgba(37, 99, 235, 0.12), transparent 72%);
-  background:
-    linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
-  background-size: 32px 32px, 32px 32px, auto;
-}
-
-.subpage-page--labwork {
-  --subpage-accent: #0f766e;
-  --subpage-action-bg: linear-gradient(135deg, #115e59, #0f766e);
-  --subpage-card-glow: radial-gradient(circle, rgba(16, 185, 129, 0.14), transparent 72%);
-  background:
-    radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 28%),
-    radial-gradient(circle at 86% 14%, rgba(245, 158, 11, 0.08), transparent 18%),
-    linear-gradient(180deg, #f6fbfa 0%, #edf5f2 100%);
-}
-
-html[data-theme="dark"] .subpage-page--projects,
-html[data-theme="geek"] .subpage-page--projects {
-  background:
-    radial-gradient(circle at top left, rgba(249, 115, 22, 0.14), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(239, 68, 68, 0.1), transparent 20%),
-    linear-gradient(180deg, #15110e 0%, #0f1117 100%);
-}
-
-html[data-theme="dark"] .subpage-page--coursework,
-html[data-theme="geek"] .subpage-page--coursework {
-  background:
-    linear-gradient(rgba(96, 165, 250, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(96, 165, 250, 0.06) 1px, transparent 1px),
-    linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
-  background-size: 32px 32px, 32px 32px, auto;
-}
-
-html[data-theme="dark"] .subpage-page--labwork,
-html[data-theme="geek"] .subpage-page--labwork {
-  background:
-    radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 28%),
-    radial-gradient(circle at 86% 14%, rgba(245, 158, 11, 0.08), transparent 18%),
-    linear-gradient(180deg, #0c1514 0%, #09110f 100%);
-}
-
 .subpage-layout #main {
   padding-top: 2rem;
   padding-bottom: 4rem;
@@ -218,71 +156,7 @@ html[data-theme="geek"] .subpage-page--labwork {
   grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
   gap: 1.4rem;
   padding: 2rem;
-}
-
-.subpage-hero--projects {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(242, 249, 248, 0.94));
-}
-
-.subpage-hero--coursework {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(246, 247, 255, 0.94));
-}
-
-.subpage-hero--labwork {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(250, 246, 241, 0.94));
-}
-
-.subpage-page--projects .subpage-hero,
-.subpage-page--projects .subpage-entry-card,
-.subpage-page--projects .subpage-info-card {
-  border-radius: 30px 18px 30px 18px;
-}
-
-.subpage-page--projects .subpage-entry-card,
-.subpage-page--projects .subpage-info-card {
-  border-top: 4px solid rgba(194, 65, 12, 0.2);
-}
-
-.subpage-page--projects .subpage-tag {
-  border-radius: 14px;
-}
-
-.subpage-page--coursework .subpage-hero,
-.subpage-page--coursework .subpage-entry-card,
-.subpage-page--coursework .subpage-info-card {
-  border-radius: 18px;
-}
-
-.subpage-page--coursework .subpage-entry-card,
-.subpage-page--coursework .subpage-info-card,
-.subpage-page--coursework .subpage-stat-card {
-  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.08);
-}
-
-.subpage-page--coursework .subpage-info-card h2,
-.subpage-page--coursework .subpage-entry-card h3 {
-  letter-spacing: 0.02em;
-}
-
-.subpage-page--labwork .subpage-hero,
-.subpage-page--labwork .subpage-entry-card,
-.subpage-page--labwork .subpage-info-card {
-  border-radius: 24px 24px 24px 14px;
-}
-
-.subpage-page--labwork .subpage-stat-card,
-.subpage-page--labwork .subpage-entry-card,
-.subpage-page--labwork .subpage-info-card {
-  border-left: 4px solid rgba(15, 118, 110, 0.22);
-}
-
-html[data-theme="dark"] .subpage-hero--projects,
-html[data-theme="dark"] .subpage-hero--coursework,
-html[data-theme="dark"] .subpage-hero--labwork,
-html[data-theme="geek"] .subpage-hero--projects,
-html[data-theme="geek"] .subpage-hero--coursework,
-html[data-theme="geek"] .subpage-hero--labwork {
-  background: var(--subpage-panel-strong);
+  background: var(--subpage-hero-bg);
 }
 
 .subpage-kicker,
@@ -682,3 +556,96 @@ body.subpage-layout .page__footer {
     grid-template-columns: 1fr;
   }
 }
+
+.subpage-highlight-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 1.35rem 1.45rem;
+  border: 1px solid var(--subpage-line);
+  border-radius: 24px;
+  background: var(--subpage-panel);
+  box-shadow: var(--subpage-shadow-soft);
+}
+
+.subpage-highlight-card h3 {
+  margin: 0 0 0.35rem;
+  color: var(--subpage-heading);
+}
+
+.subpage-highlight-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.subpage-highlight-card p {
+  margin: 0;
+  color: var(--subpage-muted);
+}
+
+.subpage-highlight-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  color: var(--subpage-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.subpage-entry-card--recent {
+  border-color: var(--subpage-accent);
+}
+
+.subpage-entry-badge,
+.subpage-entry-topic {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--subpage-accent-soft);
+  color: var(--subpage-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.subpage-entry-summary {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.subpage-entry-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.subpage-entry-card--empty {
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .subpage-highlight-card {
+    grid-template-columns: 1fr;
+  }
+
+  .subpage-highlight-card__meta {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .subpage-entry-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

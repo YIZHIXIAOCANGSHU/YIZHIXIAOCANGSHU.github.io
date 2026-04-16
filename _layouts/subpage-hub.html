@@ -3,14 +3,17 @@ layout: compress
 ---
 
 {% include base_path %}
+{% assign section_key = page.section_key | default: page.collection %}
+{% assign subpage_config = site.data.subpages[section_key] %}
+{% assign page_title = page.title | default: subpage_config.title | default: site.title %}
 
 <!doctype html>
-<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+<html lang="{{ site.locale | slice: 0,2 | default: 'en' }}" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %} | {{ site.name | default: site.title }}</title>
+    <title>{{ page_title | escape }} | {{ site.name | default: site.title }}</title>
     {% include head.html %}
     {% include head/custom.html %}
     <link rel="stylesheet" href="{{ '/assets/css/subpage-layout.css' | relative_url }}">
@@ -25,7 +28,11 @@ layout: compress
         {% include subpage-sidebar.html %}
 
         <div class="subpage-main">
-          {{ content }}
+          {% if subpage_config %}
+            {% include subpage-hub.html config=subpage_config %}
+          {% else %}
+            {{ content }}
+          {% endif %}
         </div>
       </div>
     </div>

@@ -1,0 +1,125 @@
+{% assign competition_posts = site.projects | sort: "date" | reverse %}
+{% assign coursework_posts = site.coursework | sort: "date" | reverse %}
+{% assign lab_posts = site.labwork | sort: "date" | reverse %}
+{% assign internship_posts = site.internship | sort: "date" | reverse %}
+{% assign exploration_posts = site.exploration | sort: "date" | reverse %}
+{% assign competition_count = competition_posts | size %}
+{% assign coursework_count = coursework_posts | size %}
+{% assign lab_count = lab_posts | size %}
+{% assign internship_count = internship_posts | size %}
+{% assign exploration_count = exploration_posts | size %}
+{% assign total_entries = competition_count | plus: coursework_count | plus: lab_count | plus: internship_count | plus: exploration_count %}
+{% assign all_posts = competition_posts | concat: coursework_posts | concat: lab_posts | concat: internship_posts | concat: exploration_posts | sort: "date" | reverse %}
+{% assign latest_entry = all_posts | first %}
+{% assign latest_competition = competition_posts | first %}
+{% assign latest_coursework = coursework_posts | first %}
+{% assign latest_lab = lab_posts | first %}
+{% assign latest_internship = internship_posts | first %}
+{% assign latest_exploration = exploration_posts | first %}
+
+<div class="home-overview">
+  <section class="home-hero-panel">
+    <div class="home-hero-panel__copy">
+      <p class="home-overview__kicker">Site Snapshot</p>
+      <h2>当前内容总览</h2>
+      <p>这个网站目前围绕比赛、课程、实验室、实习和自主探索五个专区展开，已整理 {{ total_entries }} 条内容。其中比赛 {{ competition_count }} 条、课程 {{ coursework_count }} 条、实验室 {{ lab_count }} 条、实习 {{ internship_count }} 条、自主探索 {{ exploration_count }} 条；最近更新集中在 {% if latest_entry %}{{ latest_entry.date | date: "%Y.%m.%d" }}{% else %}近期{% endif %}。</p>
+      <p>如果你想快速了解我最近在做什么，可以先看课程页里的最新课程报告，再看实验室里的七轴机械臂方向记录；若后续补充了实习或自主探索内容，也会自动接入到这里。</p>
+    </div>
+
+    <div class="home-stats-grid">
+      <article class="home-stat-card home-stat-card--primary">
+        <strong>{{ total_entries }}</strong>
+        <span>总条目</span>
+      </article>
+      <article class="home-stat-card">
+        <strong>{{ competition_count }}</strong>
+        <span>比赛项目</span>
+      </article>
+      <article class="home-stat-card">
+        <strong>{{ coursework_count }}</strong>
+        <span>课程项目</span>
+      </article>
+      <article class="home-stat-card">
+        <strong>{{ lab_count }}</strong>
+        <span>实验记录</span>
+      </article>
+      <article class="home-stat-card">
+        <strong>{{ internship_count }}</strong>
+        <span>实习条目</span>
+      </article>
+      <article class="home-stat-card">
+        <strong>{{ exploration_count }}</strong>
+        <span>探索条目</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section-grid">
+    <a class="home-section-card home-section-card--projects" href="{{ '/projects/' | relative_url }}">
+      <span class="home-section-card__eyebrow">Competition</span>
+      <h3>比赛经历</h3>
+      <p class="home-section-card__count">{{ competition_count }} 条记录</p>
+      <p>聚焦 RoboMaster、RC 足式、点足机器人与智能车，内容覆盖结构搭建、装配推进和整机联调。</p>
+      <div class="home-section-card__meta">
+        <span>{% if latest_competition %}最近更新 {{ latest_competition.date | date: "%Y.%m.%d" }}{% endif %}</span>
+        <span>进入专区</span>
+      </div>
+    </a>
+
+    <a class="home-section-card home-section-card--coursework" href="{{ '/coursework/' | relative_url }}">
+      <span class="home-section-card__eyebrow">Coursework</span>
+      <h3>课程作业</h3>
+      <p class="home-section-card__count">{{ coursework_count }} 条记录</p>
+      <p>覆盖控制、嵌入式、软件系统、人机交互、机械制作和实验验证，既有单项作业，也有完整小组报告。</p>
+      <div class="home-section-card__meta">
+        <span>{% if latest_coursework %}最近更新 {{ latest_coursework.date | date: "%Y.%m.%d" }}{% endif %}</span>
+        <span>进入专区</span>
+      </div>
+    </a>
+
+    <a class="home-section-card home-section-card--labwork" href="{{ '/labwork/' | relative_url }}">
+      <span class="home-section-card__eyebrow">Labwork</span>
+      <h3>实验室工作</h3>
+      <p class="home-section-card__count">{{ lab_count }} 条记录</p>
+      <p>当前以七轴机械臂的力控与摩擦辨识为主，也保留了一份可直接扩展的实验记录模板。</p>
+      <div class="home-section-card__meta">
+        <span>{% if latest_lab %}最近更新 {{ latest_lab.date | date: "%Y.%m.%d" }}{% endif %}</span>
+        <span>进入专区</span>
+      </div>
+    </a>
+
+    <a class="home-section-card home-section-card--internship" href="{{ '/internship/' | relative_url }}">
+      <span class="home-section-card__eyebrow">Internship</span>
+      <h3>实习</h3>
+      <p class="home-section-card__count">{{ internship_count }} 条记录</p>
+      <p>用于归档岗位职责、参与模块、工程协作方式和业务结果，和校内项目形成清晰区分。</p>
+      <div class="home-section-card__meta">
+        <span>{% if latest_internship %}最近更新 {{ latest_internship.date | date: "%Y.%m.%d" }}{% else %}等待补充{% endif %}</span>
+        <span>进入专区</span>
+      </div>
+    </a>
+
+    <a class="home-section-card home-section-card--exploration" href="{{ '/exploration/' | relative_url }}">
+      <span class="home-section-card__eyebrow">Exploration</span>
+      <h3>自主探索</h3>
+      <p class="home-section-card__count">{{ exploration_count }} 条记录</p>
+      <p>承接课程、比赛和实验室之外的自驱学习、小工具尝试与长期兴趣方向的沉淀。</p>
+      <div class="home-section-card__meta">
+        <span>{% if latest_exploration %}最近更新 {{ latest_exploration.date | date: "%Y.%m.%d" }}{% else %}等待补充{% endif %}</span>
+        <span>进入专区</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="home-aux-card">
+    <div>
+      <p class="home-overview__kicker">More</p>
+      <h3>补充入口</h3>
+      <p>简历页汇总了教育背景、技能和各模块摘要；时间线页适合按日期连续浏览全部内容。</p>
+    </div>
+    <div class="home-aux-card__actions">
+      <a class="home-aux-link" href="{{ '/cv/' | relative_url }}">查看简历</a>
+      <a class="home-aux-link home-aux-link--secondary" href="{{ '/timeline/' | relative_url }}">查看时间线</a>
+    </div>
+  </section>
+</div>
