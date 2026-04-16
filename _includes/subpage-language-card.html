@@ -1,0 +1,27 @@
+﻿{% if page.author and site.data.authors[page.author] %}
+  {% assign profile_author = site.data.authors[page.author] %}
+{% else %}
+  {% assign profile_author = site.author %}
+{% endif %}
+
+{% if profile_author.languages %}
+  <section class="subpage-sidebar-card subpage-sidebar-card--languages">
+    <p class="subpage-sidebar-card__kicker">Language Stack</p>
+    <h2 class="subpage-sidebar-card__title">{{ profile_author.languages_title | default: "语言能力" }}</h2>
+
+    {% if profile_author.languages_intro %}
+      <p class="subpage-sidebar-card__text">{{ profile_author.languages_intro }}</p>
+    {% endif %}
+
+    <ul class="subpage-language-list">
+      {% for language in profile_author.languages %}
+        <li class="subpage-language-item">
+          <span class="subpage-language-name">{{ language.name }}</span>
+          {% if language.note %}
+            <span class="subpage-language-note">{{ language.note }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}

@@ -240,6 +240,7 @@
 .timeline-category-badge {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   padding: 0.4rem 0.72rem;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -248,6 +249,41 @@
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1;
+}
+
+.timeline-category-badge::before,
+.timeline-tab::before,
+.timeline-cover-label::before {
+  content: "";
+  width: 0.58rem;
+  height: 0.58rem;
+  flex: 0 0 0.58rem;
+  border-radius: 0.16rem;
+  background: currentColor;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.timeline-category-badge--projects,
+.timeline-tab--projects,
+.timeline-cover-label--projects {
+  color: var(--timeline-accent-color);
+}
+
+.timeline-category-badge--coursework,
+.timeline-tab--coursework,
+.timeline-cover-label--coursework {
+  color: #d77b1f;
+}
+
+.timeline-category-badge--labwork,
+.timeline-tab--labwork,
+.timeline-cover-label--labwork {
+  color: #2e9d73;
+}
+
+.timeline-category-badge--other,
+.timeline-cover-label--other {
+  color: var(--timeline-accent-secondary);
 }
 
 .horizontal-timeline-content .date {
@@ -294,6 +330,9 @@
 }
 
 .timeline-cover-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -386,6 +425,7 @@
 .timeline-tab {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.65rem 1rem;
   border: 1px solid var(--timeline-accent-color);
@@ -614,3 +654,4 @@
     transform: translateX(-50%) scale(1);
   }
 }
+

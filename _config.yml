@@ -1,4 +1,4 @@
-# 欢迎来到 Jekyll!
+﻿# 欢迎来到 Jekyll!
 #
 # 此配置文件用于设置影响整个站点的配置项，这些值
 # 您只需要设置一次，之后很少需要编辑。
@@ -36,7 +36,7 @@ author:
   avatar           : "new_tou_xiang.jpg"
   name             : "Luwen He"
   pronouns         : "He" # 例如: "she/her"  
-  bio              : "一只可怜的鼠鼠"
+  bio              : "是非对错一定是有的"
   location         : "重庆/南京"
   employer         : # 例如: "某某大学"
   uri              : # 你的个人主页完整URL，例如：https://www.your-website.com
@@ -49,6 +49,17 @@ author:
       institution: "CQU"
       major: "机器人工程"
       year: "2023-2027"
+
+  # 左侧语言资料
+  languages_title  : "语言能力"
+  languages_intro  : "这里展示自然语言能力，例如中文、英语等。"
+  languages:
+    - name: "中文"
+      note: "母语"
+    - name: "英语"
+      note: "技术文档与论文阅读"
+    - name: "俄语"
+      note: "基础交流能力"
 
 
   # 学术网站
@@ -329,9 +340,9 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      share: true
-      comments: true
+      read_time: false
+      share: false
+      comments: false
       header:
         teaser: 500x300.png
   # _coursework (课程作业)
@@ -341,9 +352,9 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      comments: true
-      share: true
+      read_time: false
+      comments: false
+      share: false
       header:
         teaser: 500x300.png
   # _labwork (实验室工作)
@@ -353,9 +364,9 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      comments: true
-      share: true
+      read_time: false
+      comments: false
+      share: false
       header:
         teaser: 500x300.png
   # _teaching
@@ -375,8 +386,6 @@ defaults:
       layout: talk
       author_profile: true
       share: true
-
-
 # ========================================
 # 样式处理配置
 # ========================================
@@ -473,3 +482,6 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+
+

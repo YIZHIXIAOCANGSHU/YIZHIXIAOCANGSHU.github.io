@@ -7,10 +7,13 @@
 {% endcomment %}
 
 {% assign teaser = item.header.teaser | default: site.teaser %}
+{% assign teaser_first_char = teaser | slice: 0, 1 %}
+{% assign teaser_first_two_chars = teaser | slice: 0, 2 %}
 {% assign has_teaser = false %}
-{% if item.header.teaser and item.header.teaser != site.teaser %}
+{% if teaser and teaser != "" %}
   {% assign has_teaser = true %}
 {% endif %}
+{% capture teaser_url %}{% if has_teaser %}{% if teaser contains "://" or teaser_first_two_chars == "//" %}{{ teaser }}{% elsif teaser_first_char == "/" %}{{ teaser | relative_url }}{% else %}{{ teaser | prepend: "/images/" | relative_url }}{% endif %}{% endif %}{% endcapture %}
 
 {% if item.id %}
   {% assign title = item.title | markdownify | remove: "<p>" | remove: "</p>" %}
@@ -19,14 +22,15 @@
 {% endif %}
 
 {% capture excerpt_text %}{{ item.excerpt | markdownify | strip_html | strip }}{% endcapture %}
+{% assign item_tags_text = item.tags | join: " " %}
 
-{% if item.collection == "projects" %}
+{% if item.collection == "projects" or item_tags_text contains "比赛项目" or item_tags_text contains "机器人竞赛" %}
   {% assign category = "projects" %}
   {% assign category_label = "比赛项目" %}
-{% elsif item.collection == "coursework" %}
+{% elsif item.collection == "coursework" or item_tags_text contains "课程作业" or item_tags_text contains "课程实践" %}
   {% assign category = "coursework" %}
   {% assign category_label = "课程作业" %}
-{% elsif item.collection == "labwork" %}
+{% elsif item.collection == "labwork" or item_tags_text contains "实验室" %}
   {% assign category = "labwork" %}
   {% assign category_label = "实验室" %}
 {% else %}
@@ -37,7 +41,7 @@
 <div class="horizontal-timeline-item gsap-init" data-index="{{ include.index }}" data-category="{{ category }}">
   <article class="horizontal-timeline-content">
     <div class="timeline-card-meta">
-      <span class="timeline-category-badge">{{ category_label }}</span>
+      <span class="timeline-category-badge timeline-category-badge--{{ category }}">{{ category_label }}</span>
       {% if item.date %}
         <time class="date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%Y.%m.%d" }}</time>
       {% endif %}
@@ -46,9 +50,9 @@
     {% if item.url %}
       <a class="timeline-cover{% unless has_teaser %} is-placeholder{% endunless %}" href="{{ item.url | relative_url }}">
         {% if has_teaser %}
-          <img src="{{ teaser | relative_url }}" alt="{{ title | strip_html | strip }}">
+          <img src="{{ teaser_url | strip }}" alt="{{ title | strip_html | strip }}">
         {% else %}
-          <span class="timeline-cover-label">{{ category_label }}</span>
+          <span class="timeline-cover-label timeline-cover-label--{{ category }}">{{ category_label }}</span>
           {% if item.date %}
             <strong>{{ item.date | date: "%Y" }}</strong>
           {% endif %}
@@ -57,9 +61,9 @@
     {% else %}
       <div class="timeline-cover{% unless has_teaser %} is-placeholder{% endunless %}">
         {% if has_teaser %}
-          <img src="{{ teaser | relative_url }}" alt="{{ title | strip_html | strip }}">
+          <img src="{{ teaser_url | strip }}" alt="{{ title | strip_html | strip }}">
         {% else %}
-          <span class="timeline-cover-label">{{ category_label }}</span>
+          <span class="timeline-cover-label timeline-cover-label--{{ category }}">{{ category_label }}</span>
           {% if item.date %}
             <strong>{{ item.date | date: "%Y" }}</strong>
           {% endif %}

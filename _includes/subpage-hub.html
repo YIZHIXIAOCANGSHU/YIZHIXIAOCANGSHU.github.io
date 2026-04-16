@@ -1,0 +1,106 @@
+{% assign cfg = include.config %}
+{% assign posts = site[cfg.collection] | sort: "date" | reverse %}
+
+<div class="subpage-page subpage-page--{{ cfg.theme | default: 'default' }}">
+  <section class="subpage-hero subpage-hero--{{ cfg.theme | default: 'default' }}">
+    <div class="subpage-hero-main">
+      <p class="subpage-kicker">{{ cfg.kicker }}</p>
+      {% if page.layout == "subpage-hub" %}
+        <h1>{{ page.title }}</h1>
+      {% else %}
+        <h2 class="subpage-hero-title">{{ page.title }}</h2>
+      {% endif %}
+      <p class="subpage-summary">{{ cfg.summary }}</p>
+
+      {% if cfg.tags %}
+        <div class="subpage-tag-row">
+          {% for tag in cfg.tags %}
+            <span class="subpage-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if cfg.actions %}
+        <div class="subpage-action-row">
+          {% for action in cfg.actions %}
+            <a class="subpage-action{% if action.style == 'secondary' %} subpage-action--secondary{% endif %}" href="{{ action.url | relative_url }}">{{ action.label }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <aside class="subpage-hero-side">
+      <p class="subpage-side-label">{{ cfg.side_title | default: "页面定位" }}</p>
+      <p class="subpage-side-text">{{ cfg.side_text }}</p>
+
+      {% if cfg.metrics %}
+        <div class="subpage-stat-grid">
+          {% for metric in cfg.metrics %}
+            <div class="subpage-stat-card">
+              <strong>{{ metric.value }}</strong>
+              <span>{{ metric.label }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </aside>
+  </section>
+
+  {% if cfg.blocks %}
+    <section class="subpage-info-grid">
+      {% for block in cfg.blocks %}
+        <article class="subpage-info-card">
+          <h2>{{ block.title }}</h2>
+
+          {% if block.text %}
+            <p>{{ block.text }}</p>
+          {% endif %}
+
+          {% if block.items %}
+            <ul>
+              {% for item in block.items %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <section class="subpage-collection">
+    <div class="subpage-section-heading">
+      <div>
+        <p class="subpage-kicker">{{ cfg.list_kicker | default: "Content Archive" }}</p>
+        <h2>{{ cfg.list_title | default: "内容卡片" }}</h2>
+      </div>
+      <p class="subpage-section-note">{{ cfg.list_note | default: "所有条目都已统一为相同的章节结构，便于浏览与持续维护。" }}</p>
+    </div>
+
+    <div class="subpage-entry-grid">
+      {% for post in posts %}
+        <article class="subpage-entry-card">
+          <div class="subpage-entry-meta">
+            {% if post.date %}
+              <span>{{ post.date | date: "%Y.%m.%d" }}</span>
+            {% endif %}
+            <span>{{ post.tags | size }} 个标签</span>
+          </div>
+
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p>{{ post.excerpt }}</p>
+
+          {% if post.tags %}
+            <div class="subpage-tag-row">
+              {% for tag in post.tags limit: 4 %}
+                <span class="subpage-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <a class="subpage-entry-link" href="{{ post.url | relative_url }}">{{ cfg.entry_label | default: "查看详情" }}</a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>

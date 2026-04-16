@@ -16,9 +16,19 @@
 {% assign visible_count = display_items.size %}
 {% assign newest_item = all_items.first %}
 {% assign oldest_item = all_items.last %}
-{% assign project_count = display_items | where: "collection", "projects" | size %}
-{% assign coursework_count = display_items | where: "collection", "coursework" | size %}
-{% assign labwork_count = display_items | where: "collection", "labwork" | size %}
+{% assign project_count = 0 %}
+{% assign coursework_count = 0 %}
+{% assign labwork_count = 0 %}
+{% for item in display_items %}
+  {% assign item_tags_text = item.tags | join: " " %}
+  {% if item.collection == "projects" or item_tags_text contains "比赛项目" or item_tags_text contains "机器人竞赛" %}
+    {% assign project_count = project_count | plus: 1 %}
+  {% elsif item.collection == "coursework" or item_tags_text contains "课程作业" or item_tags_text contains "课程实践" %}
+    {% assign coursework_count = coursework_count | plus: 1 %}
+  {% elsif item.collection == "labwork" or item_tags_text contains "实验室" %}
+    {% assign labwork_count = labwork_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 {% if total_items == 0 %}
   <p class="timeline-empty">暂无时间轴数据</p>
@@ -53,21 +63,21 @@
         </button>
 
         {% if project_count > 0 %}
-          <button type="button" class="timeline-tab" data-filter="projects" aria-pressed="false">
+          <button type="button" class="timeline-tab timeline-tab--projects" data-filter="projects" aria-pressed="false">
             比赛项目
             <span>{{ project_count }}</span>
           </button>
         {% endif %}
 
         {% if coursework_count > 0 %}
-          <button type="button" class="timeline-tab" data-filter="coursework" aria-pressed="false">
+          <button type="button" class="timeline-tab timeline-tab--coursework" data-filter="coursework" aria-pressed="false">
             课程作业
             <span>{{ coursework_count }}</span>
           </button>
         {% endif %}
 
         {% if labwork_count > 0 %}
-          <button type="button" class="timeline-tab" data-filter="labwork" aria-pressed="false">
+          <button type="button" class="timeline-tab timeline-tab--labwork" data-filter="labwork" aria-pressed="false">
             实验室
             <span>{{ labwork_count }}</span>
           </button>
@@ -98,3 +108,4 @@
 
   {% include timeline-scripts.html %}
 {% endif %}
+

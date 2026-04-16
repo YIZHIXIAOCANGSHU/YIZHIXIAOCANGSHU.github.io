@@ -3,11 +3,53 @@ layout: archive
 title: "比赛经历"
 permalink: /projects/
 author_profile: true
+subpage:
+  collection: "projects"
+  theme: "projects"
+  kicker: "Competition Track"
+  summary: "机器人竞赛与工程项目，聚焦结构方案、装配推进、现场联调与赛前迭代。"
+  tags:
+    - "点足机器人"
+    - "RoboMaster"
+    - "RC 足式"
+    - "智能车"
+    - "结构设计"
+    - "整机联调"
+  actions:
+    - label: "查看简历"
+      url: "/cv/"
+    - label: "实验室工作"
+      url: "/labwork/"
+      style: "secondary"
+  side_title: "比赛侧重"
+  side_text: "结构拆分、装配推进、模块配合、现场调试。"
+  metrics:
+    - value: "4"
+      label: "核心项目"
+    - value: "2023-2025"
+      label: "持续参与"
+    - value: "结构 / 联调"
+      label: "主要关注点"
+  blocks:
+    - title: "关注内容"
+      items:
+        - "机器人竞赛中的结构方案、整机搭建与模块联调。"
+        - "赛前排查、问题收敛、参数调整与现场支持。"
+        - "按项目保留阶段结果、关键节点与补充材料入口。"
+    - title: "项目类型"
+      items:
+        - "足式机器人复刻与竞赛项目。"
+        - "轮式平台、智能车与综合调试任务。"
+        - "偏结构、偏装配、偏联调的交叉型工作。"
+    - title: "输出形式"
+      items:
+        - "项目卡片。"
+        - "阶段结果。"
+        - "相关链接与补充记录。"
+  list_kicker: "Competition Archive"
+  list_title: "比赛项目"
+  list_note: "按项目时间排序，优先展示结构任务、调试节点和阶段结果。"
+  entry_label: "查看项目"
 ---
 
-{% include base_path %}
-
-{% for post in site.projects %}
-  {% include archive-single.html %}
-{% endfor %}
-
+{% include subpage-hub.html config=page.subpage %}

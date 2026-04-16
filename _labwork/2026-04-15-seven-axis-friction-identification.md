@@ -1,6 +1,7 @@
 ---
+layout: single
 title: "七轴机械臂摩擦力辨识方案"
-excerpt: "面向七轴机械臂关节摩擦建模与参数辨识的实验记录。"
+excerpt: "七轴机械臂关节摩擦建模、参数辨识与补偿应用。"
 date: 2026-04-15
 collection: labwork
 permalink: /labwork/seven-axis-friction-identification/
@@ -11,25 +12,27 @@ tags:
   - "实验室工作"
 ---
 
-这是一个面向七轴机械臂的摩擦力辨识方案整理页面，主要用于记录摩擦建模、参数辨识与实验分析相关内容。
+## 方向概览
 
-## 项目简介
+围绕机械臂关节摩擦建模与参数辨识展开，覆盖数据采集、模型拟合和补偿应用。
 
-该方案关注七轴机械臂关节摩擦特性的识别与建模，可为动力学补偿、控制精度提升和状态分析提供基础支撑。
+重点放在模型选择、参数估计和实验验证。
 
-参考仓库：
-[Friction-Identification-for-Manipulators](https://github.com/YIZHIXIAOCANGSHU/Friction-Identification-for-Manipulators)
+## 主要内容
 
-## 方案内容
+- 梳理关节摩擦特性、常见摩擦模型及其辨识思路。
+- 记录实验数据采集、参数拟合和模型验证流程。
+- 总结辨识结果在动力学补偿、轨迹跟踪和性能分析中的用途。
+- 补充实验过程、结果分析和模型应用验证。
 
-- 七轴机械臂关节摩擦特性分析
-- 摩擦模型参数辨识流程整理
-- 实验数据采集与拟合思路记录
-- 面向控制补偿的辨识结果应用
+## 进展 / 结果
 
-## 应用方向
+- 完成建模、采集和参数辨识三条主线的初步整理。
+- 形成摩擦辨识与控制补偿之间关系的基础认识。
+- 已保留实验过程、结果分析和模型验证入口。
 
-- 机械臂动力学建模
-- 摩擦补偿控制
-- 高精度轨迹跟踪
-- 关节性能分析与实验验证
+## 相关链接
+
+- [返回实验室工作总览](/labwork/)
+- [查看简历中的实验室模块](/cv/)
+- [GitHub 仓库：Friction Identification for Manipulators](https://github.com/YIZHIXIAOCANGSHU/Friction-Identification-for-Manipulators)

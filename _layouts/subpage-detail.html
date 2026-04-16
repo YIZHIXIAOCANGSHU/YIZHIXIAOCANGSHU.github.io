@@ -1,0 +1,96 @@
+﻿---
+layout: compress
+---
+
+{% include base_path %}
+
+{% assign collection_label = page.collection %}
+{% assign collection_url = '/' %}
+{% assign collection_kicker = 'Subpage Detail' %}
+
+{% case page.collection %}
+  {% when 'projects' %}
+    {% assign collection_label = '比赛经历' %}
+    {% assign collection_url = '/projects/' %}
+    {% assign collection_kicker = 'Project Detail' %}
+  {% when 'coursework' %}
+    {% assign collection_label = '课程作业' %}
+    {% assign collection_url = '/coursework/' %}
+    {% assign collection_kicker = 'Coursework Detail' %}
+  {% when 'labwork' %}
+    {% assign collection_label = '实验室工作' %}
+    {% assign collection_url = '/labwork/' %}
+    {% assign collection_kicker = 'Labwork Detail' %}
+{% endcase %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %} | {{ site.name | default: site.title }}</title>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ '/assets/css/subpage-layout.css' | relative_url }}">
+  </head>
+
+  <body class="subpage-layout subpage-detail-body">
+    {% include browser-upgrade.html %}
+    {% include masthead.html %}
+
+    <div id="main" role="main">
+      <div class="container subpage-shell">
+        {% include subpage-sidebar.html %}
+
+        <div class="subpage-main">
+          <div class="subpage-detail">
+            <section class="subpage-detail-hero">
+              <div class="subpage-detail-meta-row">
+                <a class="subpage-back-link" href="{{ collection_url | relative_url }}">返回{{ collection_label }}</a>
+                {% if page.date %}
+                  <span class="subpage-date">{{ page.date | date: "%Y.%m.%d" }}</span>
+                {% endif %}
+              </div>
+
+              <p class="subpage-kicker">{{ collection_kicker }}</p>
+              <h1>{{ page.title }}</h1>
+
+              {% if page.excerpt %}
+                <p class="subpage-summary">{{ page.excerpt }}</p>
+              {% endif %}
+
+              <div class="subpage-tag-row">
+                <span class="subpage-tag">{{ collection_label }}</span>
+                {% for tag in page.tags %}
+                  <span class="subpage-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            </section>
+
+            <article class="subpage-article">
+              {{ content }}
+            </article>
+
+            <section class="subpage-footer-card">
+              <p class="subpage-footer-label">继续浏览</p>
+              <div class="subpage-action-row">
+                <a class="subpage-action" href="{{ collection_url | relative_url }}">返回{{ collection_label }}</a>
+                <a class="subpage-action subpage-action--secondary" href="{{ '/cv/' | relative_url }}">查看简历总览</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        {% include footer/custom.html %}
+        {% include footer.html %}
+      </footer>
+    </div>
+
+    {% include scripts.html %}
+  </body>
+</html>

@@ -3,16 +3,53 @@ layout: archive
 permalink: /labwork/
 title: "实验室工作"
 author_profile: true
+subpage:
+  collection: "labwork"
+  theme: "labwork"
+  kicker: "Lab Notebook"
+  summary: "实验室方向记录，围绕七轴机械臂、力控、摩擦辨识与参数建模展开。"
+  tags:
+    - "七轴机械臂"
+    - "力控"
+    - "摩擦辨识"
+    - "参数建模"
+    - "实验记录"
+    - "研究探索"
+  actions:
+    - label: "查看简历"
+      url: "/cv/"
+    - label: "课程作业"
+      url: "/coursework/"
+      style: "secondary"
+  side_title: "研究侧重"
+  side_text: "问题定义、建模假设、实验计划、数据回看。"
+  metrics:
+    - value: "2+"
+      label: "研究方向"
+    - value: "控制 / 建模"
+      label: "主题聚焦"
+    - value: "记录 / 复盘"
+      label: "内容形式"
+  blocks:
+    - title: "当前方向"
+      items:
+        - "七轴机械臂接触任务中的力控。"
+        - "关节摩擦建模与参数辨识。"
+        - "与控制补偿相关的实验验证。"
+    - title: "记录内容"
+      items:
+        - "问题背景与应用场景。"
+        - "方法路线、参数设定与实验过程。"
+        - "阶段结果、图表链接与外部仓库。"
+    - title: "补充重点"
+      items:
+        - "实验数据。"
+        - "参数曲线。"
+        - "复盘记录。"
+  list_kicker: "Lab Archive"
+  list_title: "实验室方向"
+  list_note: "按研究方向归档，优先展示问题、方法、阶段结果和外部仓库。"
+  entry_label: "查看记录"
 ---
 
-{% include base_path %}
-{% capture written_year %}'None'{% endcapture %}
-{% for post in site.labwork %}
-  {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-  {% if year != written_year %}
-    <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
-    {% capture written_year %}{{ year }}{% endcapture %}
-  {% endif %}
-  {% include archive-single.html %}
-{% endfor %}
-
+{% include subpage-hub.html config=page.subpage %}

@@ -3,16 +3,53 @@ layout: archive
 permalink: /coursework/
 title: "课程作业"
 author_profile: true
+subpage:
+  collection: "coursework"
+  theme: "coursework"
+  kicker: "Coursework Map"
+  summary: "课程设计、实验项目与综合作业，覆盖控制、嵌入式、视觉、机械与软件实现。"
+  tags:
+    - "自动控制"
+    - "嵌入式系统"
+    - "检测与信号处理"
+    - "视觉识别"
+    - "机械制作"
+    - "实验记录"
+  actions:
+    - label: "查看简历"
+      url: "/cv/"
+    - label: "比赛经历"
+      url: "/projects/"
+      style: "secondary"
+  side_title: "课程侧重"
+  side_text: "需求拆解、系统实现、实验验证、报告沉淀。"
+  metrics:
+    - value: "8"
+      label: "课程项目"
+    - value: "软硬结合"
+      label: "实践类型"
+    - value: "控制 / 视觉 / 机械"
+      label: "内容范围"
+  blocks:
+    - title: "课程分布"
+      items:
+        - "控制与嵌入式系统。"
+        - "视觉识别、信号处理与软件系统。"
+        - "机械制造、物理实验与综合课程设计。"
+    - title: "能力维度"
+      items:
+        - "从需求分析到模块划分。"
+        - "从代码实现到装置搭建。"
+        - "从实验现象到结果整理。"
+    - title: "材料类型"
+      items:
+        - "课程项目卡片。"
+        - "阶段结果摘要。"
+        - "报告与补充资料入口。"
+  list_kicker: "Coursework Archive"
+  list_title: "课程项目"
+  list_note: "按课程项目排序，保留系统方案、实验过程和报告入口。"
+  entry_label: "查看课程"
 ---
 
-{% include base_path %}
-{% capture written_year %}'None'{% endcapture %}
-{% for post in site.coursework %}
-  {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-  {% if year != written_year %}
-    <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
-    {% capture written_year %}{{ year }}{% endcapture %}
-  {% endif %}
-  {% include archive-single.html %}
-{% endfor %}
-
+{% include subpage-hub.html config=page.subpage %}
