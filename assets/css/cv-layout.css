@@ -409,6 +409,14 @@ html[data-theme="geek"] body.cv-layout {
   color: var(--resume-meta-ink);
 }
 
+.resume-entry-meta {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--resume-heading);
+}
+
 .resume-education-details {
   margin-top: 0.8rem;
 }
@@ -494,6 +502,12 @@ html[data-theme="geek"] body.cv-layout {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--resume-subtle-label);
+}
+
+.resume-subtle-panel p {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--resume-muted);
 }
 
 .resume-link-cloud a {

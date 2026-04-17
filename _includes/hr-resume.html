@@ -1,44 +1,80 @@
 {% include base_path %}
 {% assign resume = include.resume %}
 {% assign featured_projects = site.projects | sort: "date" | reverse %}
+{% assign core_project_urls = resume.projects | map: "url" %}
+{% assign section_index = 1 %}
 
 <div class="resume-page">
   <section class="resume-hero">
     <div class="resume-hero-copy">
-      <h1>{{ site.author.name }}</h1>
-      <p class="resume-role">{{ resume.hero.role }}</p>
-      <p class="resume-summary">{{ resume.hero.summary }}</p>
+      {% if resume.hero.kicker %}
+      <p class="resume-kicker">{{ resume.hero.kicker }}</p>
+      {% endif %}
 
+      <h1>{{ site.author.name }}</h1>
+
+      {% if resume.hero.role %}
+      <p class="resume-role">{{ resume.hero.role }}</p>
+      {% endif %}
+
+      {% if resume.hero.summary %}
+      <p class="resume-summary">{{ resume.hero.summary }}</p>
+      {% endif %}
+
+      {% if resume.hero.tags %}
       <div class="resume-tag-row">
         {% for tag in resume.hero.tags %}
         <span class="resume-tag">{{ tag }}</span>
         {% endfor %}
       </div>
+      {% endif %}
 
+      {% if resume.hero.actions %}
       <div class="resume-action-row">
         {% for action in resume.hero.actions %}
         <a class="resume-action" href="{{ base_path }}{{ action.url }}">{{ action.label }}</a>
         {% endfor %}
       </div>
+      {% endif %}
     </div>
 
     <aside class="resume-profile-card">
       <img class="resume-avatar" src="{{ base_path }}/images/{{ site.author.avatar }}" alt="{{ site.author.name }}">
+
       <div class="resume-contact-list">
-        <a href="mailto:2752722697@qq.com"><i class="fas fa-envelope"></i><span>2752722697@qq.com</span></a>
-        <a href="tel:13776417332"><i class="fas fa-phone"></i><span>13776417332</span></a>
-        <div><i class="fas fa-location-dot"></i><span>{{ site.author.location }}</span></div>
-        <a href="https://github.com/YIZHIXIAOCANGSHU" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>GitHub</span></a>
-        <a href="{{ site.author.bilibili }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-circle-play"></i><span>Bilibili</span></a>
+        {% if resume.contact.email %}
+        <a href="mailto:{{ resume.contact.email }}"><i class="fas fa-envelope"></i><span>{{ resume.contact.email }}</span></a>
+        {% endif %}
+
+        {% if resume.contact.phone %}
+        <a href="tel:{{ resume.contact.phone }}"><i class="fas fa-phone"></i><span>{{ resume.contact.phone }}</span></a>
+        {% endif %}
+
+        {% if resume.contact.location %}
+        <div><i class="fas fa-location-dot"></i><span>{{ resume.contact.location }}</span></div>
+        {% endif %}
+
+        {% if resume.contact.github %}
+        <a href="{{ resume.contact.github }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>GitHub 作品集</span></a>
+        {% endif %}
+
+        {% if resume.contact.bilibili %}
+        <a href="{{ resume.contact.bilibili }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-circle-play"></i><span>Bilibili</span></a>
+        {% endif %}
       </div>
+
+      {% if resume.hero.note %}
+      <p class="resume-note">{{ resume.hero.note }}</p>
+      {% endif %}
     </aside>
   </section>
 
   <section class="resume-section">
     <div class="resume-section-head">
-      <span class="resume-section-index">01</span>
+      <span class="resume-section-index">{% if section_index < 10 %}0{% endif %}{{ section_index }}</span>
       <div>
         <h2>教育背景</h2>
+        <p>保留 GPA、排名与匹配方向实践，便于快速判断岗位契合度。</p>
       </div>
     </div>
 
@@ -46,6 +82,7 @@
       <div>
         <h3>{{ resume.education.school }}</h3>
         <p class="resume-meta">{{ resume.education.meta }}</p>
+
         {% if resume.education.gpa != blank or resume.education.rank != blank %}
         <div class="resume-chip-row resume-education-details">
           {% if resume.education.gpa != blank %}
@@ -57,46 +94,80 @@
         </div>
         {% endif %}
       </div>
-      <p>{{ resume.education.description }}</p>
+
+      <div>
+        <p>{{ resume.education.description }}</p>
+
+        {% if resume.education.focus_items %}
+        <div class="resume-subtle-panel">
+          <span class="resume-subtle-label">{{ resume.education.focus_label }}</span>
+          <div class="resume-link-cloud">
+            {% for title in resume.education.focus_items %}
+              {% assign course = site.coursework | where: "title", title | first %}
+              {% if course %}
+            <a href="{{ base_path }}{{ course.url }}">{{ course.title }}</a>
+              {% else %}
+            <span class="resume-chip">{{ title }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
     </div>
   </section>
+  {% assign section_index = section_index | plus: 1 %}
 
+  {% if resume.internships and resume.internships.size > 0 %}
   <section class="resume-section">
     <div class="resume-section-head">
-      <span class="resume-section-index">02</span>
+      <span class="resume-section-index">{% if section_index < 10 %}0{% endif %}{{ section_index }}</span>
       <div>
-        <h2>核心优势</h2>
+        <h2>实习经历</h2>
+        <p>按时间、公司和角色组织，优先突出与目标岗位最相关的经历。</p>
       </div>
     </div>
 
-    <div class="resume-grid resume-grid--three">
-      {% for item in resume.strengths %}
-      <article class="resume-card">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
+    <div class="resume-stack">
+      {% for internship in resume.internships %}
+      <article class="resume-card resume-experience-card">
+        <p class="resume-entry-meta">{{ internship.meta }}</p>
+        {% if internship.subtitle %}
+        <p class="resume-meta">{{ internship.subtitle }}</p>
+        {% endif %}
+        {% if internship.description %}
+        <p>{{ internship.description }}</p>
+        {% endif %}
+        {% if internship.highlights %}
+        <ul class="resume-bullet-list">
+          {% for highlight in internship.highlights %}
+          <li>{{ highlight }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </article>
       {% endfor %}
     </div>
   </section>
+  {% assign section_index = section_index | plus: 1 %}
+  {% endif %}
 
   <section class="resume-section">
     <div class="resume-section-head">
-      <span class="resume-section-index">03</span>
+      <span class="resume-section-index">{% if section_index < 10 %}0{% endif %}{{ section_index }}</span>
       <div>
-        <h2>重点项目经历</h2>
+        <h2>项目经历</h2>
+        <p>按“时间 | 项目 | 角色”组织，并强调技术动作、问题解决与结果价值。</p>
       </div>
     </div>
 
     <div class="resume-stack">
       {% for project in resume.projects %}
       <article class="resume-card resume-experience-card">
-        <div class="resume-item-head">
-          <div>
-            <h3>{{ project.title }}</h3>
-            <p class="resume-meta">{{ project.subtitle }}</p>
-          </div>
-          <span class="resume-period">{{ project.period }}</span>
-        </div>
+        <p class="resume-entry-meta">{{ project.meta }}</p>
+        {% if project.subtitle %}
+        <p class="resume-meta">{{ project.subtitle }}</p>
+        {% endif %}
         <p>{{ project.description }}</p>
         {% if project.highlights %}
         <ul class="resume-bullet-list">
@@ -105,7 +176,9 @@
           {% endfor %}
         </ul>
         {% endif %}
+        {% if project.url %}
         <a class="resume-inline-link" href="{{ base_path }}{{ project.url }}">查看项目详情</a>
+        {% endif %}
       </article>
       {% endfor %}
     </div>
@@ -114,97 +187,66 @@
       <span class="resume-subtle-label">其他项目</span>
       <div class="resume-link-cloud">
         {% for project in featured_projects %}
+          {% unless core_project_urls contains project.url %}
         <a href="{{ base_path }}{{ project.url }}">{{ project.title }}</a>
+          {% endunless %}
         {% endfor %}
       </div>
     </div>
   </section>
+  {% assign section_index = section_index | plus: 1 %}
 
   <section class="resume-section">
     <div class="resume-section-head">
-      <span class="resume-section-index">04</span>
+      <span class="resume-section-index">{% if section_index < 10 %}0{% endif %}{{ section_index }}</span>
       <div>
-        <h2>实验室与课程实践</h2>
+        <h2>专业技能</h2>
+        <p>围绕结构设计与运动控制方向整理，避免泛泛堆砌关键词。</p>
       </div>
     </div>
 
     <div class="resume-grid resume-grid--two">
-      {% for item in resume.labwork %}
-      <article class="resume-card">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
-        <div class="resume-chip-row">
-          {% for tag in item.tags %}
-          <span class="resume-chip">{{ tag }}</span>
-          {% endfor %}
-        </div>
-        <a class="resume-inline-link" href="{{ base_path }}{{ item.url }}">查看实验室记录</a>
-      </article>
-      {% endfor %}
-    </div>
-
-    <div class="resume-card resume-coursework-card">
-      <div class="resume-item-head">
-        <div>
-          <h3>课程实践</h3>
-        </div>
-        <a class="resume-inline-link" href="{{ base_path }}/coursework/">查看全部课程作业</a>
-      </div>
-      <p>{{ resume.coursework.description }}</p>
-      <div class="resume-link-cloud">
-        {% for title in resume.coursework.items %}
-          {% assign course = site.coursework | where: "title", title | first %}
-          {% if course %}
-        <a href="{{ base_path }}{{ course.url }}">{{ course.title }}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <section class="resume-section">
-    <div class="resume-section-head">
-      <span class="resume-section-index">05</span>
-      <div>
-        <h2>专业标签</h2>
-      </div>
-    </div>
-
-    <div class="resume-grid resume-grid--three">
       {% for skill in resume.skills %}
       <article class="resume-card resume-skill-card">
         <h3>{{ skill.title }}</h3>
+        {% if skill.description %}
+        <p>{{ skill.description }}</p>
+        {% endif %}
+        {% if skill.tags %}
         <div class="resume-chip-row">
           {% for tag in skill.tags %}
           <span class="resume-chip">{{ tag }}</span>
           {% endfor %}
         </div>
+        {% endif %}
       </article>
       {% endfor %}
     </div>
   </section>
+  {% assign section_index = section_index | plus: 1 %}
 
   <section class="resume-section">
     <div class="resume-section-head">
-      <span class="resume-section-index">06</span>
+      <span class="resume-section-index">{% if section_index < 10 %}0{% endif %}{{ section_index }}</span>
       <div>
-        <h2>时间轴</h2>
+        <h2>荣誉奖项</h2>
+        <p>统一采用“时间 奖项名称 奖项级别”的标准格式。</p>
       </div>
     </div>
 
-    {% assign all_items = "" | split: "" %}
-    {% for item in site.projects %}
-      {% assign all_items = all_items | push: item %}
-    {% endfor %}
-    {% for item in site.coursework %}
-      {% assign all_items = all_items | push: item %}
-    {% endfor %}
-    {% for item in site.labwork %}
-      {% assign all_items = all_items | push: item %}
-    {% endfor %}
-
-    <div class="resume-card resume-timeline-card">
-      {% include horizontal-timeline.html items=all_items max_items=8 show_tabs=true more_link="/timeline/" %}
+    {% if resume.awards and resume.awards.size > 0 %}
+    <div class="resume-card">
+      <ul class="resume-bullet-list">
+        {% for award in resume.awards %}
+        <li>{{ award }}</li>
+        {% endfor %}
+      </ul>
     </div>
+    {% else %}
+    <div class="resume-subtle-panel">
+      <span class="resume-subtle-label">待补充</span>
+      <p>{{ resume.awards_note }}</p>
+    </div>
+    {% endif %}
   </section>
 </div>
