@@ -39,19 +39,6 @@
         </li>
         {% endfor %}
       {% endif %}
-      {% if author.languages %}
-        {% for language in author.languages %}
-        <li class="author__meta-item author__meta-item--language">
-          <i class="fas fa-fw fa-language icon-pad-right" aria-hidden="true"></i>
-          <span class="author__meta-copy">
-            <strong class="author__meta-main">{{ language.name }}</strong>
-            {% if language.note %}
-            <span class="author__meta-sub">{{ language.note }}</span>
-            {% endif %}
-          </span>
-        </li>
-        {% endfor %}
-      {% endif %}
       {% if author.employer %}
         <li class="author__desktop author__meta-item"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i><span>{{ author.employer }}</span></li>
       {% endif %}

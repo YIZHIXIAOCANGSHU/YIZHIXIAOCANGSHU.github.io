@@ -46,6 +46,16 @@
       <div>
         <h3>{{ resume.education.school }}</h3>
         <p class="resume-meta">{{ resume.education.meta }}</p>
+        {% if resume.education.gpa != blank or resume.education.rank != blank %}
+        <div class="resume-chip-row resume-education-details">
+          {% if resume.education.gpa != blank %}
+          <span class="resume-chip">GPA {{ resume.education.gpa }}</span>
+          {% endif %}
+          {% if resume.education.rank != blank %}
+          <span class="resume-chip">排名 {{ resume.education.rank }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
       <p>{{ resume.education.description }}</p>
     </div>

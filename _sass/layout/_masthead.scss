@@ -84,6 +84,8 @@
   position: relative;
   display: inline-block;
   margin-left: 1rem;
+  flex-shrink: 0;
+  z-index: 30;
 }
 
 /* 主题切换按钮样式 */
@@ -103,6 +105,7 @@
   justify-content: center;
   min-width: 36px;
   min-height: 36px;
+  z-index: 2;
   
   &:hover {
     color: var(--global-link-color);
@@ -125,7 +128,7 @@
   border: 1px solid var(--global-border-color);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 100;
+  z-index: 200;
   margin-top: 0.5em;
   padding: 0.5em 0;
   

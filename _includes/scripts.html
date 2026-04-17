@@ -1,84 +1,165 @@
 <script type="module" src="{{ base_path }}/assets/js/main.min.js"></script>
-
-<!-- 主题切换功能 -->
 <script>
-(function() {
-  // 检测系统/浏览器偏好
-  const browserPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  
-  // 设置主题
-  function setTheme(theme) {
-    const useTheme = theme || localStorage.getItem("theme") || browserPref;
-    
-    // 移除所有主题属性
-    document.documentElement.removeAttribute("data-theme");
-    
-    if (useTheme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
-      updateIcon("fa-moon");
-    } else if (useTheme === "geek") {
-      document.documentElement.setAttribute("data-theme", "geek");
-      updateIcon("fa-terminal");
-    } else {
-      updateIcon("fa-sun");
-    }
-    
-    // 更新下拉菜单中的选中状态
-    document.querySelectorAll(".theme-dropdown li").forEach(function(li) {
-      li.classList.remove("active");
-      if (li.getAttribute("data-theme") === useTheme) {
-        li.classList.add("active");
-      }
-    });
+(function () {
+  if (window.__themeSelectorBundleReady || window.__themeSelectorFallbackReady) {
+    return;
   }
-  
-  // 更新图标
-  function updateIcon(iconClass) {
+
+  window.__themeSelectorFallbackReady = true;
+
+  const mediaQuery =
+    window.matchMedia && typeof window.matchMedia === "function"
+      ? window.matchMedia("(prefers-color-scheme: dark)")
+      : null;
+
+  function getStoredTheme() {
+    try {
+      const theme = localStorage.getItem("theme");
+      return theme === "light" || theme === "dark" || theme === "geek" ? theme : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function getComputedTheme() {
+    return getStoredTheme() || (mediaQuery && mediaQuery.matches ? "dark" : "light");
+  }
+
+  function updateThemeIcon(theme) {
     const icon = document.getElementById("theme-icon");
-    if (icon) {
-      icon.className = "fa-solid " + iconClass;
+    if (!icon) {
+      return;
     }
+
+    icon.className = "fa-solid";
+
+    if (theme === "dark") {
+      icon.classList.add("fa-moon");
+      return;
+    }
+
+    if (theme === "geek") {
+      icon.classList.add("fa-terminal");
+      return;
+    }
+
+    icon.classList.add("fa-sun");
   }
-  
-  // 页面加载完成后初始化
-  document.addEventListener("DOMContentLoaded", function() {
-    // 初始化主题
-    setTheme();
-    
-    // 主题切换按钮点击事件
-    const toggleBtn = document.querySelector(".theme-toggle-btn");
-    const dropdown = document.querySelector(".theme-dropdown");
-    
-    if (toggleBtn && dropdown) {
-      toggleBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        dropdown.classList.toggle("show");
-      });
-      
-      // 选择主题
-      dropdown.querySelectorAll("li").forEach(function(li) {
-        li.addEventListener("click", function(e) {
-          e.stopPropagation();
-          const newTheme = this.getAttribute("data-theme");
-          localStorage.setItem("theme", newTheme);
-          setTheme(newTheme);
-          dropdown.classList.remove("show");
-        });
-      });
-      
-      // 点击其他地方关闭下拉菜单
-      document.addEventListener("click", function() {
-        dropdown.classList.remove("show");
-      });
+
+  function setTheme(theme) {
+    const resolvedTheme = theme || getComputedTheme();
+    document.documentElement.removeAttribute("data-theme");
+
+    if (resolvedTheme === "dark" || resolvedTheme === "geek") {
+      document.documentElement.setAttribute("data-theme", resolvedTheme);
     }
-    
-    // 监听系统主题变化
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", function(e) {
-      if (!localStorage.getItem("theme")) {
-        setTheme(e.matches ? "dark" : "light");
+
+    updateThemeIcon(resolvedTheme);
+
+    document.querySelectorAll(".theme-dropdown li").forEach(function (item) {
+      item.classList.toggle("active", item.getAttribute("data-theme") === resolvedTheme);
+    });
+  }
+
+  function initThemeSelector() {
+    if (window.__themeSelectorBundleReady) {
+      return;
+    }
+
+    const button = document.querySelector(".theme-toggle-btn");
+    const dropdown = document.querySelector(".theme-dropdown");
+
+    if (!button || !dropdown || button.dataset.themeFallbackBound === "true") {
+      setTheme();
+      return;
+    }
+
+    button.dataset.themeFallbackBound = "true";
+
+    const closeDropdown = function () {
+      dropdown.classList.remove("show");
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const shouldOpen = !dropdown.classList.contains("show");
+      dropdown.classList.toggle("show", shouldOpen);
+      button.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+    });
+
+    dropdown.querySelectorAll("li").forEach(function (item) {
+      item.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const newTheme = item.getAttribute("data-theme");
+        if (!newTheme) {
+          return;
+        }
+
+        try {
+          localStorage.setItem("theme", newTheme);
+        } catch (error) {}
+
+        setTheme(newTheme);
+        closeDropdown();
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+        closeDropdown();
       }
     });
-  });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeDropdown();
+      }
+    });
+
+    setTheme();
+  }
+
+  function bindSystemThemeChanges() {
+    if (!mediaQuery) {
+      return;
+    }
+
+    const handleThemeChange = function (event) {
+      if (window.__themeSelectorBundleReady) {
+        return;
+      }
+
+      if (!getStoredTheme()) {
+        setTheme(event.matches ? "dark" : "light");
+      }
+    };
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleThemeChange);
+      return;
+    }
+
+    if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(handleThemeChange);
+    }
+  }
+
+  const scheduleThemeInit = function () {
+    window.setTimeout(initThemeSelector, 0);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleThemeInit, { once: true });
+  } else {
+    scheduleThemeInit();
+  }
+
+  bindSystemThemeChanges();
 })();
 </script>
 

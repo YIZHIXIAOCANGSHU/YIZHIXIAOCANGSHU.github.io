@@ -275,15 +275,16 @@ html[data-theme="geek"] {
 
   /* Sidebar author profile 侧边栏头像 */
   .author__avatar {
-    img {
-      border: 2px solid var(--geek-glow-color) !important;
-      box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
-      filter: saturate(0.8);
-      transition: all 0.3s ease;
+    img,
+    .author__avatar-image {
+      border-color: var(--author-card-avatar-ring) !important;
+      box-shadow: var(--author-card-avatar-shadow);
+      filter: saturate(0.92);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
       
       &:hover {
-        filter: saturate(1.2);
-        box-shadow: 0 0 25px rgba(0, 255, 159, 0.5);
+        filter: saturate(1.06);
+        box-shadow: 0 0 0 4px rgba(0, 255, 159, 0.08), 0 0 30px rgba(0, 255, 159, 0.28);
       }
     }
   }
@@ -291,23 +292,29 @@ html[data-theme="geek"] {
   /* Author URLs / Social links */
   .author__urls-wrapper {
     button {
-      border-color: var(--geek-accent) !important;
-      color: var(--geek-accent) !important;
+      border-color: rgba(0, 240, 255, 0.45) !important;
+      background: var(--author-card-button-bg) !important;
+      color: var(--author-card-button-text) !important;
+      box-shadow: 0 0 0 1px rgba(0, 255, 159, 0.08), 0 12px 24px rgba(0, 0, 0, 0.28);
     }
   }
 
   .author__urls {
-    background: rgba(18, 18, 26, 0.95);
-    border: 1px solid rgba(0, 255, 159, 0.2);
+    background: var(--author-card-dropdown-bg);
+    border-color: var(--author-card-item-border);
     
     &::before {
-      border-color: transparent transparent rgba(0, 255, 159, 0.2) transparent;
+      border-color: var(--author-card-item-border) transparent;
+    }
+
+    &::after {
+      border-color: var(--author-card-dropdown-bg) transparent;
     }
 
     a {
       &:hover {
-        color: var(--geek-glow-color);
-        text-shadow: 0 0 5px rgba(0, 255, 159, 0.5);
+        color: var(--author-card-accent);
+        text-shadow: 0 0 5px rgba(0, 255, 159, 0.35);
       }
     }
   }
@@ -566,12 +573,30 @@ html[data-theme="geek"] {
 
 html[data-theme="geek"] {
   .author-profile-card {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(180deg, rgba(18, 18, 26, 0.95) 0%, rgba(13, 17, 23, 0.92) 100%);
-    border: 1px solid rgba(0, 255, 159, 0.18);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 240, 255, 0.05);
-    backdrop-filter: blur(14px);
+    --author-card-bg: linear-gradient(180deg, rgba(18, 18, 26, 0.95) 0%, rgba(13, 17, 23, 0.92) 100%);
+    --author-card-border: rgba(0, 255, 159, 0.18);
+    --author-card-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 240, 255, 0.05);
+    --author-card-shadow-hover: 0 22px 48px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(0, 240, 255, 0.08);
+    --author-card-sheen: rgba(0, 255, 159, 0.08);
+    --author-card-inner-border: rgba(0, 240, 255, 0.08);
+    --author-card-accent: var(--geek-accent);
+    --author-card-accent-soft: rgba(0, 240, 255, 0.12);
+    --author-card-text: var(--geek-text-primary);
+    --author-card-muted: var(--geek-text-secondary);
+    --author-card-panel: rgba(0, 240, 255, 0.08);
+    --author-card-panel-strong: rgba(7, 12, 18, 0.94);
+    --author-card-item-bg: rgba(0, 255, 159, 0.03);
+    --author-card-item-bg-hover: rgba(0, 255, 159, 0.08);
+    --author-card-item-border: rgba(0, 255, 159, 0.12);
+    --author-card-item-border-hover: rgba(0, 240, 255, 0.32);
+    --author-card-item-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+    --author-card-avatar-ring: rgba(0, 255, 159, 0.72);
+    --author-card-avatar-shadow: 0 0 0 4px rgba(0, 255, 159, 0.08), 0 0 22px rgba(0, 255, 159, 0.24);
+    --author-card-button-bg: linear-gradient(135deg, rgba(0, 240, 255, 0.10), rgba(0, 255, 159, 0.08));
+    --author-card-button-text: var(--geek-accent);
+    --author-card-dropdown-bg: rgba(10, 10, 15, 0.96);
+    --author-card-dropdown-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+    --author-card-icon: var(--geek-accent);
 
     &::before {
       content: '';
@@ -595,52 +620,45 @@ html[data-theme="geek"] {
   }
 
   .author__pronouns {
-    border-color: rgba(0, 240, 255, 0.28);
-    background: rgba(0, 240, 255, 0.08);
+    border-color: var(--author-card-item-border);
+    background: var(--author-card-panel);
     color: var(--geek-accent);
   }
 
   .author__bio {
-    color: var(--geek-text-primary);
+    color: var(--author-card-text);
     opacity: 0.85;
-  }
-
-  .author__avatar img,
-  .author__avatar-image {
-    border: 2px solid rgba(0, 255, 159, 0.72) !important;
-    box-shadow: 0 0 0 4px rgba(0, 255, 159, 0.08), 0 0 22px rgba(0, 255, 159, 0.24);
-    filter: saturate(0.92);
   }
 
   .author__urls-wrapper {
     button {
       border-color: rgba(0, 240, 255, 0.45) !important;
-      color: var(--geek-accent) !important;
-      background: rgba(0, 240, 255, 0.05) !important;
+      color: var(--author-card-button-text) !important;
+      background: var(--author-card-button-bg) !important;
     }
   }
 
   .author__urls {
-    background: rgba(10, 10, 15, 0.96);
-    border-color: rgba(0, 255, 159, 0.2);
-    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+    background: var(--author-card-dropdown-bg);
+    border-color: var(--author-card-item-border);
+    box-shadow: var(--author-card-dropdown-shadow);
 
     @include breakpoint($large) {
       background: transparent;
       box-shadow: none;
     }
 
-    li + li {
-      border-top-color: rgba(0, 255, 159, 0.12);
+    li {
+      box-shadow: inset 0 1px 0 rgba(0, 255, 159, 0.08);
     }
 
     i {
-      color: var(--geek-accent);
+      color: var(--author-card-icon);
     }
 
     a {
       &:hover {
-        color: var(--geek-glow-color);
+        color: var(--author-card-accent);
       }
     }
   }
@@ -650,6 +668,6 @@ html[data-theme="geek"] {
   }
 
   .author__meta-sub {
-    color: var(--geek-text-secondary);
+    color: var(--author-card-muted);
   }
 }

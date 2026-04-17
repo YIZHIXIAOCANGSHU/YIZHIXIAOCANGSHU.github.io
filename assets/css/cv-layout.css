@@ -409,6 +409,10 @@ html[data-theme="geek"] body.cv-layout {
   color: var(--resume-meta-ink);
 }
 
+.resume-education-details {
+  margin-top: 0.8rem;
+}
+
 .resume-stack {
   display: flex;
   flex-direction: column;
