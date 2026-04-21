@@ -64,4 +64,8 @@ html[data-theme="dark"] {
     --timeline-node-border              : #{$link};
     --timeline-node-bg                  : #{$background};
     --timeline-glow                     : 0 0 12px rgba(14, 161, 197, 0.5);
+    --timeline-tooltip-bg               : #{mix(#fff, $background, 14%)};
+    --timeline-tooltip-border           : rgba(14, 161, 197, 0.28);
+    --timeline-tooltip-shadow           : 0 18px 42px rgba(0, 0, 0, 0.55);
+    --timeline-tooltip-muted            : #{$light-gray};
 }

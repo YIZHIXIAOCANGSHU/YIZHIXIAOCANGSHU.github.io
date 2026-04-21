@@ -57,4 +57,8 @@ $sidebar-screen-min-width   : 1024px;
     --timeline-node-border              : #52adc8;
     --timeline-node-bg                  : #fff;
     --timeline-glow                     : 0 0 8px rgba(82, 173, 200, 0.3);
+    --timeline-tooltip-bg               : rgba(255, 255, 255, 0.98);
+    --timeline-tooltip-border           : rgba(47, 127, 147, 0.2);
+    --timeline-tooltip-shadow           : 0 18px 42px rgba(0, 0, 0, 0.16);
+    --timeline-tooltip-muted            : #{$light-gray};
 }

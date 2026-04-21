@@ -1,0 +1,222 @@
+- generic [ref=e1]:
+  - generic [ref=e4]:
+    - navigation [ref=e5]:
+      - button [ref=e6]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "作品合集" [ref=e9] [cursor=pointer]:
+            - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/
+        - listitem [ref=e10]:
+          - link "比赛经历" [ref=e11] [cursor=pointer]:
+            - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/projects/
+        - listitem [ref=e12]:
+          - link "课程作业" [ref=e13] [cursor=pointer]:
+            - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/coursework/
+        - listitem [ref=e14]:
+          - link "实验室工作" [ref=e15] [cursor=pointer]:
+            - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/labwork/
+        - listitem [ref=e16]:
+          - link "简历" [ref=e17] [cursor=pointer]:
+            - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/cv/
+      - list
+    - generic [ref=e18]:
+      - button "切换主题" [ref=e19]:
+        - generic [ref=e20]: 
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - generic [ref=e23]: 
+          - text: 白天
+        - listitem [ref=e24]:
+          - generic [ref=e25]: 
+          - text: 夜晚
+        - listitem [ref=e26]:
+          - generic [ref=e27]: 
+          - text: 极客
+  - main [ref=e28]:
+    - generic [ref=e30]:
+      - img "Luwen He" [ref=e178]
+      - generic [ref=e32]:
+        - heading "Luwen He" [level=3] [ref=e33]
+        - paragraph [ref=e34]: He
+        - paragraph [ref=e35]: 一只可怜的鼠鼠
+      - generic [ref=e36]:
+        - button "Follow" [ref=e37]
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - generic [ref=e40]: 
+            - text: 重庆/南京
+          - listitem [ref=e41]:
+            - generic [ref=e42]: 
+            - text: 学士 · 机器人工程 · CQU (2023-2027)
+          - listitem [ref=e43]:
+            - link "2752722697@qq.com" [ref=e44] [cursor=pointer]:
+              - /url: javascript:void(0);
+              - generic [ref=e45]: 
+              - text: 2752722697@qq.com
+          - listitem [ref=e46]:
+            - link "Bilibili" [ref=e47] [cursor=pointer]:
+              - /url: https://space.bilibili.com/509745475
+              - generic [ref=e48]: 
+              - text: Bilibili
+    - generic [ref=e49]:
+      - heading "完整时间轴" [level=1] [ref=e50]
+      - paragraph [ref=e51]: 这里展示了我所有的项目、课程作业和实验室工作的完整时间线。
+      - generic [ref=e52]:
+        - button "全部" [ref=e53]
+        - button "比赛项目" [ref=e54]
+        - button "课程作业" [ref=e55]
+        - button "实验室" [ref=e56]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - button "查看 自动控制原理 - 创意台灯控制系统 的时间轴摘要" [active]
+          - generic [ref=e63]:
+            - heading "自动控制原理 - 创意台灯控制系统" [level=3] [ref=e64]:
+              - link "自动控制原理 - 创意台灯控制系统" [ref=e65] [cursor=pointer]:
+                - /url: /coursework/autocontrol/
+            - generic [ref=e66]: 2026年1月15日
+            - paragraph [ref=e67]: 围绕”创意台灯控制系统”课程综合项目，完成了系统级的控制需求分析、Buck变换器设计与调试，以及闭环稳压/调光控制的建模与实验验证。
+            - link "阅读更多" [ref=e69] [cursor=pointer]:
+              - /url: /coursework/autocontrol/
+        - generic [ref=e70]:
+          - button "查看 RC足式 的时间轴摘要"
+          - generic [ref=e72]:
+            - heading "RC足式" [level=3] [ref=e73]:
+              - link "RC足式" [ref=e74] [cursor=pointer]:
+                - /url: /projects/robocon/
+            - generic [ref=e75]: 2025年9月14日
+            - paragraph [ref=e76]: RC足式项目
+            - link "阅读更多" [ref=e78] [cursor=pointer]:
+              - /url: /projects/robocon/
+        - generic [ref=e79]:
+          - button "查看 点足机器人 的时间轴摘要"
+          - generic [ref=e81]:
+            - heading "点足机器人" [level=3] [ref=e82]:
+              - link "点足机器人" [ref=e83] [cursor=pointer]:
+                - /url: /projects/point-foot-robot/
+            - generic [ref=e84]: 2025年8月20日
+            - paragraph [ref=e85]: 点足机器人复刻项目
+            - link "阅读更多" [ref=e87] [cursor=pointer]:
+              - /url: /projects/point-foot-robot/
+        - generic [ref=e88]:
+          - button "查看 Robomaster 的时间轴摘要"
+          - generic [ref=e90]:
+            - heading "Robomaster" [level=3] [ref=e91]:
+              - link "Robomaster" [ref=e92] [cursor=pointer]:
+                - /url: /projects/robomaster/
+            - generic [ref=e93]: 2025年6月14日
+            - paragraph [ref=e94]: Robomaster 机器人比赛项目
+            - link "阅读更多" [ref=e96] [cursor=pointer]:
+              - /url: /projects/robomaster/
+        - generic [ref=e97]:
+          - button "查看 QEA2 心电检测系统 的时间轴摘要"
+          - generic [ref=e99]:
+            - heading "QEA2 心电检测系统" [level=3] [ref=e100]:
+              - link "QEA2 心电检测系统" [ref=e101] [cursor=pointer]:
+                - /url: /coursework/ecg-system/
+            - generic [ref=e102]: 2025年6月14日
+            - paragraph [ref=e103]: 这个是一个心电的检测系统，基于STM32F407开发板、ADS1296采集芯片、LCD显示模块、蜂鸣器等。
+            - link "阅读更多" [ref=e105] [cursor=pointer]:
+              - /url: /coursework/ecg-system/
+        - generic [ref=e106]:
+          - button "查看 智能车 的时间轴摘要"
+          - generic [ref=e108]:
+            - heading "智能车" [level=3] [ref=e109]:
+              - link "智能车" [ref=e110] [cursor=pointer]:
+                - /url: /projects/smart-car/
+            - generic [ref=e111]: 2025年6月14日
+            - paragraph [ref=e112]: 智能车比赛项目
+            - link "阅读更多" [ref=e114] [cursor=pointer]:
+              - /url: /projects/smart-car/
+        - generic [ref=e115]:
+          - button "查看 斯特林发动机制作 的时间轴摘要"
+          - generic [ref=e117]:
+            - heading "斯特林发动机制作" [level=3] [ref=e118]:
+              - link "斯特林发动机制作" [ref=e119] [cursor=pointer]:
+                - /url: /coursework/stirling-engine/
+            - generic [ref=e120]: 2025年6月14日
+            - paragraph [ref=e121]: 介绍斯特林发动机的设计与实现过程。项目旨在利用斯特林发动机将热能转化为机械能，并进一步产生电能。
+            - link "阅读更多" [ref=e123] [cursor=pointer]:
+              - /url: /coursework/stirling-engine/
+        - generic [ref=e124]:
+          - button "查看 实验室工作示例 的时间轴摘要"
+          - generic [ref=e126]:
+            - heading "实验室工作示例" [level=3] [ref=e127]:
+              - link "实验室工作示例" [ref=e128] [cursor=pointer]:
+                - /url: /labwork/example/
+            - generic [ref=e129]: 2025年1月20日
+            - paragraph [ref=e130]: 这是实验室工作的示例文档。
+            - link "阅读更多" [ref=e132] [cursor=pointer]:
+              - /url: /labwork/example/
+        - generic [ref=e133]:
+          - button "查看 液滴悬浮 的时间轴摘要"
+          - generic [ref=e135]:
+            - heading "液滴悬浮" [level=3] [ref=e136]:
+              - link "液滴悬浮" [ref=e137] [cursor=pointer]:
+                - /url: /coursework/droplet-levitation/
+            - generic [ref=e138]: 2024年12月18日
+            - paragraph [ref=e139]: 这是一篇关于液滴悬浮实验的项目文档。
+            - link "阅读更多" [ref=e141] [cursor=pointer]:
+              - /url: /coursework/droplet-levitation/
+        - generic [ref=e142]:
+          - button "查看 会议记录机器人 的时间轴摘要"
+          - generic [ref=e144]:
+            - heading "会议记录机器人" [level=3] [ref=e145]:
+              - link "会议记录机器人" [ref=e146] [cursor=pointer]:
+                - /url: /coursework/meeting-robot/
+            - generic [ref=e147]: 2024年11月8日
+            - paragraph [ref=e148]: 这是一篇关于会议记录机器人的项目文档。
+            - link "阅读更多" [ref=e150] [cursor=pointer]:
+              - /url: /coursework/meeting-robot/
+        - generic [ref=e151]:
+          - button "查看 人脸识别系统 的时间轴摘要"
+          - generic [ref=e153]:
+            - heading "人脸识别系统" [level=3] [ref=e154]:
+              - link "人脸识别系统" [ref=e155] [cursor=pointer]:
+                - /url: /coursework/face-recognition/
+            - generic [ref=e156]: 2024年5月18日
+            - paragraph [ref=e157]: 这是一篇关于人脸识别系统的项目文档。
+            - link "阅读更多" [ref=e159] [cursor=pointer]:
+              - /url: /coursework/face-recognition/
+        - generic [ref=e160]:
+          - button "查看 船舶制造 的时间轴摘要"
+          - generic [ref=e162]:
+            - heading "船舶制造" [level=3] [ref=e163]:
+              - link "船舶制造" [ref=e164] [cursor=pointer]:
+                - /url: /coursework/ship-manufacturing/
+            - generic [ref=e165]: 2024年5月12日
+            - paragraph [ref=e166]: 这是一篇关于船舶制造的项目文档。
+            - link "阅读更多" [ref=e168] [cursor=pointer]:
+              - /url: /coursework/ship-manufacturing/
+        - generic [ref=e169]:
+          - button "查看 进出货系统 的时间轴摘要"
+          - generic [ref=e171]:
+            - heading "进出货系统" [level=3] [ref=e172]:
+              - link "进出货系统" [ref=e173] [cursor=pointer]:
+                - /url: /coursework/inventory-system/
+            - generic [ref=e174]: 2023年12月8日
+            - paragraph [ref=e175]: 这是一篇关于进出货系统的项目文档。
+            - link "阅读更多" [ref=e177] [cursor=pointer]:
+              - /url: /coursework/inventory-system/
+  - contentinfo [ref=e180]:
+    - link "Sitemap" [ref=e181] [cursor=pointer]:
+      - /url: /sitemap/
+    - list [ref=e183]:
+      - listitem [ref=e184]:
+        - strong [ref=e185]: 关注：
+      - listitem [ref=e186]:
+        - link "打赏" [ref=e187] [cursor=pointer]:
+          - /url: https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/feed.xml
+          - generic [ref=e188]: 
+          - text: 打赏
+    - generic [ref=e189]:
+      - text: © 2026 作品合集, 技术支持：
+      - link "Jekyll" [ref=e190] [cursor=pointer]:
+        - /url: http://jekyllrb.com
+      - text: "&"
+      - link "AcademicPages" [ref=e191] [cursor=pointer]:
+        - /url: https://github.com/academicpages/academicpages.github.io
+      - text: ", a fork of"
+      - link "Minimal Mistakes" [ref=e192] [cursor=pointer]:
+        - /url: https://mademistakes.com/work/minimal-mistakes-jekyll-theme/
+      - text: .
+      - text: Site last updated 2026-04-21

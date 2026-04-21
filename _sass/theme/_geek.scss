@@ -70,5 +70,9 @@ html[data-theme="geek"] {
     --timeline-node-border              : #{$geek-neon-cyan};
     --timeline-node-bg                  : #{$geek-bg-primary};
     --timeline-glow                     : #{$geek-glow-cyan};
+    --timeline-tooltip-bg               : rgba(18, 18, 26, 0.96);
+    --timeline-tooltip-border           : rgba(0, 240, 255, 0.32);
+    --timeline-tooltip-shadow           : 0 18px 42px rgba(0, 240, 255, 0.16), 0 0 28px rgba(0, 255, 159, 0.12);
+    --timeline-tooltip-muted            : #{$geek-text-secondary};
 }
 

@@ -1,251 +1,458 @@
 {% comment %}
   Timeline Scripts Component
-  
+
   Loads GSAP and ScrollTrigger libraries from CDN and initializes
-  scroll-triggered animations for the horizontal timeline.
-  
-  Features:
-    - GSAP and ScrollTrigger CDN loading
-    - Animation initialization with stagger effects
-    - Reduced motion preference support
-    - Fallback to CSS animations if GSAP fails to load
-  
-  Requirements: 2.1, 2.2, 6.4, 6.5
+  scroll-triggered animations, shared tooltip behavior, and tab filtering
+  for the horizontal timeline.
 {% endcomment %}
 
-<!-- Load GSAP Core Library from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" 
-        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" 
-        crossorigin="anonymous" 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
 
-<!-- Load ScrollTrigger Plugin from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" 
-        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" 
-        crossorigin="anonymous" 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
 
 <script>
-/**
- * Timeline Animation Configuration
- * Based on design.md specifications
- */
-const timelineAnimationConfig = {
-  // Item entrance animation
-  itemEntrance: {
-    y: 50,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    stagger: 0.15
-  },
-  
-  // Node animation (scale effect)
-  nodeAnimation: {
-    scale: 0,
-    duration: 0.5,
-    ease: "back.out(1.7)"
-  },
-  
-  // Connector line animation
-  lineAnimation: {
-    scaleX: 0,
-    transformOrigin: "left center",
-    duration: 1.2,
-    ease: "power2.inOut"
-  },
-  
-  // ScrollTrigger configuration
-  scrollTrigger: {
-    trigger: ".horizontal-timeline",
-    start: "top 80%",
-    toggleActions: "play none none reverse"
-  }
-};
-
-/**
- * Check if user prefers reduced motion
- * @returns {boolean} True if reduced motion is preferred
- */
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-/**
- * Apply CSS fallback when GSAP is not available
- * Adds 'no-gsap' class to trigger CSS animations
- */
-function applyFallback() {
-  const timeline = document.querySelector('.horizontal-timeline');
-  if (timeline) {
-    timeline.classList.add('no-gsap');
-    
-    // Remove gsap-init class to show items with CSS animations
-    const items = timeline.querySelectorAll('.horizontal-timeline-item.gsap-init');
-    items.forEach(function(item) {
-      item.classList.remove('gsap-init');
-    });
-  }
-  console.warn('GSAP not loaded, using CSS fallback animations');
-}
-
-/**
- * Initialize timeline animations with GSAP
- * Requirements: 2.2, 3.1, 3.2, 4.2
- */
-function initTimelineAnimations() {
-  // Check for GSAP availability - fallback if not loaded
-  // Requirements: 6.4, 6.5
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    applyFallback();
+(function() {
+  if (window.__horizontalTimelineInitialized) {
     return;
   }
-  
-  // Check for reduced motion preference
-  // Requirements: 3.5
-  if (prefersReducedMotion()) {
-    // Show items without animation
-    const items = document.querySelectorAll('.horizontal-timeline-item.gsap-init');
-    items.forEach(function(item) {
-      item.classList.remove('gsap-init');
-      item.style.opacity = '1';
-      item.style.transform = 'none';
-    });
-    console.info('Reduced motion preference detected, animations disabled');
-    return;
-  }
-  
-  // Register ScrollTrigger plugin
-  gsap.registerPlugin(ScrollTrigger);
-  
-  // Get timeline elements
-  const timeline = document.querySelector('.horizontal-timeline');
-  const timelineItems = document.querySelectorAll('.horizontal-timeline-item');
-  const timelineLine = document.querySelector('.horizontal-timeline-line');
-  
-  if (!timeline || timelineItems.length === 0) {
-    console.warn('Timeline elements not found');
-    return;
-  }
-  
-  // Create main animation timeline
-  const tl = gsap.timeline({
+
+  window.__horizontalTimelineInitialized = true;
+
+  const timelineAnimationConfig = {
+    itemEntrance: {
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.15
+    },
+    nodeAnimation: {
+      scale: 0,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    },
+    lineAnimation: {
+      scaleX: 0,
+      transformOrigin: "left center",
+      duration: 1.2,
+      ease: "power2.inOut"
+    },
     scrollTrigger: {
-      trigger: timelineAnimationConfig.scrollTrigger.trigger,
-      start: timelineAnimationConfig.scrollTrigger.start,
-      toggleActions: timelineAnimationConfig.scrollTrigger.toggleActions,
-      // markers: true // Uncomment for debugging
+      start: "top 80%",
+      toggleActions: "play none none reverse"
     }
-  });
-  
-  // Animate connector line from left to right
-  // Requirements: 4.2
-  if (timelineLine) {
-    gsap.set(timelineLine, {
-      scaleX: timelineAnimationConfig.lineAnimation.scaleX,
-      transformOrigin: timelineAnimationConfig.lineAnimation.transformOrigin
-    });
-    
-    tl.to(timelineLine, {
-      scaleX: 1,
-      duration: timelineAnimationConfig.lineAnimation.duration,
-      ease: timelineAnimationConfig.lineAnimation.ease
-    });
+  };
+
+  const timelineControllers = [];
+
+  function prefersReducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
-  
-  // Animate timeline items with stagger effect
-  // Requirements: 2.4, 3.1
-  timelineItems.forEach(function(item) {
-    // Set initial state
-    gsap.set(item, {
-      y: timelineAnimationConfig.itemEntrance.y,
-      opacity: timelineAnimationConfig.itemEntrance.opacity
-    });
-  });
-  
-  tl.to(timelineItems, {
-    y: 0,
-    opacity: 1,
-    duration: timelineAnimationConfig.itemEntrance.duration,
-    ease: timelineAnimationConfig.itemEntrance.ease,
-    stagger: timelineAnimationConfig.itemEntrance.stagger,
-    onComplete: function() {
-      // Remove gsap-init class after animation completes
-      timelineItems.forEach(function(item) {
-        item.classList.remove('gsap-init');
-        item.classList.add('gsap-animated');
-      });
-    }
-  }, "-=0.8"); // Overlap with line animation
-  
-  // Animate node points with scale effect
-  // Requirements: 3.2
-  // Note: Nodes are ::before pseudo-elements, so we animate via CSS class
-  // GSAP can't directly animate pseudo-elements, so we use a workaround
-  // by animating a custom property or using the item's animation timing
-  
-  // Alternative: Create actual node elements if more control is needed
-  // For now, the CSS handles node animation via the .gsap-init class removal
-  
-  console.info('Timeline animations initialized successfully');
-}
 
-/**
- * Initialize when DOM is ready
- */
-document.addEventListener('DOMContentLoaded', initTimelineAnimations);
+  function isCoarsePointerDevice() {
+    return window.matchMedia("(hover: none)").matches || window.matchMedia("(pointer: coarse)").matches;
+  }
 
-/**
- * Initialize timeline tabs for category filtering
- */
-function initTimelineTabs() {
-  const tabs = document.querySelectorAll('.timeline-tab');
-  const items = document.querySelectorAll('.horizontal-timeline-item');
-  
-  if (tabs.length === 0) return;
-  
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      // Update active tab state
-      tabs.forEach(function(t) {
-        t.classList.remove('active');
-      });
-      tab.classList.add('active');
-      
-      const filter = tab.dataset.filter;
-      
-      // Filter items by category
-      items.forEach(function(item) {
-        const category = item.dataset.category;
-        if (filter === 'all' || category === filter) {
-          item.classList.remove('hidden');
-          item.style.display = '';
-        } else {
-          item.classList.add('hidden');
-          item.style.display = 'none';
-        }
-      });
-      
-      // Refresh ScrollTrigger after filtering
-      if (typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.refresh();
+  function closeAllTimelineTooltips(exceptController) {
+    timelineControllers.forEach(function(controller) {
+      if (controller !== exceptController) {
+        controller.hideTooltip();
       }
     });
+  }
+
+  function applyFallback() {
+    document.querySelectorAll("[data-timeline-shell]").forEach(function(shell) {
+      shell.classList.add("no-gsap");
+
+      shell.querySelectorAll(".horizontal-timeline-item.gsap-init").forEach(function(item) {
+        item.classList.remove("gsap-init");
+        item.classList.add("gsap-animated");
+      });
+    });
+
+    console.warn("GSAP not loaded, using CSS fallback animations");
+  }
+
+  function createTimelineController(shell, index) {
+    const timeline = shell.querySelector("[data-timeline='horizontal']");
+    const tooltip = shell.querySelector("[data-timeline-tooltip]");
+    const tooltipArrow = shell.querySelector("[data-timeline-tooltip-arrow]");
+    const titleElement = tooltip.querySelector("[data-tooltip-title-slot]");
+    const dateElement = tooltip.querySelector("[data-tooltip-date-slot]");
+    const categoryElement = tooltip.querySelector("[data-tooltip-category-slot]");
+    const excerptElement = tooltip.querySelector("[data-tooltip-excerpt-slot]");
+    const buttons = Array.from(shell.querySelectorAll(".timeline-node-button"));
+    const tooltipId = "timeline-tooltip-" + (index + 1);
+
+    if (!timeline || !tooltip || !tooltipArrow || buttons.length === 0) {
+      return null;
+    }
+
+    tooltip.id = tooltipId;
+
+    buttons.forEach(function(button) {
+      button.setAttribute("aria-describedby", tooltipId);
+      button.dataset.tooltipPinned = "false";
+    });
+
+    const state = {
+      activeButton: null,
+      hideTimeout: null
+    };
+
+    function syncActiveState(button, isActive) {
+      if (!button) {
+        return;
+      }
+
+      const item = button.closest(".horizontal-timeline-item");
+      button.setAttribute("aria-expanded", String(isActive));
+
+      if (item) {
+        item.classList.toggle("is-active", isActive);
+      }
+    }
+
+    function clearHideTimeout() {
+      if (state.hideTimeout) {
+        window.clearTimeout(state.hideTimeout);
+        state.hideTimeout = null;
+      }
+    }
+
+    function setTooltipContent(button) {
+      const item = button.closest(".horizontal-timeline-item");
+
+      if (!item) {
+        return;
+      }
+
+      titleElement.textContent = item.dataset.tooltipTitle || "";
+      dateElement.textContent = item.dataset.tooltipDate || "";
+      categoryElement.textContent = item.dataset.tooltipCategory || "";
+      excerptElement.textContent = item.dataset.tooltipExcerpt || "";
+      dateElement.hidden = dateElement.textContent.length === 0;
+      excerptElement.hidden = excerptElement.textContent.length === 0;
+    }
+
+    function positionTooltip(button) {
+      const shellRect = shell.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const shellStyles = window.getComputedStyle(shell);
+      const gap = parseFloat(shellStyles.getPropertyValue("--timeline-tooltip-gap")) || 18;
+      const edgePadding = 12;
+
+      let left = buttonRect.left - shellRect.left + (buttonRect.width / 2) - (tooltipRect.width / 2);
+      const minLeft = edgePadding;
+      const maxLeft = Math.max(minLeft, shellRect.width - tooltipRect.width - edgePadding);
+      left = Math.min(Math.max(left, minLeft), maxLeft);
+
+      let placement = "top";
+      let top = buttonRect.top - shellRect.top - tooltipRect.height - gap;
+
+      if (top < edgePadding) {
+        placement = "bottom";
+        top = buttonRect.bottom - shellRect.top + gap;
+      }
+
+      if (placement === "bottom" && top + tooltipRect.height > shellRect.height - edgePadding) {
+        const fallbackTop = buttonRect.top - shellRect.top - tooltipRect.height - gap;
+
+        if (fallbackTop >= edgePadding) {
+          placement = "top";
+          top = fallbackTop;
+        } else {
+          top = Math.max(edgePadding, Math.min(top, shellRect.height - tooltipRect.height - edgePadding));
+        }
+      }
+
+      tooltip.dataset.placement = placement;
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
+
+      const buttonCenter = buttonRect.left - shellRect.left + (buttonRect.width / 2);
+      const arrowOffset = buttonCenter - left;
+      const minArrowOffset = 20;
+      const maxArrowOffset = Math.max(minArrowOffset, tooltipRect.width - 20);
+      tooltipArrow.style.left = Math.min(Math.max(arrowOffset, minArrowOffset), maxArrowOffset) + "px";
+    }
+
+    function showTooltip(button, pinned) {
+      const item = button.closest(".horizontal-timeline-item");
+
+      if (!item || item.classList.contains("hidden")) {
+        return;
+      }
+
+      clearHideTimeout();
+      closeAllTimelineTooltips(controller);
+
+      if (state.activeButton && state.activeButton !== button) {
+        syncActiveState(state.activeButton, false);
+      }
+
+      state.activeButton = button;
+      button.dataset.tooltipPinned = String(Boolean(pinned));
+
+      setTooltipContent(button);
+      syncActiveState(button, true);
+      positionTooltip(button);
+
+      tooltip.setAttribute("aria-hidden", "false");
+      tooltip.classList.add("is-visible");
+    }
+
+    function hideTooltip() {
+      clearHideTimeout();
+
+      if (!state.activeButton) {
+        return;
+      }
+
+      syncActiveState(state.activeButton, false);
+      state.activeButton.dataset.tooltipPinned = "false";
+      state.activeButton = null;
+      tooltip.setAttribute("aria-hidden", "true");
+      tooltip.classList.remove("is-visible");
+    }
+
+    function scheduleHide() {
+      if (isCoarsePointerDevice()) {
+        return;
+      }
+
+      clearHideTimeout();
+      state.hideTimeout = window.setTimeout(function() {
+        if (state.activeButton && state.activeButton.dataset.tooltipPinned !== "true") {
+          hideTooltip();
+        }
+      }, 90);
+    }
+
+    buttons.forEach(function(button) {
+      button.addEventListener("mouseenter", function() {
+        if (!isCoarsePointerDevice()) {
+          showTooltip(button, false);
+        }
+      });
+
+      button.addEventListener("mouseleave", function() {
+        if (button.dataset.tooltipPinned !== "true") {
+          scheduleHide();
+        }
+      });
+
+      button.addEventListener("focus", function() {
+        showTooltip(button, false);
+      });
+
+      button.addEventListener("blur", function() {
+        if (button.dataset.tooltipPinned !== "true") {
+          scheduleHide();
+        }
+      });
+
+      button.addEventListener("click", function(event) {
+        const shouldPin = isCoarsePointerDevice();
+
+        if (shouldPin && state.activeButton === button && button.dataset.tooltipPinned === "true") {
+          hideTooltip();
+        } else {
+          showTooltip(button, shouldPin);
+        }
+
+        event.stopPropagation();
+      });
+    });
+
+    timeline.addEventListener("scroll", hideTooltip, { passive: true });
+
+    const controller = {
+      shell: shell,
+      hideTooltip: hideTooltip
+    };
+
+    return controller;
+  }
+
+  function initTimelineTooltips() {
+    timelineControllers.length = 0;
+
+    document.querySelectorAll("[data-timeline-shell]").forEach(function(shell, index) {
+      const controller = createTimelineController(shell, index);
+
+      if (controller) {
+        timelineControllers.push(controller);
+      }
+    });
+
+    document.addEventListener("pointerdown", function(event) {
+      if (!event.target.closest("[data-timeline-shell]")) {
+        closeAllTimelineTooltips();
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeAllTimelineTooltips();
+      }
+    });
+
+    window.addEventListener("resize", function() {
+      closeAllTimelineTooltips();
+    });
+  }
+
+  function initTimelineAnimations() {
+    const shells = document.querySelectorAll("[data-timeline-shell]");
+
+    if (shells.length === 0) {
+      return;
+    }
+
+    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+      applyFallback();
+      return;
+    }
+
+    if (prefersReducedMotion()) {
+      shells.forEach(function(shell) {
+        shell.querySelectorAll(".horizontal-timeline-item.gsap-init").forEach(function(item) {
+          item.classList.remove("gsap-init");
+          item.classList.add("gsap-animated");
+          item.style.opacity = "1";
+          item.style.transform = "none";
+        });
+
+        shell.querySelectorAll(".timeline-node-button").forEach(function(button) {
+          button.style.transform = "scale(1)";
+        });
+      });
+
+      console.info("Reduced motion preference detected, animations disabled");
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    shells.forEach(function(shell) {
+      const timeline = shell.querySelector("[data-timeline='horizontal']");
+      const timelineItems = shell.querySelectorAll(".horizontal-timeline-item");
+      const timelineLine = shell.querySelector(".horizontal-timeline-line");
+      const nodeButtons = shell.querySelectorAll(".timeline-node-button");
+
+      if (!timeline || timelineItems.length === 0) {
+        return;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: timeline,
+          start: timelineAnimationConfig.scrollTrigger.start,
+          toggleActions: timelineAnimationConfig.scrollTrigger.toggleActions
+        }
+      });
+
+      if (timelineLine) {
+        gsap.set(timelineLine, {
+          scaleX: timelineAnimationConfig.lineAnimation.scaleX,
+          transformOrigin: timelineAnimationConfig.lineAnimation.transformOrigin
+        });
+
+        tl.to(timelineLine, {
+          scaleX: 1,
+          duration: timelineAnimationConfig.lineAnimation.duration,
+          ease: timelineAnimationConfig.lineAnimation.ease
+        });
+      }
+
+      timelineItems.forEach(function(item) {
+        gsap.set(item, {
+          y: timelineAnimationConfig.itemEntrance.y,
+          opacity: timelineAnimationConfig.itemEntrance.opacity
+        });
+      });
+
+      gsap.set(nodeButtons, {
+        scale: timelineAnimationConfig.nodeAnimation.scale,
+        transformOrigin: "center center"
+      });
+
+      tl.to(timelineItems, {
+        y: 0,
+        opacity: 1,
+        duration: timelineAnimationConfig.itemEntrance.duration,
+        ease: timelineAnimationConfig.itemEntrance.ease,
+        stagger: timelineAnimationConfig.itemEntrance.stagger,
+        onComplete: function() {
+          timelineItems.forEach(function(item) {
+            item.classList.remove("gsap-init");
+            item.classList.add("gsap-animated");
+          });
+        }
+      }, "-=0.8");
+
+      tl.to(nodeButtons, {
+        scale: 1,
+        duration: timelineAnimationConfig.nodeAnimation.duration,
+        ease: timelineAnimationConfig.nodeAnimation.ease,
+        stagger: timelineAnimationConfig.itemEntrance.stagger
+      }, "-=0.7");
+    });
+
+    console.info("Timeline animations initialized successfully");
+  }
+
+  function initTimelineTabs() {
+    const tabs = document.querySelectorAll(".timeline-tab");
+    const items = document.querySelectorAll(".horizontal-timeline-item");
+
+    if (tabs.length === 0) {
+      return;
+    }
+
+    tabs.forEach(function(tab) {
+      tab.addEventListener("click", function() {
+        closeAllTimelineTooltips();
+
+        tabs.forEach(function(button) {
+          button.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+
+        const filter = tab.dataset.filter;
+
+        items.forEach(function(item) {
+          const category = item.dataset.category;
+          item.classList.toggle("hidden", filter !== "all" && category !== filter);
+        });
+
+        if (typeof ScrollTrigger !== "undefined") {
+          ScrollTrigger.refresh();
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    initTimelineTooltips();
+    initTimelineAnimations();
+    initTimelineTabs();
   });
-}
 
-// Initialize tabs when DOM is ready
-document.addEventListener('DOMContentLoaded', initTimelineTabs);
-
-/**
- * Re-initialize on page visibility change (for SPA navigation)
- */
-document.addEventListener('visibilitychange', function() {
-  if (document.visibilityState === 'visible') {
-    // Refresh ScrollTrigger on visibility change
-    if (typeof ScrollTrigger !== 'undefined') {
+  document.addEventListener("visibilitychange", function() {
+    if (document.visibilityState === "visible" && typeof ScrollTrigger !== "undefined") {
       ScrollTrigger.refresh();
     }
-  }
-});
+  });
+})();
 </script>
