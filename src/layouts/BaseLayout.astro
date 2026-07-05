@@ -1,0 +1,39 @@
+---
+import SiteHeader from '@components/SiteHeader.astro';
+import { site } from '@data/site';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  wide?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  wide = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${site.title}` : site.title;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <SiteHeader currentPath={Astro.url.pathname} />
+    <main class:list={['page-shell', wide && 'page-shell--wide']}>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <span>© {new Date().getFullYear()} Luwen He</span>
+      <span>Built with Astro</span>
+    </footer>
+  </body>
+</html>

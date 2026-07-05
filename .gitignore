@@ -1,20 +1,25 @@
-# Ignore the contents of the _site directory and other cache directories
-_site/
-.sass-cache/
+# Astro build output and cache
+.astro/
+dist/
 
-# Ignore the directory for local files during development
+# Local reports and generated artifacts
+output/
+.playwright-cli/
+tmp/
+markdown/
+简历优化参考/Typst-resume/
+
+# Local files during development
 local/
 
-# Ignore the Gemfile that is generated
-Gemfile.lock
+# Dependencies
+node_modules/
 
-# Ignore files created by npm
-node_modules
-package-lock.json
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Ignore the vendor file at root level and bundle for alternative installation
-/vendor/
-.bundle/
-
-# Ignore folders related to IDEs
+# Editor folders
 .vscode/

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import EntryList from '@components/EntryList.astro';
+import PageIntro from '@components/PageIntro.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { entryHref, sortByDate } from '@data/utils';
+
+const competitions = await getCollection('competitions');
+const coursework = await getCollection('coursework');
+const lab = await getCollection('lab');
+const items = sortByDate([...competitions, ...coursework, ...lab]).map((entry) => {
+  const kind = entry.collection;
+  return {
+    title: entry.data.title,
+    date: entry.data.date,
+    summary: entry.data.summary,
+    tags: entry.data.tags,
+    href: entryHref(kind, entry.id),
+    type: kind === 'competitions' ? '个人成果' : kind === 'coursework' ? '课程' : '实验室',
+  };
+});
+---
+
+<BaseLayout title="时间线">
+  <PageIntro
+    eyebrow="Timeline"
+    title="完整时间线"
+    summary="按时间聚合个人成果、实验室成果和课程成果，方便从实践脉络浏览。"
+  />
+  <section class="section-block">
+    <EntryList items={items} />
+  </section>
+</BaseLayout>

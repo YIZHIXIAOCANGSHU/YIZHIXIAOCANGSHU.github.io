@@ -1,0 +1,108 @@
+---
+import ResumePanel from '@components/ResumePanel.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import {
+  profile,
+  resumeExperiences,
+  resumeHonors,
+} from '@data/profile';
+
+const emptyField = '________';
+const formatField = (value: string) => value.trim() ? value : emptyField;
+---
+
+<BaseLayout title="简历" wide>
+  <div class="resume-page-grid resume-page-grid--document">
+    <ResumePanel />
+
+    <section class="resume-document" aria-label="正式简历内容">
+      <header class="resume-document__identity">
+        <div>
+          <p class="eyebrow">Resume</p>
+          <h1>{profile.chineseName} <span>{profile.name}</span></h1>
+          <p>{profile.jobTarget}</p>
+        </div>
+        <p class="resume-document__summary">{profile.bio}</p>
+      </header>
+
+      <section class="resume-info-grid" aria-label="基本信息">
+        <span><strong>电话</strong>{formatField(profile.phone)}</span>
+        <span><strong>邮箱</strong><a href={`mailto:${profile.email}`}>{profile.email}</a></span>
+        <span><strong>所在地</strong>{profile.location}</span>
+        <span><strong>作品集/主页</strong>{formatField(profile.homepage)}</span>
+        <span><strong>GPA/排名</strong>{formatField(profile.gpaRank)}</span>
+        <span><strong>英语/证书</strong>{formatField(profile.englishCert)}</span>
+      </section>
+
+      <section class="resume-section">
+        <h2>教育背景</h2>
+        {
+          profile.education.map((item) => (
+            <article class="resume-line-item">
+              <div class="resume-line-item__head">
+                <div>
+                  <h3>{item.school}</h3>
+                  <p>{item.college}</p>
+                </div>
+                <span>{item.period}</span>
+              </div>
+              <p>{item.major} / {item.degree}</p>
+              <p>核心课程：{item.courses.join('、')}</p>
+            </article>
+          ))
+        }
+      </section>
+
+      <section class="resume-section">
+        <h2>专业技能</h2>
+        <div class="resume-skill-grid">
+          {
+            profile.skillGroups.map((group) => (
+              <article>
+                <h3>{group.name}</h3>
+                <p>{group.skills.join(' / ')}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2>项目经历</h2>
+        <div class="resume-experience-list">
+          {
+            resumeExperiences.map((item) => (
+              <article class="resume-experience">
+                <div class="resume-line-item__head">
+                  <div>
+                    <h3><a href={item.href}>{item.title}</a></h3>
+                    <p>{item.role}</p>
+                  </div>
+                  <span>{item.period}</span>
+                </div>
+                <ul>
+                  {item.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2>荣誉证书</h2>
+        <div class="resume-honor-list">
+          {
+            resumeHonors.map((item) => (
+              <div class="resume-honor-row">
+                <span>{item.year}</span>
+                <strong>{item.name}</strong>
+                <em>{item.result}</em>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </section>
+  </div>
+</BaseLayout>

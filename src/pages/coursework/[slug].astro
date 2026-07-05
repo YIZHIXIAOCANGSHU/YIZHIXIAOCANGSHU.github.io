@@ -1,0 +1,30 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ContentLayout from '@layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('coursework');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'coursework'>;
+}
+
+const { entry } = Astro.props as Props;
+const { Content } = await render(entry);
+---
+
+<ContentLayout
+  title={entry.data.title}
+  date={entry.data.date}
+  summary={entry.data.summary}
+  tags={entry.data.tags}
+  links={entry.data.links}
+  collectionLabel="课程成果"
+>
+  <Content />
+</ContentLayout>

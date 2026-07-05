@@ -1,683 +1,120 @@
-# 个人作品集网站
+# Luwen He Portfolio
 
-基于 Academic Pages 模板构建的个人作品集网站，用于展示个人项目、课程作业和实验室工作。
-
-![网站预览](images/homepage.png)
-
-## 项目简介
-
-这是一个使用 Jekyll 构建的静态网站，托管在 GitHub Pages 上。网站采用响应式设计，支持多种主题切换，适合展示学术作品、项目经历和个人简历。
-
-### 主要特性
-
-- 📱 响应式设计，支持移动端和桌面端
-- 🎨 多主题支持（默认、暗色、极客风格）
-- 📝 Markdown 内容管理
-- 🔍 SEO 优化
-- 📊 支持 Google Analytics
-- 💬 评论系统集成（可选）
-- 📄 PDF 导出功能
-- 🌐 多语言支持（中文/英文）
+Astro 多页个人简历与成果页网站，用于展示个人简介、简历、个人成果、实验室成果和课程成果。站点部署到 GitHub Pages，构建产物由 GitHub Actions 生成。
 
 ## 技术栈
 
-- **静态站点生成器**: Jekyll 3.x
-- **前端框架**: HTML5, CSS3 (Sass), JavaScript
-- **UI 库**: jQuery, FitVids
-- **主题**: 基于 Minimal Mistakes 定制
-- **托管平台**: GitHub Pages
-- **包管理**: 
-  - Ruby: Bundler
-  - Node.js: npm
+- Astro 6
+- TypeScript
+- Astro Content Collections
+- 原生 CSS
+- GitHub Pages + GitHub Actions
 
-## 项目结构
+## 页面结构
 
-```
-.
-├── _config.yml           # Jekyll 配置文件
-├── _data/               # 数据文件（导航、简历等）
-├── _includes/           # 可复用的 HTML 片段
-├── _layouts/            # 页面布局模板
-├── _pages/              # 静态页面
-├── _projects/           # 个人项目集合
-├── _coursework/         # 课程作业集合
-├── _labwork/            # 实验室工作集合
-├── _sass/               # Sass 样式文件
-├── assets/              # 静态资源（CSS、JS、字体）
-├── images/              # 图片资源
-├── files/               # 文档文件（PDF 等）
-└── _site/               # 生成的静态网站（自动生成）
-```
+- `/` - 简历式首页
+- `/resume` - 完整简历
+- `/competitions` - 个人成果
+- `/coursework` - 课程成果
+- `/lab` - 实验室成果
+- `/timeline` - 全部内容时间线
 
-## 代码框架详解
+## 内容维护
 
-### 核心架构
+结构化个人信息在 `src/data/profile.ts`。
 
-本项目基于 Jekyll 静态站点生成器，采用 **MVC 模式**的变体架构：
+Markdown 内容在：
 
-- **Model（数据层）**: `_data/` 目录存储结构化数据（YAML/JSON）
-- **View（视图层）**: `_layouts/` 和 `_includes/` 提供模板系统
-- **Content（内容层）**: `_pages/`、`_projects/`、`_coursework/` 等集合存储 Markdown 内容
+- `src/content/competitions/`
+- `src/content/coursework/`
+- `src/content/lab/`
 
-### 目录结构详解
-
-#### 1. 配置文件
-
-**`_config.yml`** - 站点全局配置
-- 站点基本信息（标题、描述、URL）
-- 作者信息和社交媒体链接
-- 主题设置（支持 default/dark/geek 三种主题）
-- 集合定义和默认布局
-- 插件配置和构建选项
-
-```yaml
-# 示例配置
-locale: "zh-CN"
-site_theme: "geek"
-title: "作品合集"
-author:
-  name: "Your Name"
-  bio: "个人简介"
-```
-
-#### 2. 数据层 (`_data/`)
-
-**`navigation.yml`** - 导航菜单配置
-```yaml
-main:
-  - title: "个人作品"
-    url: /projects/
-  - title: "课程作业"
-    url: /coursework/
-```
-
-**`cv.json`** - 简历数据（JSON 格式）
-- 支持结构化简历数据
-- 可通过模板动态渲染
-
-**`ui-text.yml`** - 多语言界面文本
-- 支持国际化（i18n）
-- 可扩展多语言支持
-
-#### 3. 视图层
-
-**`_layouts/`** - 页面布局模板
-
-主要布局文件：
-- `default.html` - 基础布局，包含 head、header、footer
-- `single.html` - 单页内容布局（用于文章、项目详情）
-- `archive.html` - 归档列表布局
-- `talk.html` - 演讲/讲座专用布局
-
-布局继承关系：
-```
-compress (压缩) 
-  └── default (基础布局)
-      ├── single (单页)
-      ├── archive (归档)
-      └── talk (演讲)
-```
-
-**`_includes/`** - 可复用组件
-
-核心组件：
-- `head.html` - HTML head 部分（meta、CSS 引入）
-- `masthead.html` - 顶部导航栏
-- `author-profile.html` - 作者信息侧边栏
-- `footer.html` - 页脚
-- `scripts.html` - JavaScript 引入
-- `analytics.html` - 网站分析代码
-
-使用方式：
-```liquid
-{% include author-profile.html %}
-```
-
-#### 4. 内容集合
-
-Jekyll Collections 用于组织不同类型的内容：
-
-**`_projects/`** - 个人项目
-```markdown
----
-title: "项目名称"
-excerpt: "项目简介"
-date: 2024-01-01
-collection: projects
-permalink: /projects/project-name/
----
-项目详细内容...
-```
-
-**`_coursework/`** - 课程作业
-- 支持丰富的 Markdown 格式
-- 可嵌入图片、代码、公式
-- 自动生成目录和归档
-
-**`_labwork/`** - 实验室工作
-- 与 coursework 结构类似
-- 独立的 URL 路径和归档页面
-
-**`_pages/`** - 静态页面
-- `about.md` - 关于页面
-- `cv.md` - 简历页面
-- `projects.html` - 项目列表页
-- `coursework.html` - 课程作业列表页
-
-#### 5. 样式系统 (`_sass/`)
-
-采用模块化 Sass 架构：
-
-```
-_sass/
-├── _base.scss              # 基础样式
-├── _syntax.scss            # 代码高亮
-├── _themes.scss            # 主题切换逻辑
-├── theme/                  # 主题样式
-│   ├── _default.scss       # 默认主题
-│   ├── _dark.scss          # 暗色主题
-│   └── _geek.scss          # 极客主题
-├── layout/                 # 布局样式
-│   ├── _archive.scss       # 归档页面
-│   ├── _masthead.scss      # 顶部导航
-│   ├── _sidebar.scss       # 侧边栏
-│   └── _page.scss          # 页面内容
-├── include/                # 工具函数
-│   ├── _mixins.scss        # Sass mixins
-│   └── _utilities.scss     # 工具类
-└── vendor/                 # 第三方库
-    └── susy/               # 网格系统
-```
-
-主题切换机制：
-```scss
-// _themes.scss
-[data-theme="dark"] {
-  @import "theme/dark";
-}
-[data-theme="geek"] {
-  @import "theme/geek";
-}
-```
-
-#### 6. 静态资源 (`assets/`)
-
-**CSS**
-- `main.scss` - 主样式入口（编译所有 Sass）
-- `academicons.css` - 学术图标库
-- `cv-style.css` - 简历专用样式
-
-**JavaScript**
-- `theme.js` - 主题切换功能
-- `collapse.js` - 折叠面板功能
-- `pdf-export.js` - PDF 导出功能
-- `main.min.js` - 压缩后的主 JS 文件
-
-**字体**
-- `academicons.*` - 学术图标字体
-- `webfonts/` - Font Awesome 图标
-
-#### 7. 图片和文件
-
-**`images/`** - 图片资源
-- 头像、背景图
-- 项目截图
-- 主题预览图
-- 按项目分类的子目录（如 `autocontrol/`）
-
-**`files/`** - 文档文件
-- PDF 文档
-- 简历文件
-- 论文、报告等
-
-### 工作流程
-
-#### 1. 内容创建流程
-
-```
-编写 Markdown → Front Matter 配置 → Jekyll 处理 → 应用布局 → 生成 HTML
-```
-
-示例：
-```markdown
----
-title: "我的项目"           # 标题
-collection: projects        # 所属集合
-layout: single             # 使用的布局
-date: 2024-01-01           # 日期
-permalink: /projects/my-project/  # 自定义 URL
----
-
-# 项目内容
-这里是项目的详细描述...
-```
-
-#### 2. 构建流程
-
-```
-Markdown 文件 → Jekyll 解析 → Liquid 模板渲染 → Sass 编译 → 静态 HTML/CSS
-```
-
-#### 3. 主题切换流程
-
-```
-用户点击主题按钮 → theme.js 修改 data-theme 属性 → CSS 应用对应主题样式
-```
-
-### 核心技术
-
-#### Liquid 模板语言
-
-Jekyll 使用 Liquid 作为模板引擎：
-
-**变量输出**
-```liquid
-{{ site.title }}
-{{ page.title }}
-{{ author.name }}
-```
-
-**条件判断**
-```liquid
-{% if author.email %}
-  <a href="mailto:{{ author.email }}">{{ author.email }}</a>
-{% endif %}
-```
-
-**循环**
-```liquid
-{% for project in site.projects %}
-  <h2>{{ project.title }}</h2>
-{% endfor %}
-```
-
-**包含文件**
-```liquid
-{% include author-profile.html %}
-```
-
-#### Front Matter
-
-每个内容文件顶部的 YAML 配置：
+每篇内容使用统一 frontmatter：
 
 ```yaml
 ---
-title: "文章标题"
-layout: single
-author_profile: true
-read_time: true
-comments: true
-share: true
-related: true
+title: '标题'
+date: 2026-01-15
+summary: '一句话摘要'
+tags:
+  - 标签
+featured: true
 ---
 ```
 
-#### Collections（集合）
+静态资源放在：
 
-在 `_config.yml` 中定义：
+- `public/images/`
+- `public/files/`
 
-```yaml
-collections:
-  projects:
-    output: true
-    permalink: /:collection/:path/
-  coursework:
-    output: true
-    permalink: /:collection/:path/
-```
+## 本地开发
 
-### 扩展功能
-
-#### 1. 评论系统
-
-支持多种评论系统（在 `_config.yml` 配置）：
-- Disqus
-- Discourse
-- Facebook Comments
-- Staticman
-
-#### 2. 分析统计
-
-支持 Google Analytics：
-```yaml
-analytics:
-  provider: "google-analytics-4"
-  google:
-    tracking_id: "YOUR-ID"
-```
-
-#### 3. SEO 优化
-
-- 自动生成 sitemap.xml
-- 支持 Open Graph 标签
-- 结构化数据（Schema.org）
-- RSS Feed 生成
-
-#### 4. 响应式设计
-
-使用 Susy 网格系统和媒体查询：
-```scss
-@include breakpoint($medium) {
-  // 中等屏幕样式
-}
-@include breakpoint($large) {
-  // 大屏幕样式
-}
-```
-
-### 开发工具链
-
-#### 构建工具
-
-**Ruby/Bundler**
-- 管理 Jekyll 和插件依赖
-- `bundle exec jekyll serve` 启动开发服务器
-
-**npm**
-- 管理前端依赖（jQuery、FitVids）
-- UglifyJS 压缩 JavaScript
-- `npm run build:js` 构建压缩后的 JS
-
-#### 开发命令
-
-```bash
-# 启动开发服务器（自动重载）
-bundle exec jekyll serve -l -H localhost
-
-# 构建生产版本
-bundle exec jekyll build
-
-# 清理生成文件
-bundle exec jekyll clean
-
-# 压缩 JavaScript
-npm run build:js
-
-# 监听 JS 文件变化
-npm run watch:js
-```
-
-### 性能优化
-
-1. **HTML 压缩** - 使用 compress layout
-2. **CSS 压缩** - Sass 输出为 compressed 模式
-3. **JS 压缩** - UglifyJS 压缩合并
-4. **图片优化** - 建议使用 WebP 格式
-5. **懒加载** - 图片使用 loading="lazy"
-6. **CDN** - 字体和图标使用 CDN
-
-### 自定义扩展
-
-#### 添加新的集合
-
-1. 在 `_config.yml` 中定义：
-```yaml
-collections:
-  publications:
-    output: true
-    permalink: /:collection/:path/
-```
-
-2. 创建目录 `_publications/`
-
-3. 创建列表页面 `_pages/publications.html`
-
-4. 添加到导航 `_data/navigation.yml`
-
-#### 自定义主题
-
-1. 在 `_sass/theme/` 创建新主题文件
-2. 在 `_sass/_themes.scss` 中引入
-3. 在 `_config.yml` 中设置 `site_theme`
-
-#### 添加新功能
-
-1. 在 `_includes/` 创建组件
-2. 在需要的布局中引入
-3. 添加对应的样式和脚本
-
-### 最佳实践
-
-1. **内容组织** - 使用集合分类不同类型的内容
-2. **命名规范** - 文件名使用小写和连字符
-3. **图片管理** - 按项目分类存储图片
-4. **版本控制** - 使用 Git 管理代码和内容
-5. **性能监控** - 定期检查页面加载速度
-6. **SEO 优化** - 填写完整的 meta 信息
-7. **响应式测试** - 在多种设备上测试布局
-
-## 快速开始
-
-### 环境要求
-
-- Ruby 2.7+
-- Node.js 12+
-- Bundler
-- Git
-
-### 安装步骤
-
-#### Windows 系统
-
-1. 克隆仓库
-```bash
-git clone https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io.git
-cd YIZHIXIAOCANGSHU.github.io
-```
-
-2. 安装 Ruby 依赖
-```bash
-bundle install
-```
-
-如果遇到权限问题，可以本地安装：
-```bash
-bundle config set --local path 'vendor/bundle'
-bundle install
-```
-
-3. 安装 Node.js 依赖
 ```bash
 npm install
+npm run dev
 ```
 
-4. 启动开发服务器
+打开 `http://localhost:4321`。
 
-使用提供的批处理脚本：
-```bash
-start.bat
-```
-
-或手动启动：
-```bash
-bundle exec jekyll serve --drafts --host 127.0.0.1 --port 4000 --force_polling
-```
-
-5. 访问网站
-
-打开浏览器访问 `http://localhost:4000`
-
-#### Linux/macOS 系统
-
-1. 安装依赖
-```bash
-# Ubuntu/Debian
-sudo apt install ruby-dev ruby-bundler nodejs build-essential gcc make
-
-# macOS
-brew install ruby node
-gem install bundler
-```
-
-2. 克隆并安装
-```bash
-git clone https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io.git
-cd YIZHIXIAOCANGSHU.github.io
-bundle install
-npm install
-```
-
-3. 启动服务器
-```bash
-bundle exec jekyll serve -l -H localhost
-```
-
-### 使用 Docker
-
-如果不想安装依赖，可以使用 Docker：
+如果已经安装过依赖，可以直接运行：
 
 ```bash
-chmod -R 777 .
-docker compose up
+npm run dev -- --host 127.0.0.1
 ```
 
-访问 `http://localhost:4000`
-
-## 配置说明
-
-### 基本配置
-
-编辑 `_config.yml` 文件修改网站基本信息：
-
-```yaml
-# 网站信息
-title: "作品合集"
-locale: "zh-CN"
-site_theme: "geek"  # 可选: default, dark, geek
-
-# 作者信息
-author:
-  name: "Your Name"
-  bio: "个人简介"
-  location: "城市"
-  email: "your.email@example.com"
-  github: "your-github-username"
-```
-
-### 添加内容
-
-#### 添加项目
-
-在 `_projects/` 目录下创建 Markdown 文件：
-
-```markdown
----
-title: "项目名称"
-excerpt: "项目简介"
-date: 2024-01-01
----
-
-项目详细内容...
-```
-
-#### 添加课程作业
-
-在 `_coursework/` 目录下创建 Markdown 文件，格式同上。
-
-#### 添加文件
-
-将 PDF、图片等文件放入 `files/` 目录，可通过以下方式访问：
-```
-https://your-username.github.io/files/filename.pdf
-```
-
-### 主题切换
-
-网站支持三种主题，在 `_config.yml` 中修改：
-
-```yaml
-site_theme: "default"  # 或 "dark" 或 "geek"
-```
-
-## 构建和部署
-
-### 本地构建
+## 构建
 
 ```bash
-bundle exec jekyll build
+npm run build
+npm run preview
 ```
 
-生成的网站在 `_site/` 目录。
+`npm run build` 会先运行 `astro check`，再生成 `dist/`。
 
-### 部署到 GitHub Pages
+## GitHub Pages
 
-1. 推送代码到 GitHub
-```bash
-git add .
-git commit -m "Update content"
-git push origin main
-```
+`.github/workflows/deploy.yml` 会在推送到 `main` 或 `master` 时自动构建并发布 `dist/`。仓库是用户主页仓库 `YIZHIXIAOCANGSHU.github.io`，因此 `astro.config.mjs` 没有设置 `base`。
 
-2. GitHub Actions 会自动构建和部署
+在 GitHub 仓库设置中，将 Pages Source 设为 **GitHub Actions**。
 
-3. 访问 `https://your-username.github.io`
+## 课程成果
 
-## 开发指南
+旧版 `_coursework` 下的课程条目已经迁移为 Astro content collection，并统一放在 `src/content/coursework/`。课程详情页按作品集文章组织，偏向介绍项目背景、目标约束、本人或团队完成的工作链路、结果图证和阶段反思，不写成教程长文。
 
-### 修改样式
+当前课程栏目包含旧版 10 个课程条目，并新增 `工程数值分析`、`产品制造`、`电动船制作`、`红外寻迹与雷达扫描`、`机器人基础：机械臂写字笔架`、`产品设计：低噪声全向底盘与单 Z 轴方案`、`仿生鱼 / 发条鱼设计`、`弹跳互动装置`，共 18 个条目。课程详情页已经改为更完整的作品集叙事：项目背景、目标约束、工作链路、图证/表证和结果反思，不直接嵌入 PDF/DOCX 原文。
 
-样式文件位于 `_sass/` 目录，使用 Sass 编写。主要文件：
+课程相关 PDF、DOCX 和图片放在 `public/files/` 与 `public/images/coursework/`。重点报告类页面参考 `工程数值分析` 的行文与排版标准，使用报告式图表、穿插图注和阶段结果表格呈现证据。
 
-- `_sass/_base.scss` - 基础样式
-- `_sass/theme/` - 主题样式
-- `_sass/layout/` - 布局样式
+## 个人成果与实验室成果
 
-### 修改布局
+`/competitions` 页面显示为个人成果，当前包含 RC 足式技术工作、Robomaster、智能车完全模型组硬件与机械设计、点足机器人、RMBC 校内机器人基础训练赛、SRTP 无人机机械臂立项、电赛学习与电阻测量复刻、美赛建模与图表、拓展坞 PCB。RC 足式页内合并展示四轴机械臂、舵下轮端 NW 行星减速箱和轮足机器人参数优化。
 
-布局模板位于 `_layouts/` 目录：
+`/lab` 保留为实验室成果，目前将七自由度机械臂阻抗控制、直接控制、摩擦辨识、全参辨识和 payload 在线辨识合并到 `七轴机械臂调试` 一篇长报告中。
 
-- `default.html` - 默认布局
-- `single.html` - 单页布局
-- `archive.html` - 归档页面布局
+内容页图片使用 `markdown/*/images/` 中提取出来的单独图片、流程图、表格图和实物图，迁移到 `public/images/...` 的稳定路径后再引用。页面正文不引用 `markdown/` 原路径，也不把整页 PDF 截图作为正文图片。
 
-### 添加功能
+## Markdown 资料候选池
 
-可复用的组件位于 `_includes/` 目录，可以在页面中通过以下方式引入：
+`markdown/` 下的新资料先作为候选池维护，确认分类后再新增正式页面。整理口径是：能自然并入现有页面的先补强，不能并入的再新增 `/competitions` 或 `/coursework` 条目。
 
-```liquid
-{% include component-name.html %}
-```
+| 建议分类 | 资料来源 | 可新增条目 | 可补强页面 | 图片数量 | 需要确认的问题 |
+| --- | --- | --- | --- | ---: | --- |
+| 课程候选 | `工程数值分析/main_robot_arm.pdf-...` | 六自由度机械臂避障路径规划 | 工程数值分析 | 129 | 独立成课程条目，还是作为工程数值分析的第二个成果？ |
+| 课程候选 | `概率论/课程报告-贺禄文-20234232.pdf-...` | 概率论机器学习建模 | 人脸识别课程项目 | 29 | 是否和现有人脸识别合并，还是新建概率论机器学习页？ |
+| 课程候选 | `概率论/产品管理系统报告.pdf-...` | 产品管理系统统计分析 | 进出货系统开发 | 40 | 是否作为进出货系统的统计分析补充？ |
+| 课程候选 | `产品设计/会议拍摄机器人.pdf-...` 与 PPTX | 会议拍摄机器人 | 产品设计相关课程页 | 80 | 是否新建产品设计条目，还是并入低噪声全向底盘页？ |
+| 课程候选 | `数理报告.docx-...` | 振动柔光布数理建模 | 暂无 | 10 | 归课程成果还是个人建模成果？ |
+| 课程候选 | `工程原理/寻迹报告.docx-...` | 工程原理寻迹实践 | 红外寻迹与雷达扫描 | 12 | 是否并入现有红外寻迹页？ |
+| 课程候选 | `QEA1/报告.docx-...` | QEA1 建模与实体制造 | QEA2 心电检测系统 | 9 | QEA1 是否单独成页？ |
+| 课程补强 | `斯特林发动机/工程设计报告-...` 与最终汇报 | 暂不新增 | 斯特林发动机设计与制作 | 135 | 需要确认是否强调个人实物制作职责。 |
+| 课程补强 | `自动控制原理_课程项目报告.pdf-...` | 暂不新增 | 自动控制原理：创意台灯控制系统 | 109 | 已有页可继续补图表和控制链路。 |
+| 课程补强 | `微电路设计结项汇报.pdf-...`、`微电路小组报告.pdf-...` | 暂不新增 | 微电路设计小组报告 | 55 | 可补充汇报图、硬件逻辑和测试图。 |
+| 课程补强 | `ecg-report.pdf-...` | 暂不新增 | QEA2 心电检测系统 | 11 | 可补上位机、滤波、R 波检测和显示图。 |
+| 课程补强 | `机器人基础课程报告 贺禄文.docx-...` | 暂不新增 | 机器人基础：机械臂写字笔架 | 41 | 是否只保留综合实践部分，弱化通识综述？ |
+| 课程补强 | `按摩机芯设计与制造-...docx-...` | 暂不新增 | 产品制造 | 26 | 可继续补材料、工艺链和仿真图证。 |
+| 课程/个人成果补强 | `个性化实践 贺禄文 20234232.docx-...`、`个性化实践报告...pdf-...` | 暂不新增 | 点足机器人、Robomaster、智能车、课程旧条目 | 97 | 该资料覆盖范围宽，后续按页面拆分引用。 |
+| 个人成果/实验室补强 | `具身智能实验室个性化实践融合报告.pdf-...`、`技术轨-个性化实践.pdf-...` | 暂不新增 | RC足式技术工作、七轴机械臂调试 | 214 | 继续只抽单图，不引用整页 PDF 截图。 |
 
-## 常见问题
+## 迁移说明
 
-### 端口被占用
-
-修改 `start.bat` 或启动命令中的端口号：
-```bash
-bundle exec jekyll serve --port 4001
-```
-
-### 样式未更新
-
-清除缓存并重新构建：
-```bash
-bundle exec jekyll clean
-bundle exec jekyll build
-```
-
-### 权限错误
-
-使用本地 Gem 安装：
-```bash
-bundle config set --local path 'vendor/bundle'
-bundle install
-```
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 许可证
-
-本项目基于 MIT 许可证开源。
-
-原始模板来自 [Academic Pages](https://github.com/academicpages/academicpages.github.io)，由 Michael Rose 创建。
-
-## 联系方式
-
-- Email: 2752722697@qq.com
-- GitHub: [@YIZHIXIAOCANGSHU](https://github.com/YIZHIXIAOCANGSHU)
-
----
-
-⭐ 如果这个项目对你有帮助，欢迎 Star！
+旧 Jekyll/Academic Pages 源文件已经清理，当前仓库只保留 Astro 站点源码、公开静态资源和 GitHub Pages 部署配置。旧课程内容以 Astro 课程成果栏目的形式恢复。

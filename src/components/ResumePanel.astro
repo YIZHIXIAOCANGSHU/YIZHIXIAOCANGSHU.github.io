@@ -1,0 +1,52 @@
+---
+import { ExternalLink, Mail, MapPin, Phone, Target } from '@lucide/astro';
+import { profile } from '@data/profile';
+
+const isPhoneMissing = profile.phone === '待补充';
+const displayPhone = isPhoneMissing ? '________' : profile.phone;
+---
+
+<aside class="resume-panel">
+  <div class="resume-panel__top">
+    <img class="profile-photo" src={profile.avatar} alt={`${profile.name} profile photo`} />
+    <div class="resume-panel__name">
+      <p class="eyebrow">{profile.chineseName}</p>
+      <h1>{profile.name}</h1>
+      <p class="profile-title">{profile.title}</p>
+    </div>
+  </div>
+
+  <div class="contact-list" aria-label="联系方式">
+    <span class="contact-list__item">
+      <Target size={17} aria-hidden="true" />
+      <span class="contact-list__text">{profile.jobTarget}</span>
+    </span>
+    <a class="contact-list__item" href={`mailto:${profile.email}`}>
+      <Mail size={17} aria-hidden="true" />
+      <span class="contact-list__text">{profile.email}</span>
+    </a>
+    <span class:list={['contact-list__item', isPhoneMissing && 'is-muted']}>
+      <Phone size={17} aria-hidden="true" />
+      <span class="contact-list__text">{displayPhone}</span>
+    </span>
+    <span class="contact-list__item">
+      <MapPin size={17} aria-hidden="true" />
+      <span class="contact-list__text">{profile.location}</span>
+    </span>
+    {
+      profile.links.map((link) => (
+        <a class="contact-list__item" href={link.url} target="_blank" rel="noreferrer">
+          <ExternalLink size={17} aria-hidden="true" />
+          <span class="contact-list__text">{link.label}</span>
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="resume-panel__section" aria-label="关注方向">
+    <h2>关注方向</h2>
+    <div class="resume-panel__tags">
+      {profile.focusAreas.map((area) => <span>{area}</span>)}
+    </div>
+  </div>
+</aside>

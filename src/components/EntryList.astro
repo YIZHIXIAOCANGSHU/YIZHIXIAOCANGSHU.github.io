@@ -1,0 +1,54 @@
+---
+import { formatDate } from '@data/utils';
+
+interface Link {
+  href: string;
+  label?: string;
+}
+
+interface Item {
+  title: string;
+  date: Date;
+  summary?: string;
+  tags?: string[];
+  href: string;
+  type?: string;
+  links?: Link[];
+}
+
+interface Props {
+  items: Item[];
+  compact?: boolean;
+  emptyMessage?: string;
+}
+
+const { items, compact = false, emptyMessage = '暂无内容。' } = Astro.props;
+---
+
+{
+  items.length > 0 ? (
+    <div class:list={['entry-list', compact && 'entry-list--compact']}>
+      {items.map((item) => (
+        <article class="entry-row">
+          <div class="entry-date">{formatDate(item.date)}</div>
+          <div class="entry-main">
+            <div class="entry-title-line">
+              <a href={item.href}>{item.title}</a>
+              {item.type && <span>{item.type}</span>}
+            </div>
+            {item.summary && <p>{item.summary}</p>}
+            {item.tags && item.tags.length > 0 && (
+              <div class="tag-row">
+                {item.tags.map((tag) => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <p class="empty-state">{emptyMessage}</p>
+  )
+}

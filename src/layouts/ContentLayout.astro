@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatDate } from '@data/utils';
+
+interface Props {
+  title: string;
+  date: Date;
+  summary?: string;
+  tags?: string[];
+  links?: { label: string; url: string }[];
+  collectionLabel: string;
+}
+
+const { title, date, summary, tags = [], links = [], collectionLabel } = Astro.props;
+---
+
+<BaseLayout title={title} description={summary ?? title} wide>
+  <article class="content-page">
+    <header class="content-header">
+      <p class="eyebrow">{collectionLabel} / {formatDate(date)}</p>
+      <h1>{title}</h1>
+      {summary && <p>{summary}</p>}
+      {
+        tags.length > 0 && (
+          <div class="tag-row">
+            {tags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+        )
+      }
+      {
+        links.length > 0 && (
+          <div class="content-links" aria-label="资料链接">
+            {links.map((link) => (
+              <a href={link.url}>{link.label}</a>
+            ))}
+          </div>
+        )
+      }
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

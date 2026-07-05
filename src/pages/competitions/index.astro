@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import EntryList from '@components/EntryList.astro';
+import PageIntro from '@components/PageIntro.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { entryHref, sortByDate } from '@data/utils';
+
+const entries = sortByDate(await getCollection('competitions'));
+const items = entries.map((entry) => ({
+  title: entry.data.title,
+  date: entry.data.date,
+  summary: entry.data.summary,
+  tags: entry.data.tags,
+  href: entryHref('competitions', entry.id),
+  type: '个人成果',
+}));
+---
+
+<BaseLayout title="个人成果">
+  <PageIntro
+    eyebrow="Personal Work"
+    title="个人成果"
+    summary="这里收录个人机器人实践与竞赛项目经历。RC足式保留为详细技术工作页，智能车、Robomaster 和点足机器人从旧版项目区恢复为项目经历条目。"
+  />
+  <section class="section-block">
+    <EntryList items={items} />
+  </section>
+</BaseLayout>

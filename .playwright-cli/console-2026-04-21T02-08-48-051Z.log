@@ -1,5 +1,0 @@
-[   21080ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/assets/css/main.css:0
-[   21080ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/assets/js/main.min.js:0
-[   21332ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/assets/css/academicons.css:0
-[   21400ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io/images/new_tou_xiang.jpg:0
-[   21429ms] [INFO] Timeline animations initialized successfully @ http://127.0.0.1:4010/timeline/:1405

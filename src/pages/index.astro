@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { ArrowRight } from '@lucide/astro';
+import EntryList from '@components/EntryList.astro';
+import ResumePanel from '@components/ResumePanel.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { profile, resumeHighlights } from '@data/profile';
+import { entryHref, sortByDate } from '@data/utils';
+
+const competitions = await getCollection('competitions');
+const coursework = await getCollection('coursework');
+const lab = await getCollection('lab');
+
+const recentItems = sortByDate([...competitions, ...coursework, ...lab])
+  .slice(0, 6)
+  .map((entry) => {
+    const kind = entry.collection;
+    return {
+      title: entry.data.title,
+      date: entry.data.date,
+      summary: entry.data.summary,
+      tags: entry.data.tags,
+      href: entryHref(kind, entry.id),
+      type: kind === 'competitions' ? '个人成果' : kind === 'coursework' ? '课程' : '实验室',
+    };
+  });
+---
+
+<BaseLayout title="首页" wide>
+  <div class="resume-home">
+    <ResumePanel />
+    <section class="resume-main" aria-label="简历概览">
+      <section class="section-block">
+        <p class="eyebrow">Resume Home</p>
+        <h2>个人简介</h2>
+        <p class="section-lead">{profile.bio}</p>
+        <div class="focus-list">
+          {profile.focusAreas.map((area) => <span>{area}</span>)}
+        </div>
+        <div class="cta-row">
+          <a class="button-link" href="/resume">
+            查看完整简历
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
+          <a class="button-link button-link--secondary" href="/competitions">查看个人成果</a>
+          <a class="button-link button-link--secondary" href="/coursework">查看课程成果</a>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <h2>教育背景</h2>
+        <div class="education-list">
+          {
+            profile.education.map((item) => (
+              <article class="education-item">
+                <h3>{item.school}</h3>
+                <p>{item.degree} / {item.major}</p>
+                <p>{item.period}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-block">
+        <h2>精选成果</h2>
+        <div class="highlight-list">
+          {
+            resumeHighlights.map((item) => (
+              <article class="highlight-item">
+                <span class="highlight-meta">{item.meta}</span>
+                <h3><a href={item.href}>{item.title}</a></h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-block">
+        <h2>技能方向</h2>
+        <div class="skill-groups">
+          {
+            profile.skillGroups.map((group) => (
+              <div class="skill-group">
+                <h3>{group.name}</h3>
+                <div class="skill-tags">
+                  {group.skills.map((skill) => <span>{skill}</span>)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-block">
+        <h2>成果页入口</h2>
+        <EntryList items={recentItems} compact />
+      </section>
+    </section>
+  </div>
+</BaseLayout>

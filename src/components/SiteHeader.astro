@@ -1,0 +1,30 @@
+---
+import { site } from '@data/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(`${href}/`);
+---
+
+<header class="site-header">
+  <a class="site-brand" href="/" aria-label="回到首页">
+    <span class="brand-mark">LH</span>
+    <span>
+      <strong>Luwen He</strong>
+      <small>Resume & Portfolio</small>
+    </span>
+  </a>
+  <nav class="site-nav" aria-label="主导航">
+    {
+      site.nav.map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
