@@ -6,7 +6,7 @@ export const profile = {
   location: '重庆 / 南京',
   email: '2752722697@qq.com',
   phone: '13776417332',
-  homepage: '',
+  homepage: 'https://yizhixiaocangshu.github.io/',
   gpaRank: '3.67 / 排名 9',
   englishCert: 'CET-4 419',
   avatar: '/images/new_tou_xiang.jpg',

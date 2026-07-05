@@ -5,7 +5,7 @@
 ## 适用内容
 - `no_profile_picture.typ`：无头像版
 - `with_profile_picture.typ`：有头像版
-- `heluwn_resume.typ`：正式投递草稿，按当前已确认信息整理；两个模板文件只作为版式参考
+- `heluwn_resume.typ`：头像版正式投递草稿，按当前已确认信息整理；两个模板文件只作为版式参考
 
 ## 版式标准
 - 纸张：A4
@@ -17,10 +17,14 @@
 ## 使用方式
 1. 用 VS Code 打开 `.typ` 文件。
 2. 安装 Tinymist Typst 插件。
-3. 先预览，再导出 PDF。
+3. 先预览，再导出 PDF。也可以在仓库根目录运行：
+
+```powershell
+typst compile --root . "简历优化参考\Typst-resume-template\heluwn_resume.typ" "贺禄文-简历.pdf"
+```
 
 ## 注意事项
-- 未确认的信息不要硬写；当前仅作品集/个人主页仍可先留空。
+- 未确认的信息不要硬写；当前作品集主页为 `https://yizhixiaocangshu.github.io/`。
 - 简历正文尽量短句化，优先写做了什么、结果是什么、用了什么方法。
 - 项目名尽量和网页保持一致，方便以后同步更新。
-- 正式投递前先补齐 `heluwn_resume.typ` 顶部的作品集/个人主页空位。
+- 正式投递前用 PDF 预览检查头像、页边距和项目经历是否在 A4 页面内完整显示。

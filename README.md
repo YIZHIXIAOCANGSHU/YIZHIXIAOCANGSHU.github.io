@@ -2,6 +2,8 @@
 
 Astro 多页个人简历与成果页网站，用于展示个人简介、简历、个人成果、实验室成果和课程成果。站点部署到 GitHub Pages，构建产物由 GitHub Actions 生成。
 
+线上地址：<https://yizhixiaocangshu.github.io/>
+
 ## 技术栈
 
 - Astro 6
@@ -75,7 +77,23 @@ npm run preview
 
 `.github/workflows/deploy.yml` 会在推送到 `main` 或 `master` 时自动构建并发布 `dist/`。仓库是用户主页仓库 `YIZHIXIAOCANGSHU.github.io`，因此 `astro.config.mjs` 没有设置 `base`。
 
-在 GitHub 仓库设置中，将 Pages Source 设为 **GitHub Actions**。
+在 GitHub 仓库设置中开启发布：
+
+1. 打开 `https://github.com/YIZHIXIAOCANGSHU/YIZHIXIAOCANGSHU.github.io`。
+2. 进入 `Settings -> Pages`。
+3. 在 `Build and deployment` 中将 `Source` 设为 **GitHub Actions**。
+4. 保存后推送到 `master`，或到 `Actions` 页面手动运行 `Deploy to GitHub Pages`。
+5. 发布完成后访问 <https://yizhixiaocangshu.github.io/>。
+
+## 简历 PDF
+
+网页简历在 `/resume`。正式投递 PDF 使用 Typst 主文件：
+
+```powershell
+typst compile --root . "简历优化参考\Typst-resume-template\heluwn_resume.typ" "贺禄文-简历.pdf"
+```
+
+PDF 采用头像版排布，头像来源为 `public/images/new_tou_xiang.jpg`，主页地址与网页简历统一为 <https://yizhixiaocangshu.github.io/>。
 
 ## 课程成果
 

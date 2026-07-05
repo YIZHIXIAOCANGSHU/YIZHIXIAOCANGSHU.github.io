@@ -2,8 +2,7 @@
 import { ExternalLink, Mail, MapPin, Phone, Target } from '@lucide/astro';
 import { profile } from '@data/profile';
 
-const isPhoneMissing = profile.phone === '待补充';
-const displayPhone = isPhoneMissing ? '________' : profile.phone;
+const phone = profile.phone.trim();
 ---
 
 <aside class="resume-panel">
@@ -25,14 +24,26 @@ const displayPhone = isPhoneMissing ? '________' : profile.phone;
       <Mail size={17} aria-hidden="true" />
       <span class="contact-list__text">{profile.email}</span>
     </a>
-    <span class:list={['contact-list__item', isPhoneMissing && 'is-muted']}>
-      <Phone size={17} aria-hidden="true" />
-      <span class="contact-list__text">{displayPhone}</span>
-    </span>
+    {
+      phone && (
+        <span class="contact-list__item">
+          <Phone size={17} aria-hidden="true" />
+          <span class="contact-list__text">{phone}</span>
+        </span>
+      )
+    }
     <span class="contact-list__item">
       <MapPin size={17} aria-hidden="true" />
       <span class="contact-list__text">{profile.location}</span>
     </span>
+    {
+      profile.homepage && (
+        <a class="contact-list__item" href={profile.homepage} target="_blank" rel="noreferrer">
+          <ExternalLink size={17} aria-hidden="true" />
+          <span class="contact-list__text">作品集主页</span>
+        </a>
+      )
+    }
     {
       profile.links.map((link) => (
         <a class="contact-list__item" href={link.url} target="_blank" rel="noreferrer">
