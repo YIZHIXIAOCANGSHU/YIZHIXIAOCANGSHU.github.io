@@ -54,8 +54,10 @@ const recentItems = sortByDate([...competitions, ...coursework, ...lab])
             profile.education.map((item) => (
               <article class="education-item">
                 <h3>{item.school}</h3>
+                <p>{item.college}</p>
                 <p>{item.degree} / {item.major}</p>
                 <p>{item.period}</p>
+                {'note' in item && item.note && <p>{item.note}</p>}
               </article>
             ))
           }

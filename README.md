@@ -87,13 +87,15 @@ npm run preview
 
 ## 简历 PDF
 
-网页简历在 `/resume`。正式投递 PDF 使用 Typst 主文件：
+网页简历在 `/resume`，根目录只维护一份通用 PDF 简历，不在 PDF 页首写求职意向。网页端仍保持综合版展示。
+
+通用 PDF 使用 `heluwn_resume.typ` 生成，共用网页最新事实、头像和基础信息：
 
 ```powershell
 typst compile --root . "简历优化参考\Typst-resume-template\heluwn_resume.typ" "贺禄文-简历.pdf"
 ```
 
-PDF 采用头像版排布，头像来源为 `public/images/new_tou_xiang.jpg`，主页地址与网页简历统一为 <https://yizhixiaocangshu.github.io/>。
+PDF 采用头像版排布，头像来源为 `public/images/new_tou_xiang.jpg`，主页地址与网页简历统一为 <https://yizhixiaocangshu.github.io/>。岗位化 Typst 源文件保留在模板目录中，不作为根目录当前交付物。
 
 ## 课程成果
 

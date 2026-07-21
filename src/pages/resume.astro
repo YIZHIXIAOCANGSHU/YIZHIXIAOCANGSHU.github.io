@@ -33,7 +33,6 @@ const homepage = profile.homepage.trim();
           {homepage && <a href={homepage} target="_blank" rel="noreferrer">{homepage.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>}
         </span>
         <span><strong>GPA/排名</strong>{profile.gpaRank}</span>
-        <span><strong>英语/证书</strong>{profile.englishCert}</span>
       </section>
 
       <section class="resume-section">
@@ -53,20 +52,6 @@ const homepage = profile.homepage.trim();
             </article>
           ))
         }
-      </section>
-
-      <section class="resume-section">
-        <h2>专业技能</h2>
-        <div class="resume-skill-grid">
-          {
-            profile.skillGroups.map((group) => (
-              <article>
-                <h3>{group.name}</h3>
-                <p>{group.skills.join(' / ')}</p>
-              </article>
-            ))
-          }
-        </div>
       </section>
 
       <section class="resume-section">

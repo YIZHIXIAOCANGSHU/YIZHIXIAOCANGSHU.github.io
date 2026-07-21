@@ -1,12 +1,12 @@
-// 贺禄文 - 通用投递版简历
+// 贺禄文 - 机器人运动控制工程师投递版
 
-#set page(paper: "a4", margin: (x: 15mm, y: 12mm))
+#set page(paper: "a4", margin: (x: 15mm, y: 11mm))
 #set text(font: ("Microsoft YaHei", "SimSun"), size: 9.8pt, lang: "zh")
 #set par(first-line-indent: 0pt, leading: 0.67em, justify: true)
 
 #import "resume_base.typ": resume_header, section_title, education_block, entry, bullet, honors_block
 
-#resume_header()
+#resume_header[机器人运动控制工程师]
 #education_block()
 
 #section_title[项目经历]
@@ -35,6 +35,7 @@
 #v(0.12em)
 #entry([2023 - 2025], [Robomaster 机器人机械设计经历], [底盘 / 云台 / 控制器])
 #bullet[参与英雄云台除发射机构外的结构再设计，处理安装基准、运动空间、连接结构、线束布置、装配顺序和维护可达性。]
-#bullet[完成工程机器人整机底盘、取矿与兑矿机构设计，核对主体承载、底盘空间、电气件布置和维护空间；基于学长初始方案完成自定义控制器改进设计与装配，使其适配多轴机械臂操作需求。]
+#bullet[完成工程机器人整机底盘以及取矿、兑矿机构设计，核对主体承载、底盘空间、电气件布置和维护空间，支持训练与任务验证。]
+#bullet[学长提供自定义控制器初始方案，我完成结构改进设计和装配，使控制器适配工程机器人多轴机械臂的操作需求。]
 
 #honors_block()
