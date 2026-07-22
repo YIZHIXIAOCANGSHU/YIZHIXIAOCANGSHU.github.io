@@ -3,6 +3,10 @@ title: '工程数值分析'
 date: 2026-05-01
 summary: '围绕无人机集群编队中的 ODE 数值解法、弱网预测、ROS/RVIZ 仿真采样和 PX4 Offboard 接口验证完成课程项目整理。'
 cover: '/images/coursework/numerical-analysis/method-role.jpg'
+role: '数值方法 / 仿真验证'
+contribution: '整理 ODE 数值解法在无人机编队中的作用，完成弱网预测、ROS/RViz 采样和 PX4 Offboard 接口验证。'
+outcome: '形成从数值积分、轨迹预测到飞控接口的课程项目验证链路。'
+tech: ['Python', 'ODE', 'ROS/RViz', 'PX4 Offboard']
 tags:
   - '工程数值分析'
   - '无人机集群'

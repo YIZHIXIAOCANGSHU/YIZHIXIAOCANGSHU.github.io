@@ -1,7 +1,7 @@
 {
   "name": "luwen-he-portfolio",
   "version": "1.0.0",
-  "description": "Astro multi-page resume and portfolio site for GitHub Pages.",
+  "description": "Astro multi-page personal engineering project archive for GitHub Pages.",
   "type": "module",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.3",
     "@lucide/astro": "^1.21.0",
     "astro": "^6.4.8",
     "typescript": "^6.0.3"

@@ -7,8 +7,13 @@ const entrySchema = z.object({
   date: z.coerce.date(),
   summary: z.string().optional(),
   cover: z.string().optional(),
+  role: z.string(),
+  contribution: z.string(),
+  outcome: z.string(),
+  tech: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
   featured: z.boolean().default(false),
+  featuredOrder: z.number().int().positive().optional(),
   links: z
     .array(
       z.object({

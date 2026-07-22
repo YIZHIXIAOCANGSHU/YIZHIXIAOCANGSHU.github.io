@@ -3,6 +3,10 @@ title: '电赛学习与电阻测量复刻'
 date: 2025-08-20
 summary: '围绕电子设计竞赛备赛进行高精度电阻测量方案学习，整理多路模拟开关分压、威尔逊电流镜和 TVS 保护等电路链路。'
 cover: '/images/competitions/electronics-contest/wilson-current-mirror.jpg'
+role: '电路学习 / 方案复刻'
+contribution: '梳理电阻测量的分压与恒流方案，复刻多路模拟开关、威尔逊电流镜和输入保护电路，并记录调试判断。'
+outcome: '形成从量程切换、信号保护到测量链路验证的备赛笔记与电路证据。'
+tech: ['模拟开关', '威尔逊电流镜', 'TVS 保护', '电阻测量']
 tags:
   - '个人成果'
   - '电子设计竞赛'

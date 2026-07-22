@@ -3,6 +3,10 @@ title: 'QEA2 心电检测系统'
 date: 2025-06-14
 summary: '基于 STM32F407、ADS1296 和 PC 端多线程处理完成 ECG 采集、滤波、R 波检测、心率计算和实时显示。'
 cover: '/images/coursework/ecg/pc-result.jpg'
+role: '嵌入式采集 / 信号处理'
+contribution: '连接 ADS1296 采集、STM32 串口传输与 PC 多线程处理，整理滤波、R 波检测、心率计算和显示链路。'
+outcome: '形成可实时采集、处理和显示 ECG 波形的上下位机协同系统。'
+tech: ['STM32F407', 'ADS1296', '数字滤波', '多线程']
 tags:
   - '心电检测'
   - 'STM32'

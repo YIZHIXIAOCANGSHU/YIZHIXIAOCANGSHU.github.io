@@ -3,6 +3,10 @@ title: '工效学第一小组：智慧教室项目报告'
 date: 2026-04-16
 summary: '从工效学视角分析课堂参与门槛、学情反馈和教学协同问题，并提出学生答题器、教师终端与管理平台组成的智慧课堂互动系统。'
 cover: '/images/coursework/ergonomics-smart-classroom/problem-analysis.jpg'
+role: '用户研究 / 系统方案'
+contribution: '参与课堂问题分析、需求整理与交互链路设计，将学生、教师和管理端需求收敛为低干扰系统方案。'
+outcome: '形成由学生答题器、教师终端和管理平台组成的智慧课堂项目报告。'
+tech: ['工效学', '用户研究', '需求分析', '交互流程']
 tags:
   - '工效学'
   - '智慧教室'

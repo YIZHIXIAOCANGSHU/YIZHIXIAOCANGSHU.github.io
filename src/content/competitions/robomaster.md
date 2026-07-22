@@ -3,12 +3,18 @@ title: 'Robomaster'
 date: 2025-06-14
 summary: '围绕英雄云台非发射部分再设计、工程机器人整机底盘、取矿与兑矿训练机构、自定义控制器改进设计展开的机器人机械设计经历。'
 cover: '/images/competitions/robomaster/hero-assembled.jpg'
+role: '底盘 / 云台 / 任务机构'
+contribution: '参与英雄云台非发射部分再设计，完成工程机器人整机底盘、取矿与兑矿机构，并基于初始方案改进自定义控制器。'
+outcome: '形成覆盖整机承载、运动空间、装配维护和训练任务链路的机械设计与装配方案。'
+tech: ['机械 CAD', '整机布局', '3D 打印', '装配验证']
 tags:
   - '个人成果'
   - 'Robomaster'
   - '机器人竞赛'
   - '机械设计'
   - '系统集成'
+featured: true
+featuredOrder: 4
 ---
 
 ## 从单个结构件走向整机任务

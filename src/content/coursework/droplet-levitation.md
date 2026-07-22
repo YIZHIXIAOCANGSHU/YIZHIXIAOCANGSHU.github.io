@@ -3,6 +3,10 @@ title: '声学液滴悬浮实验'
 date: 2024-12-18
 summary: '围绕悬浮液体课题完成 COMSOL 两相流仿真建模、振动边界设置、层流/湍流模型取舍和成功/失败现象复现。'
 cover: '/images/coursework/droplet-levitation/comsol-model.jpg'
+role: '多物理场建模 / 实验复盘'
+contribution: '完成 COMSOL 两相流模型、振动边界和求解设置，对照实验整理成功与失败现象及模型边界。'
+outcome: '复现液滴受振动驱动的关键现象，并形成层流、湍流模型取舍与实验误差分析。'
+tech: ['COMSOL', '两相流', '振动边界', '实验复盘']
 tags:
   - '液滴悬浮'
   - 'COMSOL'

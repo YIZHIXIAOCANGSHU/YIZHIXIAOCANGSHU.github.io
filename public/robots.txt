@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yizhixiaocangshu.github.io/sitemap-index.xml

@@ -3,6 +3,10 @@ title: '产品设计：低噪声全向底盘与单 Z 轴方案'
 date: 2025-01-20
 summary: '产品设计课程中的机械方案工作，围绕低噪声全向底盘、单 Z 轴抬升和简化机械臂完成结构建模、汇报和视频整理。'
 cover: '/images/coursework/low-noise-omni-base/section-drawing.jpg'
+role: '机械方案 / 结构建模'
+contribution: '负责底盘尺寸统筹、全向轮布局、单 Z 轴抬升与顶部摄像机构，并整理机械汇报材料。'
+outcome: '将会议拍摄需求收敛为低噪声、低存在感且便于制造的移动结构方案。'
+tech: ['全向底盘', 'Z 轴机构', '机械建模', '方案汇报']
 tags:
   - '课程成果'
   - '产品设计'

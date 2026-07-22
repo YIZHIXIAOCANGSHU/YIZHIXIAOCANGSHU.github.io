@@ -1,0 +1,92 @@
+---
+interface Item {
+  title: string;
+  date: Date;
+  summary?: string;
+  cover?: string;
+  role: string;
+  href: string;
+  type: string;
+  kind: 'competitions' | 'lab' | 'coursework';
+  featured: boolean;
+}
+
+interface YearGroup {
+  year: number;
+  items: Item[];
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+const yearGroups = items.reduce<YearGroup[]>((groups, item) => {
+  const year = item.date.getFullYear();
+  const group = groups.find((candidate) => candidate.year === year);
+
+  if (group) {
+    group.items.push(item);
+  } else {
+    groups.push({ year, items: [item] });
+  }
+
+  return groups;
+}, []);
+---
+
+{
+  items.length > 0 ? (
+    <section class="project-timeline" aria-label="项目时间线">
+      <nav class="project-timeline__year-nav" aria-label="按年份浏览">
+        {yearGroups.map(({ year }) => (
+          <a class="project-timeline__year-link" href={`#year-${year}`}>{year}</a>
+        ))}
+      </nav>
+
+      <div class="project-timeline__groups">
+        {yearGroups.map(({ year, items: yearItems }) => (
+          <section class="project-timeline__year" aria-labelledby={`year-${year}`}>
+            <h2 class="project-timeline__year-label" id={`year-${year}`}>{year}</h2>
+            <div class="project-timeline__rail" aria-hidden="true"></div>
+            <ol class="project-timeline__entries">
+              {yearItems.map((item) => {
+                const hasFeaturedCover = item.featured && Boolean(item.cover);
+
+                return (
+                  <li
+                    class:list={[
+                      'project-timeline__entry',
+                      `project-timeline__entry--${item.kind}`,
+                      hasFeaturedCover && 'project-timeline__entry--featured',
+                    ]}
+                    data-entry-type={item.kind}
+                  >
+                    <a class="project-timeline__entry-link" href={item.href} aria-label={`${item.title}：查看项目详情`}>
+                      {hasFeaturedCover && (
+                        <span class="project-timeline__media">
+                          <img src={item.cover} alt="" loading="lazy" decoding="async" />
+                        </span>
+                      )}
+                      <span class="project-timeline__entry-content">
+                        <span class="project-timeline__entry-meta">
+                          <span class="project-timeline__type">{item.type}</span>
+                          {item.featured && <span class="project-timeline__featured-label">代表项目</span>}
+                        </span>
+                        <span class="project-timeline__title">{item.title}</span>
+                        <span class="project-timeline__role">职责范围：{item.role}</span>
+                        {item.summary && <span class="project-timeline__summary">{item.summary}</span>}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <p class="empty-state">暂无项目条目。</p>
+  )
+}

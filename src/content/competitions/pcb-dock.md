@@ -3,6 +3,10 @@ title: '拓展坞 PCB'
 date: 2025-01-20
 summary: '个人硬件设计成果，围绕自学拓展坞 PCB 完成原理图、板子打样和渲染方案，学习差分布线、自恢复保护和接口组织。'
 cover: '/images/competitions/pcb-dock/render.jpg'
+role: '独立硬件设计练习'
+contribution: '独立整理拓展坞接口与保护链路，完成原理图、PCB 布局布线、打样文件和板卡渲染。'
+outcome: '走完一次从接口规划到 PCB 输出的完整流程，为后续机器人板卡设计建立基础。'
+tech: ['PCB 设计', '差分布线', '接口规划', '自恢复保护']
 tags:
   - '个人成果'
   - 'PCB'

@@ -1,95 +1,106 @@
 ---
-import ResumePanel from '@components/ResumePanel.astro';
+import { ArrowUpRight, Mail, MapPin, Phone } from '@lucide/astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import {
-  profile,
-  resumeExperiences,
-  resumeHonors,
-} from '@data/profile';
+import { profile, resumeExperiences, resumeHonors } from '@data/profile';
 
-const homepage = profile.homepage.trim();
+const homepageLabel = profile.homepage.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.chineseName,
+  alternateName: profile.name,
+  url: profile.homepage,
+  email: `mailto:${profile.email}`,
+  telephone: profile.phone,
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: '重庆大学',
+  },
+};
 ---
 
-<BaseLayout title="简历" wide>
-  <div class="resume-page-grid resume-page-grid--document">
-    <ResumePanel />
+<BaseLayout
+  title="简历"
+  description="贺禄文的在线简历，包含教育背景、机器人项目经历和荣誉证书。"
+  structuredData={personSchema}
+  wide
+>
+  <article class="web-resume">
+    <header class="web-resume__header">
+      <div class="web-resume__identity">
+        <p class="eyebrow">Resume</p>
+        <h1>{profile.chineseName} <span>{profile.name}</span></h1>
+        <p>重庆大学机器人工程（明月班）本科生</p>
+      </div>
+      <img src={profile.avatar} alt="贺禄文头像" />
+      <p class="web-resume__summary">{profile.bio}</p>
+      <address class="web-resume__contacts">
+        <span><Phone size={16} aria-hidden="true" />{profile.phone}</span>
+        <a href={`mailto:${profile.email}`}><Mail size={16} aria-hidden="true" />{profile.email}</a>
+        <span><MapPin size={16} aria-hidden="true" />{profile.location}</span>
+        <a href={profile.homepage} target="_blank" rel="noreferrer">
+          <ArrowUpRight size={16} aria-hidden="true" />{homepageLabel}
+        </a>
+        <span><strong>GPA / 排名</strong>{profile.gpaRank}</span>
+      </address>
+    </header>
 
-    <section class="resume-document" aria-label="正式简历内容">
-      <header class="resume-document__identity">
-        <div>
-          <p class="eyebrow">Resume</p>
-          <h1>{profile.chineseName} <span>{profile.name}</span></h1>
-          <p>{profile.jobTarget}</p>
-        </div>
-        <p class="resume-document__summary">{profile.bio}</p>
-      </header>
+    <section class="web-resume__section" aria-labelledby="education-title">
+      <h2 id="education-title">教育背景</h2>
+      {
+        profile.education.map((item) => (
+          <article class="web-resume__education">
+            <div>
+              <h3>{item.school}</h3>
+              <p>{item.college}</p>
+            </div>
+            <strong>{item.period}</strong>
+            <p>{item.major} / {item.degree}</p>
+            <p>核心课程：{item.courses.join('、')}</p>
+          </article>
+        ))
+      }
+    </section>
 
-      <section class="resume-info-grid" aria-label="基本信息">
-        <span><strong>电话</strong>{profile.phone}</span>
-        <span><strong>邮箱</strong><a href={`mailto:${profile.email}`}>{profile.email}</a></span>
-        <span><strong>所在地</strong>{profile.location}</span>
-        <span>
-          <strong>作品集/主页</strong>
-          {homepage && <a href={homepage} target="_blank" rel="noreferrer">{homepage.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>}
-        </span>
-        <span><strong>GPA/排名</strong>{profile.gpaRank}</span>
-      </section>
-
-      <section class="resume-section">
-        <h2>教育背景</h2>
+    <section class="web-resume__section" aria-labelledby="experience-title">
+      <h2 id="experience-title">项目经历</h2>
+      <div class="web-resume__projects">
         {
-          profile.education.map((item) => (
-            <article class="resume-line-item">
-              <div class="resume-line-item__head">
+          resumeExperiences.map((item) => (
+            <article class="web-resume__project">
+              <header>
                 <div>
-                  <h3>{item.school}</h3>
-                  <p>{item.college}</p>
+                  <h3><a href={item.href}>{item.title}</a></h3>
+                  <p>{item.role}</p>
                 </div>
-                <span>{item.period}</span>
-              </div>
-              <p>{item.major} / {item.degree}</p>
-              <p>核心课程：{item.courses.join('、')}</p>
+                <strong>{item.period}</strong>
+              </header>
+              <ul>
+                {item.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
+              <a class="web-resume__evidence" href={item.href}>
+                查看项目证据
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
             </article>
           ))
         }
-      </section>
-
-      <section class="resume-section">
-        <h2>项目经历</h2>
-        <div class="resume-experience-list">
-          {
-            resumeExperiences.map((item) => (
-              <article class="resume-experience">
-                <div class="resume-line-item__head">
-                  <div>
-                    <h3><a href={item.href}>{item.title}</a></h3>
-                    <p>{item.role}</p>
-                  </div>
-                  <span>{item.period}</span>
-                </div>
-                <ul>
-                  {item.bullets.map((bullet) => <li>{bullet}</li>)}
-                </ul>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="resume-section">
-        <h2>荣誉证书</h2>
-        <div class="resume-honor-list">
-          {
-            resumeHonors.map((item) => (
-              <div class="resume-honor-row">
-                <span>{item.year}</span>
-                <strong>{item.name}</strong>
-                <em>{item.result}</em>
-              </div>
-            ))
-          }
-        </div>
-      </section>
+      </div>
     </section>
-  </div>
+
+    <section class="web-resume__section" aria-labelledby="honor-title">
+      <h2 id="honor-title">荣誉证书</h2>
+      <div class="web-resume__honors">
+        {
+          resumeHonors.map((item) => (
+            <div>
+              <span>{item.year}</span>
+              <strong>{item.name}</strong>
+              <em>{item.result}</em>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </article>
 </BaseLayout>

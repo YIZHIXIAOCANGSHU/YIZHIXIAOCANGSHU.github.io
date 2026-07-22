@@ -1,11 +1,6 @@
 ---
 import { formatDate } from '@data/utils';
 
-interface Link {
-  href: string;
-  label?: string;
-}
-
 interface Item {
   title: string;
   date: Date;
@@ -13,38 +8,58 @@ interface Item {
   tags?: string[];
   href: string;
   type?: string;
-  links?: Link[];
+  role: string;
+  outcome: string;
+  cover?: string;
 }
 
 interface Props {
   items: Item[];
-  compact?: boolean;
+  variant: 'visual' | 'timeline';
   emptyMessage?: string;
 }
 
-const { items, compact = false, emptyMessage = '暂无内容。' } = Astro.props;
+const { items, variant, emptyMessage = '暂无内容。' } = Astro.props;
 ---
 
 {
   items.length > 0 ? (
-    <div class:list={['entry-list', compact && 'entry-list--compact']}>
+    <div class:list={['entry-list', `entry-list--${variant}`]}>
       {items.map((item) => (
-        <article class="entry-row">
-          <div class="entry-date">{formatDate(item.date)}</div>
-          <div class="entry-main">
-            <div class="entry-title-line">
-              <a href={item.href}>{item.title}</a>
-              {item.type && <span>{item.type}</span>}
-            </div>
-            {item.summary && <p>{item.summary}</p>}
-            {item.tags && item.tags.length > 0 && (
-              <div class="tag-row">
-                {item.tags.map((tag) => (
-                  <span>{tag}</span>
-                ))}
+        <article class:list={['entry-row', variant === 'visual' && !item.cover && 'entry-row--text-only']}>
+          <a class="entry-link" href={item.href} aria-label={`${item.title}：查看项目详情`}>
+            {variant === 'visual' && item.cover && (
+              <div class="entry-media">
+                <img src={item.cover} alt="" loading="lazy" decoding="async" />
               </div>
             )}
-          </div>
+            {variant === 'timeline' && <time class="entry-date" datetime={item.date.toISOString()}>{formatDate(item.date)}</time>}
+            <div class="entry-main">
+              <div class="entry-meta">
+                {variant === 'visual' && <time datetime={item.date.toISOString()}>{formatDate(item.date)}</time>}
+                {item.type && <span>{item.type}</span>}
+              </div>
+              {variant === 'visual' && (
+                <p class="entry-role"><span>角色</span>{item.role}</p>
+              )}
+              <h2>{item.title}</h2>
+              {item.summary && <p class="entry-summary">{item.summary}</p>}
+              {variant === 'visual' && (
+                <dl class="entry-outcome">
+                  <dt>阶段结果</dt>
+                  <dd>{item.outcome}</dd>
+                </dl>
+              )}
+              {item.tags && item.tags.length > 0 && (
+                <div class="tag-row" aria-label="项目标签">
+                  {item.tags.map((tag) => (
+                    <span>{tag}</span>
+                  ))}
+                </div>
+              )}
+              {variant === 'visual' && <span class="entry-action" aria-hidden="true">查看项目详情</span>}
+            </div>
+          </a>
         </article>
       ))}
     </div>

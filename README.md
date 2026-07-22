@@ -1,6 +1,6 @@
 # Luwen He Portfolio
 
-Astro 多页个人简历与成果页网站，用于展示个人简介、简历、个人成果、实验室成果和课程成果。站点部署到 GitHub Pages，构建产物由 GitHub Actions 生成。
+Astro 多页个人工程工作档案，以项目为主线展示个人成果、实验室成果、课程成果与完整经历。站点部署到 GitHub Pages，构建产物由 GitHub Actions 生成。
 
 线上地址：<https://yizhixiaocangshu.github.io/>
 
@@ -14,7 +14,7 @@ Astro 多页个人简历与成果页网站，用于展示个人简介、简历�
 
 ## 页面结构
 
-- `/` - 简历式首页
+- `/` - 项目优先的个人工程档案首页
 - `/resume` - 完整简历
 - `/competitions` - 个人成果
 - `/coursework` - 课程成果
@@ -38,11 +38,20 @@ Markdown 内容在：
 title: '标题'
 date: 2026-01-15
 summary: '一句话摘要'
+role: '项目角色'
+contribution: '个人完成的工作'
+outcome: '阶段结果'
+tech:
+  - 技术或工具
 tags:
   - 标签
+cover: '/images/category/project/cover.jpg'
 featured: true
+featuredOrder: 1
 ---
 ```
+
+`cover` 与 `featured` 对普通条目可选；首页代表项目必须同时设置 `featured: true`、唯一的 `featuredOrder` 和 `cover`。
 
 静态资源放在：
 

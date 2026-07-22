@@ -6,20 +6,84 @@ interface Props {
   title: string;
   date: Date;
   summary?: string;
+  cover?: string;
+  role: string;
+  contribution: string;
+  outcome: string;
+  tech?: string[];
   tags?: string[];
   links?: { label: string; url: string }[];
   collectionLabel: string;
+  headings?: { depth: number; slug: string; text: string }[];
+  newer?: { title: string; href: string };
+  older?: { title: string; href: string };
 }
 
-const { title, date, summary, tags = [], links = [], collectionLabel } = Astro.props;
+const {
+  title,
+  date,
+  summary,
+  cover,
+  role,
+  contribution,
+  outcome,
+  tech = [],
+  tags = [],
+  links = [],
+  collectionLabel,
+  headings = [],
+  newer,
+  older,
+} = Astro.props;
+
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: title,
+  description: summary ?? contribution,
+  dateCreated: date.toISOString(),
+  creator: {
+    '@type': 'Person',
+    name: '贺禄文',
+    url: 'https://yizhixiaocangshu.github.io/',
+  },
+  image: cover ? new URL(cover, Astro.site).href : undefined,
+  keywords: tech,
+};
 ---
 
-<BaseLayout title={title} description={summary ?? title} wide>
+<BaseLayout
+  title={title}
+  description={summary ?? title}
+  image={cover}
+  pageType="article"
+  structuredData={projectSchema}
+  wide
+>
   <article class="content-page">
     <header class="content-header">
       <p class="eyebrow">{collectionLabel} / {formatDate(date)}</p>
       <h1>{title}</h1>
       {summary && <p>{summary}</p>}
+      <dl class="project-brief" aria-label="项目摘要">
+        <div>
+          <dt>我的角色</dt>
+          <dd>{role}</dd>
+        </div>
+        <div>
+          <dt>个人工作</dt>
+          <dd>{contribution}</dd>
+        </div>
+        <div>
+          <dt>阶段结果</dt>
+          <dd>{outcome}</dd>
+        </div>
+        <div>
+          <dt>工具与方法</dt>
+          <dd>{tech.join(' / ')}</dd>
+        </div>
+      </dl>
       {
         tags.length > 0 && (
           <div class="tag-row">
@@ -39,8 +103,50 @@ const { title, date, summary, tags = [], links = [], collectionLabel } = Astro.p
         )
       }
     </header>
-    <div class="prose">
-      <slot />
+    <div class:list={['content-reading-grid', tocHeadings.length < 3 && 'content-reading-grid--plain']}>
+      {
+        tocHeadings.length >= 3 && (
+          <aside class="content-toc" aria-label="本页目录">
+            <strong>本页目录</strong>
+            <nav>
+              {tocHeadings.map((heading) => (
+                <a class:list={[heading.depth === 3 && 'is-subheading']} href={`#${heading.slug}`}>
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        )
+      }
+      <div class="prose">
+        {
+          tocHeadings.length >= 3 && (
+            <details class="content-toc-mobile">
+              <summary>本页目录</summary>
+              <nav>
+                {tocHeadings.map((heading) => (
+                  <a class:list={[heading.depth === 3 && 'is-subheading']} href={`#${heading.slug}`}>
+                    {heading.text}
+                  </a>
+                ))}
+              </nav>
+            </details>
+          )
+        }
+        <slot />
+      </div>
     </div>
+    {
+      (newer || older) && (
+        <nav class="project-navigation" aria-label="相邻项目">
+          <div>
+            {newer && <><span>较新项目</span><a href={newer.href}>{newer.title}</a></>}
+          </div>
+          <div>
+            {older && <><span>较早项目</span><a href={older.href}>{older.title}</a></>}
+          </div>
+        </nav>
+      )
+    }
   </article>
 </BaseLayout>

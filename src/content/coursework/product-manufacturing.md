@@ -3,12 +3,17 @@ title: '产品制造'
 date: 2026-06-01
 summary: '围绕按摩机芯完成少电机传动方案、异形齿轮节律调制、材料选型、制造工艺链、力学舒适窗口和仿真校核。'
 cover: '/images/coursework/product-manufacturing/technical-route.jpg'
+role: '机械方案 / 材料工艺 / 仿真'
+contribution: '整理少电机传动、异形齿轮和蜗轮蜗杆方案，完成核心材料选择、制造工艺链与力学舒适窗口分析。'
+outcome: '形成按摩体验量化、机械正向设计、材料工艺和仿真校核相互闭合的产品制造方案。'
+tech: ['异形齿轮', '蜗轮蜗杆', '材料选型', '有限元校核']
 tags:
   - '产品制造'
   - '按摩机芯'
   - '异形齿轮'
   - '制造工艺'
   - '仿真校核'
+featured: false
 links:
   - label: '项目 DOCX'
     url: '/files/product-manufacturing.docx'

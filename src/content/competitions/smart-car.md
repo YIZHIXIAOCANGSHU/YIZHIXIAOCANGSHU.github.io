@@ -3,12 +3,18 @@ title: '智能车完全模型组硬件与机械设计'
 date: 2025-06-14
 summary: '围绕智能车完全模型组整理硬件设计、主控拓扑、驱动板、大电流 PCB、强弱电隔离、车壳迭代和整车联调经验。'
 cover: '/images/competitions/smart-car/main-control-board.jpg'
+role: '硬件设计 / 机械设计 / 整车联调'
+contribution: '梳理主控板、驱动板、电源与强弱电链路，推进大电流 PCB 和车壳 5-6 版迭代并参与整车联调。'
+outcome: '形成主控、驱动、电源、结构安装与线束空间相互约束的整车设计链路。'
+tech: ['PCB 设计', '电源管理', '强弱电隔离', '机械结构迭代']
 tags:
   - '个人成果'
   - '智能车'
   - '完全模型组'
   - '硬件设计'
   - '机械设计'
+featured: true
+featuredOrder: 3
 ---
 
 ## 把智能车做成能反复调试的系统

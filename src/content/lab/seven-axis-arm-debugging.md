@@ -1,8 +1,12 @@
 ---
-title: '七轴机械臂调试'
+title: '半人形机械臂运动控制与调试'
 date: 2026-06-10
-summary: '实验室阶段成果总页，整合七自由度机械臂阻抗控制、直接控制、摩擦辨识、全参辨识和 payload 在线辨识。'
+summary: '参与实验室国家级项目书和半人形机械臂实际开发，整合七自由度机械臂阻抗控制、直接控制、摩擦辨识、全参辨识和 payload 在线辨识。'
 cover: '/images/lab/seven-axis/impedance-sim.jpg'
+role: '运动控制 / 动力学辨识 / 嵌入式适配'
+contribution: '参与国家级项目书与半人形机械臂开发，完成模型修正、阻抗控制、辨识链路、跨语言迁移和接口适配。'
+outcome: '形成从 MuJoCo 仿真、benchmark 到 STM32H743 与 UART 部署推进验证的完整调试链路。'
+tech: ['MuJoCo', '阻抗控制', '动力学辨识', 'STM32H743']
 tags:
   - '实验室成果'
   - '七轴机械臂'
@@ -10,6 +14,7 @@ tags:
   - '直接控制'
   - '动力学辨识'
 featured: true
+featuredOrder: 1
 links:
   - label: '完整 PDF'
     url: '/files/embodied-intelligence-practice-report.pdf'

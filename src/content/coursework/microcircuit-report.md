@@ -3,6 +3,10 @@ title: '微电路设计小组报告'
 date: 2026-04-16
 summary: '围绕室内扫地机器人完成 STM32F407 控制板、电源与传感接口、PCB 制作调试，以及与 FreeRTOS、ROS 2 导航系统的整机协同。'
 cover: '/images/coursework/microcircuit/hardware-board.jpg'
+role: '控制板 / PCB / 系统联调'
+contribution: '完成 STM32F407 控制板的电源、驱动与传感接口规划，参与 PCB 输出、焊接调试和整机通信联调。'
+outcome: '团队形成从硬件电路、嵌入式控制到 ROS 2 导航协同的扫地机器人课程系统。'
+tech: ['STM32F407', 'PCB', 'FreeRTOS', 'ROS 2']
 tags:
   - '微电路设计'
   - 'STM32'

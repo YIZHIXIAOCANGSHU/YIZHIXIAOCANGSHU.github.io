@@ -3,6 +3,10 @@ title: '机器人基础：机械臂写字笔架'
 date: 2025-01-12
 summary: '围绕机械臂写字任务设计弹簧笔架、安装位置、插值点和执行矩阵，解决笔尖保护与动作执行问题。'
 cover: '/images/coursework/robotics-writing-arm/writing-result.jpg'
+role: '末端结构 / 轨迹组织'
+contribution: '设计带弹簧缓冲的写字笔架，确定安装与接触方式，并整理插值点和舵机执行矩阵。'
+outcome: '用结构容错降低笔尖硬接触风险，完成机械臂写字任务的可重复执行。'
+tech: ['末端执行器', '弹簧缓冲', '轨迹插值', '舵机矩阵']
 tags:
   - '课程成果'
   - '机器人基础'

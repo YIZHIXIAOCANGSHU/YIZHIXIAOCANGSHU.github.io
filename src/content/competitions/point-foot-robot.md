@@ -3,6 +3,10 @@ title: '点足机器人'
 date: 2025-08-20
 summary: '围绕点足机器人复刻与调试，整理髋关节、膝关节、外围调试框架、Fusion 360 静力学、Adams 动力学、MuJoCo/Sim2Real 和实机问题。'
 cover: '/images/competitions/point-foot-robot/real-prototype.jpg'
+role: '机械结构 / 动力学仿真'
+contribution: '完成髋关节、膝关节、传力路径、限位与装配空间的结构设计，并搭建外围调试框架。'
+outcome: '通过静力学、机构动力学和实机对照定位承载、干涉、间隙与接触问题，形成后续结构修改依据。'
+tech: ['Fusion 360', 'Adams', 'MuJoCo', '机械装配']
 tags:
   - '个人成果'
   - '点足机器人'

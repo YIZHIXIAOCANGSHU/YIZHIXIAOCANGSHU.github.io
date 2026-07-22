@@ -3,6 +3,10 @@ title: '弹跳互动装置'
 date: 2024-01-13
 summary: '围绕儿童互动场景完成弹跳装置方案探索、航空航天主题场景搭建、积木制作和火漆印章交互设计。'
 cover: '/images/coursework/jumping-interaction-device/final-field.jpg'
+role: '方案探索 / 体验设计'
+contribution: '参与仿生弹跳方案比较、航空航天主题场景搭建和火漆印章奖励设计，兼顾动作、安全与参与体验。'
+outcome: '完成可现场展示的儿童互动装置与配套游戏场景。'
+tech: ['互动装置', '场景搭建', '结构方案', '用户体验']
 tags:
   - '课程成果'
   - '互动装置'

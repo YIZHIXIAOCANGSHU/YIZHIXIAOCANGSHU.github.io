@@ -11,6 +11,9 @@ const items = entries.map((entry) => ({
   date: entry.data.date,
   summary: entry.data.summary,
   tags: entry.data.tags,
+  cover: entry.data.cover,
+  role: entry.data.role,
+  outcome: entry.data.outcome,
   href: entryHref('competitions', entry.id),
   type: '个人成果',
 }));
@@ -23,6 +26,6 @@ const items = entries.map((entry) => ({
     summary="这里收录个人机器人实践与竞赛项目经历。RC足式保留为详细技术工作页，智能车、Robomaster 和点足机器人从旧版项目区恢复为项目经历条目。"
   />
   <section class="section-block">
-    <EntryList items={items} />
+    <EntryList items={items} variant="visual" />
   </section>
 </BaseLayout>

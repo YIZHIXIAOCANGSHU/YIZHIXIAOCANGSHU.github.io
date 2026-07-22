@@ -11,6 +11,9 @@ const items = entries.map((entry) => ({
   date: entry.data.date,
   summary: entry.data.summary,
   tags: entry.data.tags,
+  cover: entry.data.cover,
+  role: entry.data.role,
+  outcome: entry.data.outcome,
   href: entryHref('lab', entry.id),
   type: '实验室',
 }));
@@ -23,6 +26,6 @@ const items = entries.map((entry) => ({
     summary="这里保留实验室阶段成果的总入口。七轴机械臂调试作为一个完整条目展示，内部整合直接控制、摩擦辨识、全参辨识与在线辨识。"
   />
   <section class="section-block">
-    <EntryList items={items} />
+    <EntryList items={items} variant="visual" />
   </section>
 </BaseLayout>

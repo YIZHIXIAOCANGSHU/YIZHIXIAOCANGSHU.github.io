@@ -1,30 +1,45 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import ContentLayout from '@layouts/ContentLayout.astro';
+import { entryHref, sortByDate } from '@data/utils';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('lab');
-  return entries.map((entry) => ({
+  const entries = sortByDate(await getCollection('lab'));
+  return entries.map((entry, index) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: {
+      entry,
+      newer: index > 0 ? { title: entries[index - 1].data.title, href: entryHref('lab', entries[index - 1].id) } : undefined,
+      older: index < entries.length - 1 ? { title: entries[index + 1].data.title, href: entryHref('lab', entries[index + 1].id) } : undefined,
+    },
   }));
 }
 
 interface Props {
   entry: CollectionEntry<'lab'>;
+  newer?: { title: string; href: string };
+  older?: { title: string; href: string };
 }
 
-const { entry } = Astro.props as Props;
-const { Content } = await render(entry);
+const { entry, newer, older } = Astro.props as Props;
+const { Content, headings } = await render(entry);
 ---
 
 <ContentLayout
   title={entry.data.title}
   date={entry.data.date}
   summary={entry.data.summary}
+  cover={entry.data.cover}
+  role={entry.data.role}
+  contribution={entry.data.contribution}
+  outcome={entry.data.outcome}
+  tech={entry.data.tech}
   tags={entry.data.tags}
   links={entry.data.links}
   collectionLabel="实验室成果"
+  headings={headings}
+  newer={newer}
+  older={older}
 >
   <Content />
 </ContentLayout>

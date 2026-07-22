@@ -3,6 +3,10 @@ title: '红外寻迹与雷达扫描'
 date: 2024-05-18
 summary: '整合红外寻迹、VHDL PWM、八路红外 PCB、雷达扫描、RANSAC 和阿克曼运动解算等小车课程实践。'
 cover: '/images/coursework/infrared-tracking-radar/infrared-pcb.jpg'
+role: '传感硬件 / 运动解算'
+contribution: '整理八路红外 PCB、VHDL PWM、雷达扫描、RANSAC 拟合和阿克曼运动解算之间的输入输出关系。'
+outcome: '形成覆盖感知、判断、执行与车辆运动约束的小车课程实践链路。'
+tech: ['红外传感', 'VHDL PWM', 'RANSAC', '阿克曼模型']
 tags:
   - '课程成果'
   - '红外寻迹'

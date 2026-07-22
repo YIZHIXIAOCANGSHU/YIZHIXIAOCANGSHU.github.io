@@ -2,10 +2,10 @@
 #let homepage = "https://yizhixiaocangshu.github.io/"
 
 #let section_title(title) = {
-  v(0.48em)
+  v(0.52em)
   text(12pt, weight: "bold", fill: accent)[#title]
   line(length: 100%, stroke: (paint: accent, thickness: 0.5pt))
-  v(0.22em)
+  v(0.24em)
 }
 
 #let resume_header(job_title: none) = {
@@ -65,7 +65,7 @@
     columns: (28mm, 1fr, 54mm),
     column-gutter: 0.62em,
     [#strong[2023 - 2027]],
-    [#strong[重庆大学 国家卓越工程师学院]],
+    [#strong[重庆大学（985） 国家卓越工程师学院]],
     align(right)[机器人工程（明月班） / 本科],
   )
   v(0.2em)

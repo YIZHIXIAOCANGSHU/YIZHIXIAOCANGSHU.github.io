@@ -3,6 +3,10 @@ title: 'SRTP 无人机机械臂立项'
 date: 2023-11-04
 summary: '围绕无人机与机械臂结合方向组织 SRTP 项目，从选题讨论、论文阅读、导师沟通到立项答辩，形成无人机机械臂的初步研究框架。'
 cover: '/images/competitions/srtp-uav-arm/presentation.jpg'
+role: '项目组织 / 技术调研'
+contribution: '组织选题讨论和导师沟通，整理无人机机械臂相关论文、技术路线、立项材料与答辩内容。'
+outcome: '完成立项答辩并形成无人机机械臂方向的初步研究框架。'
+tech: ['论文调研', '技术路线', '项目书', '答辩汇报']
 tags:
   - '个人成果'
   - 'SRTP'

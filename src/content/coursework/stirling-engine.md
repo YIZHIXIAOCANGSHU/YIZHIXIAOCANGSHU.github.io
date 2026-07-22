@@ -3,6 +3,10 @@ title: '斯特林发动机设计与制作'
 date: 2025-06-14
 summary: '围绕 Alpha 型斯特林发动机完成结构选型、热学仿真、多体动力学验证、加工装配和玻璃版本样机制作。'
 cover: '/images/coursework/stirling-engine/glass-version-test.jpg'
+role: '实物制作主线 / 仿真验证'
+contribution: '全程推进结构构思、材料采购、零件加工、装配调试和运行复盘，并参与热学与多体动力学验证。'
+outcome: '经过不少于五版迭代完成可稳定运行的玻璃注射器版本，并记录运行时间、电压和转速。'
+tech: ['COMSOL', 'Adams/Simulink', '机械加工', '样机调试']
 tags:
   - '斯特林发动机'
   - '热力学'

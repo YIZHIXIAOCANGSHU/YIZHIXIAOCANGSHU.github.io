@@ -3,6 +3,10 @@ title: '自动控制原理：创意台灯控制系统'
 date: 2026-01-15
 summary: '以创意台灯为载体完成 Buck 变换器建模、闭环 PI 控制、STM32 ADC/PWM 实现、WebBluetooth 交互和整机验证。'
 cover: '/images/coursework/autocontrol/system-block.jpg'
+role: '控制建模 / 嵌入式实现'
+contribution: '整理 Buck 功率级模型与闭环 PI 控制链路，参与 STM32 ADC/PWM、WebBluetooth 交互和整机验证。'
+outcome: '团队形成覆盖功率级、控制器、嵌入式执行和交互端的完整课程报告。'
+tech: ['Buck 变换器', 'PI 控制', 'STM32', 'WebBluetooth']
 tags:
   - '自动控制'
   - 'Buck 变换器'

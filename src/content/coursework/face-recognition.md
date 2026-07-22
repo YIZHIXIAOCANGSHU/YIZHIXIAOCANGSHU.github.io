@@ -3,6 +3,10 @@ title: '人脸识别课程项目'
 date: 2024-05-18
 summary: '围绕 PCA 特征降维、SVM 分类、训练算法和预测链路完成基础人脸识别流程实践。'
 cover: '/images/coursework/face-recognition/pca.jpg'
+role: '算法链路整理 / 课程实现'
+contribution: '整理训练数据准备、PCA 主成分提取、SVM 分类训练和预测流程一致性。'
+outcome: '跑通传统机器学习人脸识别流程，并形成对数据、特征和分类边界的工程复盘。'
+tech: ['PCA', 'SVM', '图像预处理', '分类训练']
 tags:
   - '人脸识别'
   - 'PCA'

@@ -11,6 +11,9 @@ const items = entries.map((entry) => ({
   date: entry.data.date,
   summary: entry.data.summary,
   tags: entry.data.tags,
+  cover: entry.data.cover,
+  role: entry.data.role,
+  outcome: entry.data.outcome,
   href: entryHref('coursework', entry.id),
   type: '课程',
 }));
@@ -23,6 +26,6 @@ const items = entries.map((entry) => ({
     summary="这里整理课程中的工程项目与报告成果。每个详情页按作品集叙事重写，重点说明项目目标、工作链路、关键取舍、结果图证和阶段反思。"
   />
   <section class="section-block">
-    <EntryList items={items} />
+    <EntryList items={items} variant="visual" />
   </section>
 </BaseLayout>

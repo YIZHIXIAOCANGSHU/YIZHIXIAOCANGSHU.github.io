@@ -3,6 +3,10 @@ title: '美赛建模与图表'
 date: 2025-02-01
 summary: '围绕美赛建模完成模型选择、代码实现、统计图表和论文整理，重点处理美联储政策规则与历史数据拟合，最终获得 S 奖。'
 cover: '/images/competitions/mcm/clarida-fit.jpg'
+role: '数学建模 / 代码 / 图表'
+contribution: '参与模型选择、历史数据拟合与论文组织，重点完成政策规则相关计算和结果图表表达。'
+outcome: '完成建模论文与可复核图表，团队获得美赛 Successful Participant。'
+tech: ['Python', '统计建模', '历史数据拟合', '论文可视化']
 tags:
   - '个人成果'
   - '美赛'
