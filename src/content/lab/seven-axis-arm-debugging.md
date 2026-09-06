@@ -8,7 +8,7 @@ contribution: '参与国家级项目书与半人形机械臂开发，完成模�
 outcome: '形成从 MuJoCo 仿真、benchmark 到 STM32H743 与 UART 部署推进验证的完整调试链路。'
 tech: ['MuJoCo', '阻抗控制', '动力学辨识', 'STM32H743']
 tags:
-  - '实验室成果'
+  - '实验室项目'
   - '七轴机械臂'
   - '阻抗控制'
   - '直接控制'

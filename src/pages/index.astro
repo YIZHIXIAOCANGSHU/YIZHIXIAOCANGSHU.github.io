@@ -1,68 +1,22 @@
 ---
-import { getCollection } from 'astro:content';
 import { ArrowRight, Mail } from '@lucide/astro';
+import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { profile } from '@data/profile';
-import { collectionLabel, entryHref } from '@data/utils';
+import { collectionLabel, entryHref, sortByDate, sortCompetitions, sortCoursework } from '@data/utils';
 
-const competitions = await getCollection('competitions');
-const coursework = await getCollection('coursework');
-const lab = await getCollection('lab');
+const competitions = sortCompetitions(await getCollection('competitions'));
+const coursework = sortCoursework(await getCollection('coursework'));
+const lab = sortByDate(await getCollection('lab'));
 const entries = [...competitions, ...coursework, ...lab];
 
-const rcEntry = competitions.find((entry) => entry.id === 'rc-legged');
-
-if (!rcEntry) {
-  throw new Error('Homepage Robocon feature requires competitions/rc-legged.');
-}
-
-const rcCover = rcEntry.data.cover;
-
-if (!rcCover) {
-  throw new Error('Homepage Robocon feature requires a cover image for competitions/rc-legged.');
-}
-
-const roboconEntry = { ...rcEntry, data: { ...rcEntry.data, cover: rcCover } };
-const roboconHref = entryHref(roboconEntry.collection, roboconEntry.id);
-
-const roboconTechnicalWork = [
-  {
-    title: '四轴机械臂',
-    description: '从任务约束、关节布局到制造与装配证据。',
-    image: '/images/competitions/rc-legged/arm-manufacturing.jpg',
-    alt: '四轴机械臂制造与装配证据',
-    href: `${roboconHref}#四轴机械臂从任务链路到可加工结构`,
-  },
-  {
-    title: 'NW 行星减速箱',
-    description: '在紧凑轮端中梳理传动、支撑与承力路径。',
-    image: '/images/competitions/rc-legged/gearbox-manufacturing.jpg',
-    alt: 'NW 行星减速箱制造与实物证据',
-    href: `${roboconHref}#舵下轮端-nw-行星减速箱紧凑传动与承力路径`,
-  },
-  {
-    title: '轮足机构参数优化',
-    description: '用模型比较并联腿与串联腿的可行构型。',
-    image: '/images/competitions/rc-legged/wheel-leg-parallel-result.jpg',
-    alt: '轮足机器人并联腿参数优化结果',
-    href: `${roboconHref}#轮足机构参数优化用模型筛选构型`,
-  },
-];
-
 const featuredEntries = entries
-  .filter(
-    (entry) =>
-      entry.data.featured &&
-      entry.data.featuredOrder &&
-      !(entry.collection === roboconEntry.collection && entry.id === roboconEntry.id),
-  )
+  .filter((entry) => entry.data.featured)
   .map((entry) => {
     const cover = entry.data.cover;
 
     if (!cover) {
-      throw new Error(
-        `Featured entry "${entry.data.title}" (${entry.collection}/${entry.id}) requires a cover image.`,
-      );
+      throw new Error(`Featured entry "${entry.data.title}" (${entry.collection}/${entry.id}) requires a cover image.`);
     }
 
     return { ...entry, data: { ...entry.data, cover } };
@@ -71,22 +25,22 @@ const featuredEntries = entries
 
 const archives = [
   {
-    title: '个人成果',
+    title: collectionLabel('competitions'),
     count: competitions.length,
     href: '/competitions',
-    description: '机器人竞赛、硬件设计与独立技术实践。',
+    description: '机器人竞赛、独立硬件实践与结构设计，按竞赛结果和技术代表性浏览。',
   },
   {
-    title: '实验室成果',
+    title: collectionLabel('lab'),
     count: lab.length,
     href: '/lab',
-    description: '半人形机械臂运动控制、辨识与部署调试。',
+    description: '半人形机械臂运动控制、动力学辨识、实时接口与真机调试。',
   },
   {
-    title: '课程成果',
+    title: collectionLabel('coursework'),
     count: coursework.length,
     href: '/coursework',
-    description: '控制、制造、嵌入式、产品设计与工程分析。',
+    description: '控制、嵌入式、机械制造、产品设计与工程分析课程项目。',
   },
 ];
 
@@ -98,7 +52,6 @@ const personSchema = {
   url: profile.homepage,
   image: new URL(profile.avatar, Astro.site).href,
   email: `mailto:${profile.email}`,
-  telephone: profile.phone,
   affiliation: {
     '@type': 'CollegeOrUniversity',
     name: '重庆大学',
@@ -108,89 +61,57 @@ const personSchema = {
 ---
 
 <BaseLayout
-  description="贺禄文的综合项目作品集，记录机器人运动控制、机械结构、智能硬件、课程成果与项目推进经历。"
-  image="/images/competitions/rc-legged/wheel-leg-real-design.jpg"
+  description="贺禄文的机器人工程项目档案，记录机械结构、运动控制、嵌入式硬件、仿真调试与项目推进经历。"
+  image="/images/lab/seven-axis/impedance-sim.jpg"
   structuredData={personSchema}
   flush
 >
-  <section class="portfolio-hero portfolio-hero--robocon" aria-labelledby="portfolio-title">
+  <section class="portfolio-hero portfolio-hero--engineer" aria-labelledby="portfolio-title">
     <img
       class="portfolio-hero__image"
-      src="/images/competitions/rc-legged/wheel-leg-real-design.jpg"
-      alt="Robocon 足式机器人轮足结构实机设计"
+      src="/images/lab/seven-axis/impedance-sim.jpg"
+      alt="七自由度机械臂阻抗控制仿真结果"
       fetchpriority="high"
     />
     <div class="portfolio-hero__scrim" aria-hidden="true"></div>
     <div class="portfolio-hero__inner">
       <p class="portfolio-hero__school">重庆大学机器人工程（明月班）本科生</p>
-      <h1 id="portfolio-title"><span>Robocon</span>{' '}<span>足式机器人</span></h1>
+      <h1 id="portfolio-title">贺禄文</h1>
+      <p class="portfolio-hero__role">机器人工程师 / 项目档案</p>
       <p class="portfolio-hero__lead">
-        贺禄文围绕足式机器人的结构设计、参数优化与队内协同推进，完成从 CAD、制造到团队交付的技术实践。
+        我把机械结构、运动控制、嵌入式硬件和仿真调试放进同一条工程链路，持续将机器人项目推进到可制造、可验证、可复盘的阶段。
       </p>
-      <nav class="portfolio-hero__evidence" aria-label="Robocon 技术证据">
-        {
-          roboconTechnicalWork.map((item, index) => (
-            <a href={item.href}>
-              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              {item.title}
-            </a>
-          ))
-        }
-      </nav>
+      <div class="portfolio-hero__signals" aria-label="工程实践方向">
+        <span>机械结构与制造</span>
+        <span>运动控制与仿真</span>
+        <span>嵌入式与硬件</span>
+        <span>系统联调与项目推进</span>
+      </div>
       <div class="portfolio-hero__actions">
-        <a class="button-link button-link--light" href={roboconHref}>
-          查看技术专题
+        <a class="button-link button-link--light" href="/projects">
+          浏览项目档案
           <ArrowRight size={17} aria-hidden="true" />
         </a>
         <a class="portfolio-hero__resume-link" href="/resume">
-          在线简历
+          查看在线简历
           <ArrowRight size={17} aria-hidden="true" />
         </a>
       </div>
     </div>
-    <a class="portfolio-hero__caption" href={roboconHref}>
-      <span>图中项目</span>
-      {roboconEntry.data.title}
-    </a>
+    <span class="portfolio-hero__caption">
+      <span>工程档案</span>
+      结构、控制、硬件与调试的项目记录
+    </span>
   </section>
 
   <div class="portfolio-content">
-    <section class="portfolio-section robocon-work" aria-labelledby="robocon-work-title">
-      <header class="portfolio-section__head">
-        <div>
-          <p class="eyebrow">Robocon Technical Work</p>
-          <h2 id="robocon-work-title">Robocon 技术工作</h2>
-        </div>
-        <p>围绕四轴机械臂、NW 行星减速箱和轮足机构参数优化，保留从结构判断到制造与模型结果的图证。</p>
-      </header>
-      <div class="robocon-work__grid">
-        {
-          roboconTechnicalWork.map((item) => (
-            <a class="robocon-work__item" href={item.href}>
-              <span class="robocon-work__media">
-                <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
-              </span>
-              <span class="robocon-work__content">
-                <strong>{item.title}</strong>
-                <span>{item.description}</span>
-                <span class="text-link">
-                  查看技术链路
-                  <ArrowRight size={16} aria-hidden="true" />
-                </span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </section>
-
     <section id="selected-work" class="portfolio-section" aria-labelledby="selected-title">
       <header class="portfolio-section__head">
         <div>
           <p class="eyebrow">Selected Work</p>
           <h2 id="selected-title">代表项目</h2>
         </div>
-        <p>三个项目记录半人形机械臂控制与辨识、智能车软硬件联调，以及 Robomaster 整机机械设计。</p>
+        <p>从半人形机械臂控制与辨识，到足式机器人结构、智能车硬件和 Robomaster 整机设计，先看最能代表工程链路的项目。</p>
       </header>
       <div class="featured-work">
         {
@@ -223,9 +144,9 @@ const personSchema = {
       <header class="portfolio-section__head">
         <div>
           <p class="eyebrow">Project Archive</p>
-          <h2 id="archive-title">成果目录</h2>
+          <h2 id="archive-title">项目档案</h2>
         </div>
-        <p>按项目来源浏览全部 {entries.length} 个详情页。</p>
+        <p>共 {entries.length} 个项目，按来源整理完整经历；分类页提供全部条目和详细技术证据。</p>
       </header>
       <div class="archive-list">
         {
@@ -241,7 +162,26 @@ const personSchema = {
           ))
         }
       </div>
+      <a class="archive-all-link" href="/projects">
+        进入项目档案总览
+        <ArrowRight size={17} aria-hidden="true" />
+      </a>
     </section>
+
+    <section class="portfolio-section portfolio-section--timeline" aria-labelledby="timeline-title">
+      <header class="portfolio-section__head">
+        <div>
+          <p class="eyebrow">Engineering Timeline</p>
+          <h2 id="timeline-title">从结构实践到系统调试</h2>
+        </div>
+        <p>按时间回看项目路径，了解机械设计、硬件实现、控制方法和项目协同如何逐步叠加。</p>
+      </header>
+      <a class="timeline-callout" href="/timeline">
+        <span>查看完整时间线</span>
+        <ArrowRight size={20} aria-hidden="true" />
+      </a>
+    </section>
+
     <footer class="portfolio-contact" aria-label="联系邮箱">
       <Mail size={16} aria-hidden="true" />
       <span>联系邮箱</span>

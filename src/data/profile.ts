@@ -7,7 +7,7 @@ export const profile = {
   homepage: 'https://yizhixiaocangshu.github.io/',
   gpaRank: '3.67 / 排名 6',
   avatar: '/images/new_tou_xiang.jpg',
-  bio: '重庆大学机器人工程（明月班）本科在读，聚焦机器人运动控制、机械结构设计与仿真调试，具备半人形机械臂开发、嵌入式部署和智能硬件项目推进经历。',
+  bio: '重庆大学机器人工程（明月班）本科在读，围绕机器人结构、运动控制、嵌入式硬件与仿真调试开展项目实践，具备从方案设计、制造实现到系统联调和问题复盘的完整工程经历。',
   education: [
     {
       school: '重庆大学（985）',

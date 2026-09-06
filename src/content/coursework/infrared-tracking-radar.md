@@ -8,7 +8,7 @@ contribution: '整理八路红外 PCB、VHDL PWM、雷达扫描、RANSAC 拟合�
 outcome: '形成覆盖感知、判断、执行与车辆运动约束的小车课程实践链路。'
 tech: ['红外传感', 'VHDL PWM', 'RANSAC', '阿克曼模型']
 tags:
-  - '课程成果'
+  - '课程项目'
   - '红外寻迹'
   - '雷达扫描'
   - '运动解算'

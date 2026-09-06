@@ -11,7 +11,6 @@ const personSchema = {
   alternateName: profile.name,
   url: profile.homepage,
   email: `mailto:${profile.email}`,
-  telephone: profile.phone,
   alumniOf: {
     '@type': 'CollegeOrUniversity',
     name: '重庆大学',
@@ -21,27 +20,32 @@ const personSchema = {
 
 <BaseLayout
   title="简历"
-  description="贺禄文的在线简历，包含教育背景、机器人项目经历和荣誉证书。"
+  description="贺禄文的在线简历，包含教育背景、机器人工程项目经历和荣誉证书。"
   structuredData={personSchema}
   wide
 >
   <article class="web-resume">
     <header class="web-resume__header">
       <div class="web-resume__identity">
-        <p class="eyebrow">Resume</p>
-        <h1>{profile.chineseName} <span>{profile.name}</span></h1>
-        <p>重庆大学机器人工程（明月班）本科生</p>
+        <p class="eyebrow">Online Resume</p>
+        <h1>{profile.chineseName}</h1>
+        <p>机器人工程师 / 重庆大学机器人工程（明月班）本科在读</p>
       </div>
-      <img src={profile.avatar} alt="贺禄文头像" />
       <p class="web-resume__summary">{profile.bio}</p>
       <address class="web-resume__contacts">
-        <span><Phone size={16} aria-hidden="true" />{profile.phone}</span>
         <a href={`mailto:${profile.email}`}><Mail size={16} aria-hidden="true" />{profile.email}</a>
         <span><MapPin size={16} aria-hidden="true" />{profile.location}</span>
         <a href={profile.homepage} target="_blank" rel="noreferrer">
           <ArrowUpRight size={16} aria-hidden="true" />{homepageLabel}
         </a>
         <span><strong>GPA / 排名</strong>{profile.gpaRank}</span>
+        <details class="resume-private-contact">
+          <summary><Phone size={16} aria-hidden="true" />显示手机号</summary>
+          <a href={`tel:${profile.phone}`}>{profile.phone}</a>
+        </details>
+        <a href="/projects">
+          <ArrowUpRight size={16} aria-hidden="true" />项目档案
+        </a>
       </address>
     </header>
 

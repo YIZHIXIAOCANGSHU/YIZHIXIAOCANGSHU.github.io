@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import PageIntro from '@components/PageIntro.astro';
 import ProjectTimeline from '@components/ProjectTimeline.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { entryHref, sortByDate } from '@data/utils';
+import { entryHref, sortByDate, collectionLabel } from '@data/utils';
 
 const competitions = await getCollection('competitions');
 const coursework = await getCollection('coursework');
@@ -19,7 +19,7 @@ const items = sortByDate([...competitions, ...coursework, ...lab]).map((entry) =
     role: entry.data.role,
     outcome: entry.data.outcome,
     href: entryHref(kind, entry.id),
-    type: kind === 'competitions' ? '个人成果' : kind === 'coursework' ? '课程' : '实验室',
+    type: collectionLabel(kind),
     kind,
     featured: entry.data.featured,
   };
@@ -29,8 +29,8 @@ const items = sortByDate([...competitions, ...coursework, ...lab]).map((entry) =
 <BaseLayout title="项目时间线">
   <PageIntro
     eyebrow="Timeline"
-    title="项目时间线"
-    summary="汇集网站内全部项目条目，按年份展示个人成果、实验室成果与课程成果。"
+    title="工程项目时间线"
+    summary="按年份浏览竞赛与个人项目、实验室项目和课程项目，查看技术兴趣如何从结构设计逐步延伸到控制、硬件与系统调试。"
   />
   <section class="timeline-section">
     <ProjectTimeline items={items} />

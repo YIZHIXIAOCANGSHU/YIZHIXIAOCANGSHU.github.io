@@ -1,0 +1,79 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import PageIntro from '@components/PageIntro.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { collectionLabel, entryHref, sortByDate, sortCompetitions, sortCoursework } from '@data/utils';
+
+const competitions = sortCompetitions(await getCollection('competitions'));
+const lab = sortByDate(await getCollection('lab'));
+const coursework = sortCoursework(await getCollection('coursework'));
+const total = competitions.length + lab.length + coursework.length;
+
+const groups = [
+  {
+    kind: 'competitions' as const,
+    title: collectionLabel('competitions'),
+    href: '/competitions',
+    total: competitions.length,
+    description: '机器人竞赛、独立硬件实践与结构设计，优先呈现有明确竞赛结果和技术产出的项目。',
+    entries: competitions.slice(0, 4),
+  },
+  {
+    kind: 'lab' as const,
+    title: collectionLabel('lab'),
+    href: '/lab',
+    total: lab.length,
+    description: '半人形机械臂的控制、辨识、实时接口和真机调试工作。',
+    entries: lab.slice(0, 3),
+  },
+  {
+    kind: 'coursework' as const,
+    title: collectionLabel('coursework'),
+    href: '/coursework',
+    total: coursework.length,
+    description: '控制、嵌入式、机械制造、产品设计和工程分析等课程项目。',
+    entries: coursework.slice(0, 5),
+  },
+];
+---
+
+<BaseLayout title="项目档案">
+  <PageIntro
+    eyebrow="Project Archive"
+    title="项目档案"
+    summary={`共 ${total} 个项目，按来源分为竞赛与个人项目、实验室项目和课程项目。先看代表项目，再进入分类页阅读完整技术证据。`}
+  />
+
+  <div class="archive-hub">
+    {groups.map((group) => (
+      <section class="archive-hub__group" aria-labelledby={`${group.kind}-archive-title`}>
+        <header class="archive-hub__head">
+          <div>
+            <p class="eyebrow">{group.kind === 'competitions' ? 'Competitions / Personal' : group.kind === 'lab' ? 'Laboratory' : 'Coursework'}</p>
+            <h2 id={`${group.kind}-archive-title`}>{group.title}</h2>
+          </div>
+          <a class="text-link" href={group.href}>
+            查看全部 {group.total} 个项目
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </header>
+        <p class="archive-hub__description">{group.description}</p>
+        <ol class="archive-hub__items">
+          {group.entries.map((entry, index) => (
+            <li>
+              <a href={entryHref(group.kind, entry.id)}>
+                <span class="archive-hub__index">{String(index + 1).padStart(2, '0')}</span>
+                <span class="archive-hub__item-main">
+                  <strong>{entry.data.title}</strong>
+                  <span>{entry.data.role}</span>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
