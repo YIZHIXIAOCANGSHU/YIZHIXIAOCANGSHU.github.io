@@ -49,6 +49,16 @@ const socialImage = new URL(image, Astro.site ?? Astro.url.origin).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
     <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          document.documentElement.dataset.theme = savedTheme === 'light' ? 'light' : 'dark';
+        } catch {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
   </head>
   <body>
@@ -61,5 +71,35 @@ const socialImage = new URL(image, Astro.site ?? Astro.url.origin).href;
       <span>© {new Date().getFullYear()} Luwen He</span>
       <span>Built with Astro</span>
     </footer>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const toggle = document.querySelector('[data-theme-toggle]');
+        if (!toggle) return;
+
+        const updateToggle = () => {
+          const isDark = root.dataset.theme !== 'light';
+          const nextLabel = isDark ? '切换到白天模式' : '切换到夜晚模式';
+          toggle.setAttribute('aria-label', nextLabel);
+          toggle.setAttribute('title', nextLabel);
+          toggle.setAttribute('aria-pressed', String(isDark));
+        };
+
+        const applyTheme = (theme) => {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('theme', theme);
+          } catch {
+            // Keep theme switching available when storage is blocked.
+          }
+          updateToggle();
+        };
+
+        updateToggle();
+        toggle.addEventListener('click', () => {
+          applyTheme(root.dataset.theme === 'light' ? 'dark' : 'light');
+        });
+      })();
+    </script>
   </body>
 </html>
